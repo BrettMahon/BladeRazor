@@ -44,9 +44,9 @@ namespace BladeRazer.TagHelpers
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Add("class", styles.FormGroup);
 
-            output.Content.AppendHtml(tg.GenerateLabel(For, Styles.CssLabel));
+            output.Content.AppendHtml(tg.GenerateLabel(For));
             output.Content.AppendHtml(GenerateTagHelper());
-            output.Content.AppendHtml(tg.GenerateValidation(For, Styles.CssValidation));
+            output.Content.AppendHtml(tg.GenerateValidation(For));
         }        
 
         protected virtual TagHelperOutput GenerateTagHelper()

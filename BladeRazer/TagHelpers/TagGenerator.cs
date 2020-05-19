@@ -147,8 +147,8 @@ namespace BladeRazer.TagHelpers
             TagBuilder group = new TagBuilder("div");
             group.Attributes.Add("class", "form-check pb-1 pt-2");
             group.InnerHtml.AppendHtml(GenerateCheckboxTagHelper(f));
-            group.InnerHtml.AppendHtml(GenerateCheckboxLabel(f, null));
-            group.InnerHtml.AppendHtml(GenerateValidation(f, null));
+            group.InnerHtml.AppendHtml(GenerateCheckboxLabel(f));
+            group.InnerHtml.AppendHtml(GenerateValidation(f));
             return group;
         }
 

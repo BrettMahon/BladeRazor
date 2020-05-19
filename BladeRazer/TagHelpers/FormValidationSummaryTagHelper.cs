@@ -21,7 +21,7 @@ namespace BladeRazer.TagHelpers
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
 
-            output.Content.AppendHtml(GenerateValidationSummaryTagHelper());
+            output.Content.AppendHtml(tg.GenerateValidationSummaryTagHelper());
         }
     }
 }

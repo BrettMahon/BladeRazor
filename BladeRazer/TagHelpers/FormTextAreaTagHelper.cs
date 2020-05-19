@@ -18,6 +18,6 @@ namespace BladeRazer.TagHelpers
         public FormTextAreaTagHelper(IHtmlGenerator generator) : base(generator) { }
 
         protected override TagHelperOutput GenerateTagHelper() =>
-            GenerateTextAreaTagHelper(For, Rows);
+            tg.GenerateTextAreaTagHelper(For, Rows);
     }
 }

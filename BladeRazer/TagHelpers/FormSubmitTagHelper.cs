@@ -50,7 +50,7 @@ namespace BladeRazer.TagHelpers
             // generate the anchor cancel
             if (!JavaScriptBack)
             {
-                output.Content.AppendHtml(GenerateAnchorTagHelper(CancelPage, CancelText, CancelClass));
+                output.Content.AppendHtml(tg.GenerateAnchorTagHelper(CancelPage, CancelText, CancelClass, null));
             }
             else
             {

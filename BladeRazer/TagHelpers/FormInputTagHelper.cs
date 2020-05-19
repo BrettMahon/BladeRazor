@@ -22,7 +22,7 @@ namespace BladeRazer.TagHelpers
         [HtmlAttributeName("asp-format")]
         public string Format { get; set; }
 
-        protected override TagHelperOutput GenerateTagHelper() => GenerateInputTagHelper(For);
+        protected override TagHelperOutput GenerateTagHelper() => tg.GenerateInputTagHelper(For);
        
     }
 }

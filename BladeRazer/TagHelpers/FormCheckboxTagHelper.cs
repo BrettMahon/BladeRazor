@@ -18,8 +18,8 @@ namespace BladeRazer.TagHelpers
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Add("class", "form-group");
-            output.Content.AppendHtml(tg.GenerateLabel(For, null));          
-            output.Content.AppendHtml(tg.GenerateCheckboxGroup(For, null));           
+            output.Content.AppendHtml(tg.GenerateLabel(For));          
+            output.Content.AppendHtml(tg.GenerateCheckboxGroup(For));           
         }
     }
 }

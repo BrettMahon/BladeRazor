@@ -74,7 +74,7 @@ namespace BladeRazer.TagHelpers
             
             
            
-            return GenerateAnchorTagHelper(DeletePage, "Delete", "btn btn-danger m-1", routes);
+            return tg.GenerateAnchorTagHelper(DeletePage, "Delete", "btn btn-danger m-1", routes);
         }
     }
 }

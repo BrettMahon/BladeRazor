@@ -31,7 +31,7 @@ namespace BladeRazer.TagHelpers
                 { "id", RouteId.ToString() }                
             };
 
-            var a = GenerateAnchorTagHelper(Page, null, cssClass, routes);
+            var a = tg.GenerateAnchorTagHelper(Page, null, cssClass, routes);
             var plus = new TagBuilder("span");
             plus.TagRenderMode = TagRenderMode.Normal;
             plus.Attributes.Add("class", "oi oi-plus");

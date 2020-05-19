@@ -54,15 +54,15 @@ namespace BladeRazer.TagHelpers
                 // if we have a hidden field, generate it and continue
                 if (formAttribute?.Type == FormInputType.Hidden)
                 {
-                    output.Content.AppendHtml(GenerateHiddenTagHelper(f));
+                    output.Content.AppendHtml(tg.GenerateHiddenTagHelper(f));
                     continue;
                 }
 
                 TagBuilder group = new TagBuilder("div");
                 group.Attributes.Add("class", "form-group");
-                group.InnerHtml.AppendHtml(GenerateLabel(f));
+                group.InnerHtml.AppendHtml(tg.GenerateLabel(f));
                 group.InnerHtml.AppendHtml(GenerateContent(f, formAttribute));
-                group.InnerHtml.AppendHtml(GenerateValidation(f));
+                group.InnerHtml.AppendHtml(tg.GenerateValidation(f));
                 output.Content.AppendHtml(group);
             }
         }
@@ -71,8 +71,8 @@ namespace BladeRazer.TagHelpers
         {
             return formAttribute?.Type switch
             {
-                FormInputType.TextArea => GenerateTextAreaTagHelper(f, formAttribute.TextAreaRows),
-                FormInputType.Hidden => GenerateHiddenTagHelper(f),
+                FormInputType.TextArea => tg.GenerateTextAreaTagHelper(f, formAttribute.TextAreaRows),
+                FormInputType.Hidden => tg.GenerateHiddenTagHelper(f),
                 FormInputType.Select => GenerateSelectContent(f, formAttribute),
                 _ => GenerateDefaultContent(f, formAttribute)
             };
@@ -85,11 +85,11 @@ namespace BladeRazer.TagHelpers
             {
                 // does the key match our dictionary
                 if (ItemsDictionary.ContainsKey(formAttribute.SelectItemsKey))
-                    return GenerateSelectTagHelper(f, ItemsDictionary[formAttribute.SelectItemsKey], formAttribute.SelectOptionName, formAttribute.SelectOptionValue);
+                    return tg.GenerateSelectTagHelper(f, ItemsDictionary[formAttribute.SelectItemsKey], formAttribute.SelectOptionName, formAttribute.SelectOptionValue);
             }
 
             // if not simply use the supplied items
-            return GenerateSelectTagHelper(f, this.Items, formAttribute.SelectOptionName, formAttribute.SelectOptionValue);
+            return tg.GenerateSelectTagHelper(f, this.Items, formAttribute.SelectOptionName, formAttribute.SelectOptionValue);
         }
 
         protected IHtmlContent GenerateDefaultContent(ModelExpression f, FormAttribute formAttribute)
@@ -97,11 +97,11 @@ namespace BladeRazer.TagHelpers
             //TODO: Check for datatype multiline and render a textarea if true
             if (f.Model != null && f.Model.GetType() == typeof(bool))
             {
-                var content = GenerateCheckboxGroup(f);
+                var content = tg.GenerateCheckboxGroup(f);
                 return content;
             }
             else
-                return GenerateInputTagHelper(f);
+                return tg.GenerateInputTagHelper(f);
         }
     }
 

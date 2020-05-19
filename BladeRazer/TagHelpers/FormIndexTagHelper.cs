@@ -199,7 +199,7 @@ namespace BladeRazer.TagHelpers
             if (UseCommands)
                 routes.Add("command", ViewCommand);
             
-            return GenerateAnchorTagHelper(ViewPage, "View", "btn btn-primary m-1", routes);
+            return tg.GenerateAnchorTagHelper(ViewPage, "View", "btn btn-primary m-1", routes);
         }
 
         protected virtual IHtmlContent GenerateEditButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
@@ -212,7 +212,7 @@ namespace BladeRazer.TagHelpers
             if (UseCommands)
                 routes.Add("command", EditCommand);
 
-            return GenerateAnchorTagHelper(EditPage, "Edit", "btn btn-info m-1", routes);
+            return tg.GenerateAnchorTagHelper(EditPage, "Edit", "btn btn-info m-1", routes);
         }
 
         protected virtual IHtmlContent GenerateDeleteButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
@@ -225,7 +225,7 @@ namespace BladeRazer.TagHelpers
             if (UseCommands)
                 routes.Add("command", DeleteCommand);
 
-            return GenerateAnchorTagHelper(DeletePage, "Delete", "btn btn-danger m-1", routes);
+            return tg.GenerateAnchorTagHelper(DeletePage, "Delete", "btn btn-danger m-1", routes);
         }      
 
 
