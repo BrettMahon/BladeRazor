@@ -19,12 +19,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     @*<partial name="_LoginPartial" />*@
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Customers/Index">Customers</a>
+                        @*<li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/">Home</a>
+                        </li>*@                       
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Edit Form Examples
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-page="/EditFormExamples/Customers/Index">Customers</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-page="/EditFormExamples/Orders/Index">Orders</a>
+                            </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Orders/Index">Orders</a>
-                        </li>                       
                     </ul>
                 </div>
             </div>
@@ -39,7 +46,6 @@
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - Brett Mahon
-            @*- <a asp-area="" asp-page="/Privacy">Privacy</a>*@
         </div>
     </footer>
 
