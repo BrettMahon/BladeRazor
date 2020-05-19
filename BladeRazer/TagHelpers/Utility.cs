@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace BladeRazer.TagHelpers
 {
-    public class Utility
+    class Utility
     {
         public static T GetAttribute<T>(ModelMetadata p) where T : Attribute
         {

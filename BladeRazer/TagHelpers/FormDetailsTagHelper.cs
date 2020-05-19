@@ -29,17 +29,7 @@ namespace BladeRazer.TagHelpers
         public FormDetailsTagHelper(IHtmlGenerator generator)
         {
             this.generator = generator;
-        }
-
-        //TODO: this is a duplicate of the one in the base class. 
-        // Look into helper methods to clean this all up
-        protected T GetAttribute<T>(ModelMetadata p) where T : Attribute
-        {
-            T attribute = null;
-            if (p is Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelMetadata meta)
-                attribute = (T)meta.Attributes.PropertyAttributes.Where(p => p.GetType() == typeof(T)).FirstOrDefault();
-            return attribute;
-        }
+        }       
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -64,8 +54,8 @@ namespace BladeRazer.TagHelpers
                     name = explorer.Metadata.PropertyName;
                 
                 // TODO: We are using the display property from the Index attribute. This should be generalised
-                var formIndexAttribute = GetAttribute<FormIndexAttribute>(explorer.Metadata);
-                var formAttribute = GetAttribute<FormAttribute>(explorer.Metadata);
+                var formIndexAttribute = Utility.GetAttribute<FormIndexAttribute>(explorer.Metadata);
+                var formAttribute = Utility.GetAttribute<FormAttribute>(explorer.Metadata);
 
                 // do not display if either attribute hides it
                 if (formAttribute?.Type == FormInputType.Hidden)
@@ -73,7 +63,7 @@ namespace BladeRazer.TagHelpers
                 if (formIndexAttribute?.Hidden == true)
                     continue;
 
-                var dataAttribute = GetAttribute<DataTypeAttribute>(explorer.Metadata);
+                var dataAttribute = Utility.GetAttribute<DataTypeAttribute>(explorer.Metadata);
                 
                 // set the value
                 string value = explorer.Model?.ToString() ?? string.Empty;
