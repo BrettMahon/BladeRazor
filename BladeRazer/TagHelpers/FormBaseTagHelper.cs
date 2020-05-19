@@ -23,9 +23,6 @@ namespace BladeRazer.TagHelpers
         [HtmlAttributeName("asp-for")]
         public ModelExpression For { get; set; }
 
-        [HtmlAttributeName("asp-format")]
-        public string Format { get; set; }
-
         [HtmlAttributeNotBound]
         [ViewContext]
         public ViewContext ViewContext { get; set; }
@@ -49,12 +46,7 @@ namespace BladeRazer.TagHelpers
             output.Content.AppendHtml(GenerateLabel(For));
             output.Content.AppendHtml(GenerateTagHelper());
             output.Content.AppendHtml(GenerateValidation(For));
-        }
-
-        protected virtual TagBuilder GenerateControl()
-        {
-            throw new NotImplementedException();
-        }
+        }        
 
         protected virtual TagHelperOutput GenerateTagHelper()
         {
@@ -110,11 +102,24 @@ namespace BladeRazer.TagHelpers
             return GenerateTagHelperCore(f, tagHelper, "input", TagMode.SelfClosing);
         }
 
+        protected TagHelperOutput GenerateTextAreaTagHelper(ModelExpression f, int rows)
+        {
+            var tagHelper = new TextAreaTagHelper(generator)
+            {
+                For = f,
+                Name = f.Name,
+                ViewContext = ViewContext
+            };
+
+            var tagOutput = GenerateTagHelperCore(f, tagHelper, "textarea", TagMode.StartTagAndEndTag);
+            tagOutput.Attributes.Add(new TagHelperAttribute("rows", rows));
+            return tagOutput;
+        }
 
         protected TagHelperOutput GenerateValidationSummaryTagHelper()
         {
             throw new NotImplementedException();
-        }        
+        }
 
         protected TagHelperOutput GenerateAnchorTagHelper(string page, string text, string cssClass, IDictionary<string, string> routeValues)
         {
@@ -142,20 +147,6 @@ namespace BladeRazer.TagHelpers
         protected TagHelperOutput GenerateAnchorTagHelper(string page, string text, string cssClass) =>
             GenerateAnchorTagHelper(page, text, cssClass, null);
 
-        protected TagHelperOutput GenerateTextAreaTagHelper(ModelExpression f, int rows)
-        {
-            var tagHelper = new TextAreaTagHelper(generator)
-            {
-                For = f,
-                Name = f.Name,
-                ViewContext = ViewContext
-            };
-
-            var tagOutput = GenerateTagHelperCore(f, tagHelper, "textarea", TagMode.StartTagAndEndTag);
-            tagOutput.Attributes.Add(new TagHelperAttribute("rows", rows));
-            return tagOutput;
-        }
-
         protected TagHelperOutput GenerateSelectTagHelper(ModelExpression f, IEnumerable<SelectListItem> items, string optionName, string optionValue)
         {
             var itemsList = new List<SelectListItem>();
@@ -181,8 +172,6 @@ namespace BladeRazer.TagHelpers
             var tagOutput = GenerateTagHelperCore(f, tagHelper, "select", TagMode.StartTagAndEndTag);
             return tagOutput;
         }
-
-
 
         protected TagHelperOutput GenerateTagHelperCore(ModelExpression f, TagHelper tagHelper, string tagName, TagMode tagMode)
         {
@@ -216,12 +205,6 @@ namespace BladeRazer.TagHelpers
             return tagOutput;
         }
 
-        protected T GetAttribute<T>(ModelMetadata p) where T : Attribute
-        {
-            T attribute = null;
-            if (p is Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelMetadata meta)
-                attribute = (T)meta.Attributes.PropertyAttributes.Where(p => p.GetType() == typeof(T)).FirstOrDefault();
-            return attribute;
-        }
+        
     }
 }

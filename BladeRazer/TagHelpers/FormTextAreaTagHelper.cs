@@ -17,9 +17,6 @@ namespace BladeRazer.TagHelpers
 
         public FormTextAreaTagHelper(IHtmlGenerator generator) : base(generator) { }
 
-        protected override TagBuilder GenerateControl() =>
-                generator.GenerateTextArea(ViewContext, For.ModelExplorer, For.Name, Rows, 0, new { @class = "form-control" });
-
         protected override TagHelperOutput GenerateTagHelper() =>
             GenerateTextAreaTagHelper(For, Rows);
     }

@@ -24,10 +24,6 @@ namespace BladeRazer.TagHelpers
 
         public FormSelectTagHelper(IHtmlGenerator generator) : base(generator) { }
 
-        //TODO: test this
-        protected override TagBuilder GenerateControl() =>
-                generator.GenerateSelect(ViewContext, For.ModelExplorer, null, For.Name, Items, false, new { @class = "form-control" });
-
         protected override TagHelperOutput GenerateTagHelper() => 
             GenerateSelectTagHelper(For, Items, OptionName, OptionValue);
     }

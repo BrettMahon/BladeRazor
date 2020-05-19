@@ -19,8 +19,8 @@ namespace BladeRazer.TagHelpers
     {
         public FormInputTagHelper(IHtmlGenerator generator) : base(generator) { }
 
-        protected override TagBuilder GenerateControl() =>
-                generator.GenerateTextBox(ViewContext, For.ModelExplorer, For.Name, For.Model, Format, new { @class = "form-control" });
+        [HtmlAttributeName("asp-format")]
+        public string Format { get; set; }
 
         protected override TagHelperOutput GenerateTagHelper() => GenerateInputTagHelper(For);
        

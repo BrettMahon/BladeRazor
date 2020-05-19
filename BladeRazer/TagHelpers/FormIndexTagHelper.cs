@@ -68,11 +68,11 @@ namespace BladeRazer.TagHelpers
             {
                 if (hideProperties != null && hideProperties.Contains(p.PropertyName))
                     continue;
-                var formIndexAttribute = GetAttribute<FormIndexAttribute>(p);
-                var formAttribute = GetAttribute<FormAttribute>(p);
+                var formIndexAttribute = Utility.GetAttribute<FormIndexAttribute>(p);
+                var formAttribute = Utility.GetAttribute<FormAttribute>(p);
 
                 // test for key
-                var keyAttribute = GetAttribute<KeyAttribute>(p);
+                var keyAttribute = Utility.GetAttribute<KeyAttribute>(p);
                 if (keyAttribute != null)
                     keyProperty = p.Name;
 
@@ -125,9 +125,9 @@ namespace BladeRazer.TagHelpers
                     if (hideProperties != null && hideProperties.Contains(p.Metadata.PropertyName))
                         continue;
 
-                    var formIndexAttribute = GetAttribute<FormIndexAttribute>(p.Metadata);
-                    var formAttribute = GetAttribute<FormAttribute>(p.Metadata);
-                    var dataAttribute = GetAttribute<DataTypeAttribute>(p.Metadata);
+                    var formIndexAttribute = Utility.GetAttribute<FormIndexAttribute>(p.Metadata);
+                    var formAttribute = Utility.GetAttribute<FormAttribute>(p.Metadata);
+                    var dataAttribute = Utility.GetAttribute<DataTypeAttribute>(p.Metadata);
 
                     // do not display if either attribute hides it
                     if (formAttribute?.Type == FormInputType.Hidden)
