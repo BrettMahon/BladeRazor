@@ -24,7 +24,7 @@ namespace BladeRazer.TagHelpers
         [ViewContext]
         public ViewContext ViewContext { get; set; }
 
-        // TODO: Remove this constructor once dependency injection is tested.
+        // TODO: Test dependency injection with and without styles
         public FormBaseTagHelper(IHtmlGenerator generator)
         {
             this.generator = generator;

@@ -41,7 +41,7 @@ namespace BladeRazer.TagHelpers
                 if (explorer.Metadata.IsReadOnly)
                     continue;
 
-                // TODO: replace this with new templated method
+                // TODO: Replace this with the new templated method
                 // get our attributes - test first that this is the default model metadata                
                 FormAttribute formAttribute = null;
                 if (explorer.Metadata is Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelMetadata meta)

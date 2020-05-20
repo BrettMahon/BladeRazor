@@ -15,7 +15,7 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-index", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormIndexTagHelper : FormBaseTagHelper
     {
-        // TODO: make this an attribute field - this hides on mobile - have moved the field to Styles
+        // TODO: This shouuld be an attribute field - this hides on mobile - have moved the field to Styles
         //private string hideColumnMobileClass = "d-none d-sm-table-cell";
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace BladeRazer.TagHelpers
 
                 // render the cell
                 var headerCell = new TagBuilder("th");
-                //TODO: uncomment in order to hide this on mobile
+                //TODO: Uncomment in order to hide this on mobile when this works
                 //headerCell.Attributes.Add("class", hideColumnMobileClass);
                 if (p.DisplayName != null)
                     headerCell.InnerHtml.AppendHtml(p.DisplayName);
@@ -136,9 +136,8 @@ namespace BladeRazer.TagHelpers
                     string value = p.Model?.ToString() ?? string.Empty;
 
                     // check for date attribute 
-                    // TODO: this can be extended
-                    // TODO: render according to format string attribute too
-                    // TODO: perform this check on complex types too - will require this to go into a method
+                    // TODO: This can be extended.Render according to format string attribute too                    
+                    // TODO: Perform this check on complex types too - will require this to go into a method
                     if (dataAttribute != null && p.Model != null)
                     {
                         if (p.Model.GetType() == typeof(DateTime))
@@ -164,7 +163,7 @@ namespace BladeRazer.TagHelpers
 
                     // render the cell
                     var cell = new TagBuilder("td");
-                    //TODO: uncomment in order to hide this on mobile
+                    //TODO: Uncomment in order to hide this on mobile when implemented
                     //cell.Attributes.Add("class", hideColumnMobileClass);
                     cell.InnerHtml.Append(value);
                     row.InnerHtml.AppendHtml(cell);

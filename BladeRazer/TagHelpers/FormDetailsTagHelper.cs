@@ -53,9 +53,8 @@ namespace BladeRazer.TagHelpers
                 // set the value
                 string value = explorer.Model?.ToString() ?? string.Empty;
 
-                // TODO: this can be extended
-                // TODO: render according to format string attribute too
-                // TODO: perform this check on complex types too - will require this to go into a method                
+                // TODO: This can be extended: Render according to format string attribute too                
+                // TODO: Perform this check on complex types too - will require this to go into a method                
                 if (dataAttribute != null && explorer.Model != null)
                 {
                     if (explorer.Model.GetType() == typeof(DateTime))

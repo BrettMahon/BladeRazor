@@ -17,14 +17,11 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-input", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormInputTagHelper : FormBaseTagHelper
     {
-        
         [HtmlAttributeName("asp-format")]
         public string Format { get; set; }
 
-
         public FormInputTagHelper(IHtmlGenerator generator) : base(generator) { }
         public FormInputTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
-
 
         protected override TagHelperOutput GenerateTagHelper() => tg.GenerateInputTagHelper(For);
        
