@@ -14,16 +14,15 @@ namespace BladeRazer.TagHelpers
     public class FormSubmitTagHelper : FormBaseTagHelper
     {
         [HtmlAttributeName("asp-submit-text")]
-        public string SubmitText { get; set; } = "Save";        
+        public string SubmitText { get; set; } = "Save";
         [HtmlAttributeName("asp-cancel-text")]
-        public string CancelText { get; set; } = "Back";        
+        public string CancelText { get; set; } = "Back";
         [HtmlAttributeName("asp-cancel-page")]
         public string CancelPage { get; set; } = "Index";
         [HtmlAttributeName("asp-javascript-back")]
         public bool JavaScriptBack { get; set; } = false;
 
-        public FormSubmitTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormSubmitTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormSubmitTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

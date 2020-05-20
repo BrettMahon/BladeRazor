@@ -16,8 +16,7 @@ namespace BladeRazer.TagHelpers
         [HtmlAttributeName("asp-rows")]
         public int Rows { get; set; } = 4;
 
-        public FormTextAreaTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormTextAreaTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormTextAreaTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         protected override TagHelperOutput GenerateTagHelper() =>
             tg.GenerateTextAreaTagHelper(For, Rows);

@@ -12,8 +12,7 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-wrapper", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormWrapperTagHelper : FormBaseTagHelper
     {
-        public FormWrapperTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormWrapperTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormWrapperTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {

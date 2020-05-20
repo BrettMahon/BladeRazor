@@ -24,7 +24,5 @@ namespace BladeRazer.Attributes
         {
             Type = type;
         }
-    }
-
-    
+    }    
 }

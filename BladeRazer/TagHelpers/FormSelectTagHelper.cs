@@ -22,8 +22,7 @@ namespace BladeRazer.TagHelpers
         //TODO: Implement child content for option tags inline so we have that option too
         public TagHelperContent ChildContent { get; set; }
 
-        public FormSelectTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormSelectTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormSelectTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         protected override TagHelperOutput GenerateTagHelper() =>
             tg.GenerateSelectTagHelper(For, Items, OptionName, OptionValue);

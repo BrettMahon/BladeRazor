@@ -16,12 +16,11 @@ namespace BladeRazer.TagHelpers
         public string FilePath { get; set; } = "/uploads/";
         [HtmlAttributeName("asp-filename-property")]
         public string FileNameProperty { get; set; } = "FileName";
-       
+
         protected bool maintainRoutes = false;
         protected string routeConflictPrefix = "_";
 
-       // public FormIndexFileTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormIndexFileTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormIndexFileTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         protected override IHtmlContent GenerateViewButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
         {
@@ -53,7 +52,7 @@ namespace BladeRazer.TagHelpers
                 routes.Add(keyProperty, keyValue);
                 if (CommandsEnabled)
                     routes.Add("command", deleteCommand);
-            }            
+            }
             return tg.GenerateAnchorTagHelper(DeletePage, "Delete", styles.ButtonDelete, routes);
         }
 

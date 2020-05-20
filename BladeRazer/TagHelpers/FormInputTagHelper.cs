@@ -20,8 +20,7 @@ namespace BladeRazer.TagHelpers
         [HtmlAttributeName("asp-format")]
         public string Format { get; set; }
 
-        public FormInputTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormInputTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormInputTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         protected override TagHelperOutput GenerateTagHelper() => tg.GenerateInputTagHelper(For);
        

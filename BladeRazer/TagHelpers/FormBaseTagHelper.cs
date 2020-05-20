@@ -24,17 +24,10 @@ namespace BladeRazer.TagHelpers
         [ViewContext]
         public ViewContext ViewContext { get; set; }
 
-        // TODO: Test dependency injection with and without styles
-        public FormBaseTagHelper(IHtmlGenerator generator)
+        public FormBaseTagHelper(IHtmlGenerator generator, IStyles styles = null)
         {
-            this.generator = generator;            
-            this.styles = new Styles();            
-        }
-
-        public FormBaseTagHelper(IHtmlGenerator generator, IStyles styles)
-        {
-            this.generator = generator;           
-            this.styles = styles;            
+            this.generator = generator;
+            this.styles = styles ?? new Styles();
         }
 
         public override void Init(TagHelperContext context)

@@ -46,8 +46,7 @@ namespace BladeRazer.TagHelpers
         /// </summary>
         public string HideProperties { get; set; }
 
-        //public FormIndexTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormIndexTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormIndexTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

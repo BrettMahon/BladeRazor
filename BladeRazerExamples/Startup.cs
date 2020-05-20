@@ -36,10 +36,10 @@ namespace BladeRazerExamples
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // example of injecting overriden styles
-            services.AddSingleton<IStyles>(new Styles()
-            {
-                ButtonDelete = "btn btn-success mt-1"
-            });
+            //services.AddSingleton<IStyles>(new Styles()
+            //{
+            //    ButtonDelete = "btn btn-success mt-1"
+            //});
 
             services.AddRazorPages();
         }

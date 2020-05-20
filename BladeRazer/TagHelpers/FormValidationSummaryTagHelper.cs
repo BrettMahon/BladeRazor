@@ -14,8 +14,7 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-validation-summary", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormValidationSummaryTagHelper : FormBaseTagHelper
     {
-        public FormValidationSummaryTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormValidationSummaryTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormValidationSummaryTagHelper(IHtmlGenerator generator, IStyles styles=null) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

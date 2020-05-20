@@ -11,8 +11,7 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-checkbox", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormCheckboxTagHelper : FormBaseTagHelper
     {
-        public FormCheckboxTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormCheckboxTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormCheckboxTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

@@ -14,8 +14,7 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-details", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormDetailsTagHelper : FormBaseTagHelper
     {
-        public FormDetailsTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormDetailsTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
+        public FormDetailsTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
