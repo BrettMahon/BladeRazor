@@ -23,6 +23,7 @@ namespace BladeRazer.TagHelpers
         private string cssClass = "btn btn-success m-1";
 
         public FormNewButtonTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public FormNewButtonTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

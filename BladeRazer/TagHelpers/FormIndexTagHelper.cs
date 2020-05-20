@@ -46,7 +46,7 @@ namespace BladeRazer.TagHelpers
 
 
         public FormIndexTagHelper(IHtmlGenerator generator) : base(generator) { }
-
+        public FormIndexTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

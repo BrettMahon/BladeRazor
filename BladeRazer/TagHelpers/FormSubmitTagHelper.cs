@@ -13,8 +13,6 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-submit", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormSubmitTagHelper : FormBaseTagHelper
     {
-        public FormSubmitTagHelper(IHtmlGenerator generator) : base(generator) { }
-
         [HtmlAttributeName("asp-submit-text")]
         public string SubmitText { get; set; } = "Save";
         [HtmlAttributeName("asp-submit-class")]
@@ -29,6 +27,10 @@ namespace BladeRazer.TagHelpers
         public string CancelPage { get; set; } = "Index";
         [HtmlAttributeName("asp-javascript-back")]
         public bool JavaScriptBack { get; set; } = false;
+
+        public FormSubmitTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public FormSubmitTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
+
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

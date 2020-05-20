@@ -14,6 +14,7 @@ namespace BladeRazer.TagHelpers
         public string ColClass { get; set; } = "col-md-4";
 
         public FormDivTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public FormDivTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {

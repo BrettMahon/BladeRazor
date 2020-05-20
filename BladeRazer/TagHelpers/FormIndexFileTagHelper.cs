@@ -21,6 +21,7 @@ namespace BladeRazer.TagHelpers
         public string RouteConflictPrefix = "_";
 
         public FormIndexFileTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public FormIndexFileTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
         protected override IHtmlContent GenerateViewButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
         {

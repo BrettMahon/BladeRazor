@@ -8,12 +8,14 @@ using System.Threading.Tasks;
 
 namespace BladeRazer.TagHelpers 
 {
+    // TODO: This doesn't work
     [HtmlTargetElement("form-wrapper", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormWrapperTagHelper : FormBaseTagHelper
     {
         public string ColClass { get; set; } = "col-md-4";
 
         public FormWrapperTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public FormWrapperTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {

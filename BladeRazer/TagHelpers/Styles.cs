@@ -11,5 +11,8 @@ namespace BladeRazer.TagHelpers
         public string Label { get; set; } = "control-label";
         public string CheckLabel { get; set; } = "form-check-label";
         public string Validation { get; set; } = "text-danger";
+
+         
+
     }
 }

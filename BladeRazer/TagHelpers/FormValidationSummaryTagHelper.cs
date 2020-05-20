@@ -15,6 +15,7 @@ namespace BladeRazer.TagHelpers
     public class FormValidationSummaryTagHelper : FormBaseTagHelper
     {
         public FormValidationSummaryTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public FormValidationSummaryTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
