@@ -21,4 +21,8 @@
     <Folder Include="Pages\FormEdit\Orders\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BladeRazer\BladeRazer.csproj" />
+  </ItemGroup>
+
 </Project>

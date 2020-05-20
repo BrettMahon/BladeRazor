@@ -21,10 +21,10 @@ namespace BladeRazer.TagHelpers
         {
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
-            output.Attributes.Add("class", "row");
+            output.Attributes.Add("class", styles.DivRow);
             //div
             TagBuilder div = new TagBuilder("div");            
-            div.Attributes.Add("class", ColClass);            
+            div.Attributes.Add("class", styles.DivCol);            
             // form
             TagBuilder form = new TagBuilder("form");
             form.Attributes.Add("method", "post");        

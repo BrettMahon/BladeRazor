@@ -11,8 +11,6 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-div", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormDivTagHelper : FormBaseTagHelper
     {
-        public string ColClass { get; set; } = "col-md-4";
-
         public FormDivTagHelper(IHtmlGenerator generator) : base(generator) { }
         public FormDivTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
@@ -23,7 +21,7 @@ namespace BladeRazer.TagHelpers
             output.Attributes.Add("class", "row");
             //div
             TagBuilder div = new TagBuilder("div");            
-            div.Attributes.Add("class", ColClass);
+            div.Attributes.Add("class", styles.DivCol);
             // child content
             div.InnerHtml.AppendHtml(await output.GetChildContentAsync());
             // append

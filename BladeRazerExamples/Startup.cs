@@ -12,6 +12,7 @@ using BladeRazer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using BladeRazer.TagHelpers;
 
 namespace BladeRazer
 {
@@ -32,6 +33,13 @@ namespace BladeRazer
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // example of injecting overriden styles
+            services.AddSingleton(new Styles()
+            {
+                ButtonDelete = "btn btn-success mt-1"
+            });
+            
             services.AddRazorPages();
         }
 

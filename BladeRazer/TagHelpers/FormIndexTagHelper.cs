@@ -15,47 +15,47 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-index", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormIndexTagHelper : FormBaseTagHelper
     {
-        public string TableCssClass { get; set; } = "table table-hover table-responsive w-100 d-block d-md-table";
-
-        // TODO: make this an attribute field - this hides on mobile
-        private string hideColumnMobileClass = "d-none d-sm-table-cell";
+        // TODO: make this an attribute field - this hides on mobile - have moved the field to Styles
+        //private string hideColumnMobileClass = "d-none d-sm-table-cell";
 
         /// <summary>
         /// Set empty to hide edit button
         /// </summary>
+        [HtmlAttributeName("asp-edit-page")]
         public string EditPage { get; set; } = "Edit";
         /// <summary>
         /// Set empty to hide view button
         /// </summary>
+        [HtmlAttributeName("asp-view-page")]
         public string ViewPage { get; set; } = "View";
         /// <summary>
         /// Set empty to hide delete button
         /// </summary>
+        [HtmlAttributeName("asp-delete-page")]
         public string DeletePage { get; set; } = "Delete";
 
-        public string EditCommand { get; set; } = "edit";
-        public string ViewCommand { get; set; } = "view";
-        public string DeleteCommand { get; set; } = "delete";
+        [HtmlAttributeName("asp-commands-enabled")]
+        public bool CommandsEnabled { get; set; } = false;
 
-        public bool UseCommands { get; set; } = false;
+        protected string editCommand = "edit";
+        protected string viewCommand = "view";
+        protected string deleteCommand  = "delete";
 
         /// <summary>
         /// Comma seperated
         /// </summary>
         public string HideProperties { get; set; }
 
-
         public FormIndexTagHelper(IHtmlGenerator generator) : base(generator) { }
         public FormIndexTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-
             var hideProperties = HideProperties?.Split(',').Select(p => p.Trim()).ToList();
             
             output.TagName = "table";
             output.TagMode = TagMode.StartTagAndEndTag;
-            output.Attributes.Add("class", TableCssClass);
+            output.Attributes.Add("class", styles.Table);
 
             // check that we have a list
             if (!For.Metadata.IsCollectionType)
@@ -106,8 +106,6 @@ namespace BladeRazer.TagHelpers
             ICollection collection = (ICollection)For.Model;
             foreach (var item in collection)
             {
-               
-
                 // create the row
                 var row = new TagBuilder("tr") { TagRenderMode = TagRenderMode.Normal };
                 
@@ -189,17 +187,16 @@ namespace BladeRazer.TagHelpers
             }
         }
 
-
         protected virtual IHtmlContent GenerateViewButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
         {
             var routes = new Dictionary<string, string>()
             {
                 { keyProperty.ToLower(), keyValue }                
             };
-            if (UseCommands)
-                routes.Add("command", ViewCommand);
+            if (CommandsEnabled)
+                routes.Add("command", viewCommand);
             
-            return tg.GenerateAnchorTagHelper(ViewPage, "View", "btn btn-primary m-1", routes);
+            return tg.GenerateAnchorTagHelper(ViewPage, "View", styles.ButtonView, routes);
         }
 
         protected virtual IHtmlContent GenerateEditButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
@@ -209,10 +206,10 @@ namespace BladeRazer.TagHelpers
                 { keyProperty.ToLower(), keyValue }
             };
 
-            if (UseCommands)
-                routes.Add("command", EditCommand);
+            if (CommandsEnabled)
+                routes.Add("command", editCommand);
 
-            return tg.GenerateAnchorTagHelper(EditPage, "Edit", "btn btn-info m-1", routes);
+            return tg.GenerateAnchorTagHelper(EditPage, "Edit", styles.ButtonEdit, routes);
         }
 
         protected virtual IHtmlContent GenerateDeleteButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
@@ -222,10 +219,10 @@ namespace BladeRazer.TagHelpers
                 { keyProperty.ToLower(), keyValue }
             };
 
-            if (UseCommands)
-                routes.Add("command", DeleteCommand);
+            if (CommandsEnabled)
+                routes.Add("command", deleteCommand);
 
-            return tg.GenerateAnchorTagHelper(DeletePage, "Delete", "btn btn-danger m-1", routes);
+            return tg.GenerateAnchorTagHelper(DeletePage, "Delete", styles.ButtonDelete, routes);
         }      
 
 

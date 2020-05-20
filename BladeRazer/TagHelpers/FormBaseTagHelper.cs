@@ -17,6 +17,14 @@ namespace BladeRazer.TagHelpers
         protected TagGenerator tg;
         protected Styles styles;
 
+        [HtmlAttributeName("asp-for")]
+        public ModelExpression For { get; set; }
+
+        [HtmlAttributeNotBound]
+        [ViewContext]
+        public ViewContext ViewContext { get; set; }
+
+        // TODO: Remove this constructor once dependency injection is tested.
         public FormBaseTagHelper(IHtmlGenerator generator)
         {
             this.generator = generator;
@@ -31,13 +39,6 @@ namespace BladeRazer.TagHelpers
             this.styles = styles;
         }
 
-        [HtmlAttributeName("asp-for")]
-        public ModelExpression For { get; set; }
-
-        [HtmlAttributeNotBound]
-        [ViewContext]
-        public ViewContext ViewContext { get; set; }
-       
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             output.TagName = "div";

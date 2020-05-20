@@ -60,7 +60,7 @@ namespace BladeRazer.TagHelpers
                 }
 
                 TagBuilder group = new TagBuilder("div");
-                group.Attributes.Add("class", "form-group");
+                group.Attributes.Add("class", styles.FormGroup);
                 group.InnerHtml.AppendHtml(tg.GenerateLabel(f));
                 group.InnerHtml.AppendHtml(GenerateContent(f, formAttribute));
                 group.InnerHtml.AppendHtml(tg.GenerateValidation(f));
@@ -105,7 +105,4 @@ namespace BladeRazer.TagHelpers
                 return tg.GenerateInputTagHelper(f);
         }
     }
-
-
-
 }

@@ -12,32 +12,17 @@ using System.Threading.Tasks;
 namespace BladeRazer.TagHelpers
 {
     [HtmlTargetElement("form-details", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class FormDetailsTagHelper : TagHelper
+    public class FormDetailsTagHelper : FormBaseTagHelper
     {
-        [HtmlAttributeName("asp-for")]
-        public ModelExpression For { get; set; }
-
-        private readonly IHtmlGenerator generator;
-
-        [HtmlAttributeNotBound]
-        [ViewContext]
-        public ViewContext ViewContext { get; set; }
-
-        private string dtClass = "col-sm-2";
-        private string ddClass = "col-sm-10";
-
-        public FormDetailsTagHelper(IHtmlGenerator generator)
-        {
-            this.generator = generator;
-        }       
+        public FormDetailsTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public FormDetailsTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
 
             output.TagName = "dl";
-            output.Attributes.Add("class", "row");
+            output.Attributes.Add("class", styles.DescriptionList);
             output.TagMode = TagMode.StartTagAndEndTag;
-
 
             // loop through the properties
             foreach (var explorer in For.ModelExplorer.Properties)
@@ -96,19 +81,16 @@ namespace BladeRazer.TagHelpers
 
                 // render 
                 var dt = new TagBuilder("dt");
-                dt.Attributes.Add("class", dtClass);
+                dt.Attributes.Add("class", styles.DefinitionTerm);
                 dt.InnerHtml.Append(name);
 
                 var dd = new TagBuilder("dd");
-                dd.Attributes.Add("class", ddClass);
+                dd.Attributes.Add("class", styles.DefinitionDescription);
                 dd.InnerHtml.Append(value);
 
                 output.Content.AppendHtml(dt);
                 output.Content.AppendHtml(dd);
-
             }
-
-
         }
     }
 }
