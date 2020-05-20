@@ -13,6 +13,7 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-textarea", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormTextAreaTagHelper : FormBaseTagHelper
     {
+        [HtmlAttributeName("asp-rows")]
         public int Rows { get; set; } = 4;
 
         public FormTextAreaTagHelper(IHtmlGenerator generator) : base(generator) { }

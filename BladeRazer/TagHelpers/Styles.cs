@@ -24,7 +24,9 @@ namespace BladeRazer.TagHelpers
         public string ButtonDelete = "btn btn-danger m-1";
         public string ButtonEdit = "btn btn-info m-1";
         public string ButtonNew = "btn btn-success m-1";
+        public string ButtonNewIcon = "oi oi-plus";
         public string ButtonView = "btn btn-primary m-1";
+        public string ButtonSubmit = "btn btn-info m-1";
 
         public string Table = "table table-hover table-responsive w-100 d-block d-md-table";
         public string TableCellHideMobile =  "d-none d-sm-table-cell";

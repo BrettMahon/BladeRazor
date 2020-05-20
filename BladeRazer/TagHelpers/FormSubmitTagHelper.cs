@@ -14,15 +14,9 @@ namespace BladeRazer.TagHelpers
     public class FormSubmitTagHelper : FormBaseTagHelper
     {
         [HtmlAttributeName("asp-submit-text")]
-        public string SubmitText { get; set; } = "Save";
-        [HtmlAttributeName("asp-submit-class")]
-        public string SubmitClass { get; set; } = "btn btn-info mr-1";
-        [HtmlAttributeName("asp-submit-page-handler")]
-        public string SubmitPageHandler { get; set; } = "btn btn-info mr-1";
+        public string SubmitText { get; set; } = "Save";        
         [HtmlAttributeName("asp-cancel-text")]
-        public string CancelText { get; set; } = "Back to List";
-        [HtmlAttributeName("asp-cancel-class")]
-        public string CancelClass { get; set; } = "btn btn-primary";
+        public string CancelText { get; set; } = "Back";        
         [HtmlAttributeName("asp-cancel-page")]
         public string CancelPage { get; set; } = "Index";
         [HtmlAttributeName("asp-javascript-back")]
@@ -36,13 +30,13 @@ namespace BladeRazer.TagHelpers
         {
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
-            output.Attributes.Add("class", "form-group");
+            output.Attributes.Add("class", styles.FormGroup);
 
             // generate the submit
             TagBuilder submit = new TagBuilder("input") { TagRenderMode = TagRenderMode.StartTag };
             submit.Attributes.Add("type", "submit");
             submit.Attributes.Add("value", SubmitText);
-            submit.Attributes.Add("class", SubmitClass);
+            submit.Attributes.Add("class", styles.ButtonSubmit);
             output.Content.AppendHtml(submit);
 
             // generate the cancel
@@ -52,12 +46,12 @@ namespace BladeRazer.TagHelpers
             // generate the anchor cancel
             if (!JavaScriptBack)
             {
-                output.Content.AppendHtml(tg.GenerateAnchorTagHelper(CancelPage, CancelText, CancelClass, null));
+                output.Content.AppendHtml(tg.GenerateAnchorTagHelper(CancelPage, CancelText, styles.ButtonCancel, null));
             }
             else
             {
                 var a = new TagBuilder("a");
-                a.Attributes.Add("class", CancelClass);
+                a.Attributes.Add("class", styles.ButtonCancel);
                 a.Attributes.Add("href", "javascript:history.go(-1)");
                 a.InnerHtml.Append(CancelText);
                 output.Content.AppendHtml(a);

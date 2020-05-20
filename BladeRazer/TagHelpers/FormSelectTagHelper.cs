@@ -19,7 +19,7 @@ namespace BladeRazer.TagHelpers
         [HtmlAttributeName("asp-option-value")]
         public string OptionValue { get; set; } = string.Empty;
 
-        //TODO: implement child content for option tags inline so we have that option too
+        //TODO: Implement child content for option tags inline so we have that option too
         public TagHelperContent ChildContent { get; set; }
 
         public FormSelectTagHelper(IHtmlGenerator generator) : base(generator) { }

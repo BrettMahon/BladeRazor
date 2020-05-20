@@ -20,8 +20,6 @@ namespace BladeRazer.TagHelpers
         [HtmlAttributeName("asp-text")]
         public string Text { get; set; } = "New";
 
-        private string cssClass = "btn btn-success m-1";
-
         public FormNewButtonTagHelper(IHtmlGenerator generator) : base(generator) { }
         public FormNewButtonTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
@@ -32,10 +30,10 @@ namespace BladeRazer.TagHelpers
                 { "id", RouteId.ToString() }                
             };
 
-            var a = tg.GenerateAnchorTagHelper(Page, null, cssClass, routes);
+            var a = tg.GenerateAnchorTagHelper(Page, null, styles.ButtonNew, routes);
             var plus = new TagBuilder("span");
             plus.TagRenderMode = TagRenderMode.Normal;
-            plus.Attributes.Add("class", "oi oi-plus");
+            plus.Attributes.Add("class", styles.ButtonNewIcon);
             a.Content.AppendHtml(plus);
             a.Content.AppendHtml($" {Text}");
             output.Content.AppendHtml(a);

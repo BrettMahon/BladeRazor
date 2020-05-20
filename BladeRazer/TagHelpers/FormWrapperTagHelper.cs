@@ -12,8 +12,6 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-wrapper", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormWrapperTagHelper : FormBaseTagHelper
     {
-        public string ColClass { get; set; } = "col-md-4";
-
         public FormWrapperTagHelper(IHtmlGenerator generator) : base(generator) { }
         public FormWrapperTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
 
