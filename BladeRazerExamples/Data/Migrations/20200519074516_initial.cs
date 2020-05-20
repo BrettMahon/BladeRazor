@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BladeRazer.Data.Migrations
+namespace BladeRazerExamples.Data.Migrations
 {
     public partial class initial : Migration
     {

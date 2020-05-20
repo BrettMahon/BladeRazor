@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BladeRazer.Data.Migrations
+namespace BladeRazerExamples.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

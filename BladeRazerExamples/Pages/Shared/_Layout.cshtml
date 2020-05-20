@@ -6,10 +6,11 @@
     <title>@ViewData["Title"] - BladeRazer</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/open-iconic-bootstrap.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">BladeRazer</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -23,13 +24,13 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/">Home</a>
                         </li>*@                       
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Edit Form Examples
+                            <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Form-Edit Examples
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-page="/EditFormExamples/Customers/Index">Customers</a>
+                                <a class="dropdown-item" asp-page="/FormEdit/Customers/Index">Customers</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-page="/EditFormExamples/Orders/Index">Orders</a>
+                                <a class="dropdown-item" asp-page="/FormEdit/Orders/Index">Orders</a>
                             </div>
                         </li>
                     </ul>

@@ -23,7 +23,7 @@ namespace BladeRazer.TagHelpers
         public bool JavaScriptBack { get; set; } = false;
 
         public FormSubmitTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormSubmitTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
+        public FormSubmitTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

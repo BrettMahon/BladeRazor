@@ -20,8 +20,8 @@ namespace BladeRazer.TagHelpers
         [HtmlAttributeName("asp-text")]
         public string Text { get; set; } = "New";
 
-        public FormNewButtonTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormNewButtonTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
+       // public FormNewButtonTagHelper(IHtmlGenerator generator) : base(generator) { }
+        public FormNewButtonTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

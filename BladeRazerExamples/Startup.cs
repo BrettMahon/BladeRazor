@@ -8,13 +8,14 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
-using BladeRazer.Data;
+using BladeRazerExamples.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BladeRazer.TagHelpers;
+using BladeRazer.Attributes;
 
-namespace BladeRazer
+namespace BladeRazerExamples
 {
     public class Startup
     {
@@ -35,11 +36,11 @@ namespace BladeRazer
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             // example of injecting overriden styles
-            services.AddSingleton(new Styles()
+            services.AddSingleton<IStyles>(new Styles()
             {
                 ButtonDelete = "btn btn-success mt-1"
             });
-            
+
             services.AddRazorPages();
         }
 

@@ -15,7 +15,7 @@ namespace BladeRazer.TagHelpers
     {
         protected IHtmlGenerator generator;
         protected TagGenerator tg;
-        protected Styles styles;
+        protected IStyles styles;
 
         [HtmlAttributeName("asp-for")]
         public ModelExpression For { get; set; }
@@ -27,16 +27,20 @@ namespace BladeRazer.TagHelpers
         // TODO: Test dependency injection with and without styles
         public FormBaseTagHelper(IHtmlGenerator generator)
         {
-            this.generator = generator;
-            this.tg = new TagGenerator(generator, ViewContext);
-            this.styles = new Styles();
+            this.generator = generator;            
+            this.styles = new Styles();            
         }
 
-        public FormBaseTagHelper(IHtmlGenerator generator, Styles styles)
+        public FormBaseTagHelper(IHtmlGenerator generator, IStyles styles)
         {
-            this.generator = generator;
+            this.generator = generator;           
+            this.styles = styles;            
+        }
+
+        public override void Init(TagHelperContext context)
+        {
             this.tg = new TagGenerator(generator, ViewContext);
-            this.styles = styles;
+            base.Init(context);
         }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)

@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BladeRazer.Data;
-using BladeRazer.Models;
+using BladeRazerExamples.Data;
+using BladeRazerExamples.Models;
 
-namespace BladeRazer.Pages.FormEdit.Customers
+namespace BladeRazerExamples.Pages.FormEdit.Customers
 {
     public class DeleteModel : PageModel
     {
-        private readonly BladeRazer.Data.ApplicationDbContext _context;
+        private readonly BladeRazerExamples.Data.ApplicationDbContext _context;
 
-        public DeleteModel(BladeRazer.Data.ApplicationDbContext context)
+        public DeleteModel(BladeRazerExamples.Data.ApplicationDbContext context)
         {
             _context = context;
         }

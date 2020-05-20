@@ -12,7 +12,7 @@ namespace BladeRazer.TagHelpers
     public class FormDivTagHelper : FormBaseTagHelper
     {
         public FormDivTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormDivTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
+        public FormDivTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
 
         public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {

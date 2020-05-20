@@ -23,7 +23,7 @@ namespace BladeRazer.TagHelpers
         public IEnumerable<SelectListItem> Items { get; set; } = new List<SelectListItem>();
 
         public FormEditTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormEditTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
+        public FormEditTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

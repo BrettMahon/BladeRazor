@@ -21,7 +21,7 @@ namespace BladeRazer.TagHelpers
         public string Format { get; set; }
 
         public FormInputTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormInputTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
+        public FormInputTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
 
         protected override TagHelperOutput GenerateTagHelper() => tg.GenerateInputTagHelper(For);
        

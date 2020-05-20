@@ -1,15 +1,20 @@
 ﻿@page
-@model BladeRazer.Pages.FormEdit.Customers.IndexModel
+@using BladeRazer.TagHelpers
+@model BladeRazerExamples.Pages.FormEdit.Customers.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
-
+<form-new-button asp-page="Create"></form-new-button>
+<form-index asp-for="Customer"></form-index>
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+
+
+
 <table class="table">
     <thead>
         <tr>

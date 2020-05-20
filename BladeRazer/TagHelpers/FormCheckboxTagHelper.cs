@@ -12,7 +12,7 @@ namespace BladeRazer.TagHelpers
     public class FormCheckboxTagHelper : FormBaseTagHelper
     {
         public FormCheckboxTagHelper(IHtmlGenerator generator) : base(generator) { }
-        public FormCheckboxTagHelper(IHtmlGenerator generator, Styles styles) : base(generator, styles) { }
+        public FormCheckboxTagHelper(IHtmlGenerator generator, IStyles styles) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
