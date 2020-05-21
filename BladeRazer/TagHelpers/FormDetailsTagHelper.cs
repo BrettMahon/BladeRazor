@@ -36,46 +36,19 @@ namespace BladeRazer.TagHelpers
                 string name = explorer.Metadata.DisplayName;
                 if (string.IsNullOrWhiteSpace(name))
                     name = explorer.Metadata.PropertyName;
-                
-                // TODO: We are using the display property from the Index attribute. This should be generalised
-                var formIndexAttribute = Utility.GetAttribute<FormIndexAttribute>(explorer.Metadata);
-                var formAttribute = Utility.GetAttribute<FormAttribute>(explorer.Metadata);
 
-                // do not display if either attribute hides it
-                if (formAttribute?.Type == FormInputType.Hidden)
-                    continue;
-                if (formIndexAttribute?.Hidden == true)
+                // check display
+                var fa = Utility.GetAttribute<FormAttribute>(explorer.Metadata);
+                var da = Utility.GetAttribute<DisplayAttribute>(explorer.Metadata);
+                if (!Utility.DisplayView(fa) || !Utility.DisplayView(da))
                     continue;
 
-                var dataAttribute = Utility.GetAttribute<DataTypeAttribute>(explorer.Metadata);
-                
-                // set the value
-                string value = explorer.Model?.ToString() ?? string.Empty;
+                // set the formatted value                
+                var dta = Utility.GetAttribute<DataTypeAttribute>(explorer.Metadata);
+                var value = Utility.GetFormattedValue(explorer, dta);
 
-                // TODO: This can be extended: Render according to format string attribute too                
-                // TODO: Perform this check on complex types too - will require this to go into a method                
-                if (dataAttribute != null && explorer.Model != null)
-                {
-                    if (explorer.Model.GetType() == typeof(DateTime))
-                    {
-                        if (dataAttribute.DataType == DataType.Date)
-                            value = ((DateTime)explorer.Model).ToShortDateString();
-                        if (dataAttribute.DataType == DataType.Time)
-                            value = ((DateTime)explorer.Model).ToShortTimeString();
-                    }
-                }
-
-                // check for complex object
-                if (explorer.Metadata.IsComplexType && formIndexAttribute != null)
-                {
-                    var displayProperty = formIndexAttribute.DisplayProperty;
-                    if (displayProperty != null)
-                    {
-                        var pp = explorer.Properties.Where(pp => pp.Metadata.PropertyName == displayProperty).FirstOrDefault();
-                        if (pp != null)
-                            value = pp.Model?.ToString() ?? string.Empty;
-                    }
-                }
+                // check for complex object and set value
+                value = Utility.GetComplexValue(explorer, fa, value);
 
                 // render 
                 var dt = new TagBuilder("dt");
@@ -90,5 +63,7 @@ namespace BladeRazer.TagHelpers
                 output.Content.AppendHtml(dd);
             }
         }
+
+        
     }
 }

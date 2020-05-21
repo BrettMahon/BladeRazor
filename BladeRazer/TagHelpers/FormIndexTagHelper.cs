@@ -15,9 +15,6 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-index", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormIndexTagHelper : FormBaseTagHelper
     {
-        // TODO: This shouuld be an attribute field - this hides on mobile - have moved the field to Styles
-        //private string hideColumnMobileClass = "d-none d-sm-table-cell";
-
         /// <summary>
         /// Set empty to hide edit button
         /// </summary>
@@ -65,26 +62,25 @@ namespace BladeRazer.TagHelpers
             var headerRow = new TagBuilder("tr") { TagRenderMode = TagRenderMode.Normal };
             foreach (var p in For.Metadata.ElementMetadata.Properties)
             {
-                if (hideProperties != null && hideProperties.Contains(p.PropertyName))
-                    continue;
-                var formIndexAttribute = Utility.GetAttribute<FormIndexAttribute>(p);
-                var formAttribute = Utility.GetAttribute<FormAttribute>(p);
-
                 // test for key
                 var keyAttribute = Utility.GetAttribute<KeyAttribute>(p);
                 if (keyAttribute != null)
                     keyProperty = p.Name;
 
-                // do not display if either attribute hides it
-                if (formAttribute?.Type == FormInputType.Hidden)
-                    continue;
-                if (formIndexAttribute?.Hidden == true)
+                // test against hide list
+                if (hideProperties != null && hideProperties.Contains(p.PropertyName))
+                    continue;                
+                
+                // check display
+                var fa = Utility.GetAttribute<FormAttribute>(p);
+                var da = Utility.GetAttribute<DisplayAttribute>(p);
+                if (!Utility.DisplayView(fa) || !Utility.DisplayView(da))
                     continue;
 
                 // render the cell
                 var headerCell = new TagBuilder("th");
-                //TODO: Uncomment in order to hide this on mobile when this works
-                //headerCell.Attributes.Add("class", hideColumnMobileClass);
+                //TODO: Uncomment in order to hide this on mobile when this works (FormIndex)
+                //cell.Attributes.Add("class", styles.TableCellHideMobile);
                 if (p.DisplayName != null)
                     headerCell.InnerHtml.AppendHtml(p.DisplayName);
                 else
@@ -101,8 +97,8 @@ namespace BladeRazer.TagHelpers
             headerRow.InnerHtml.AppendHtml(lastHeader);
             output.Content.AppendHtml(headerRow);
 
-            // loop through items      
-            ICollection collection = (ICollection)For.Model;
+            // now loop through items      
+            var collection = (ICollection)For.Model;
             foreach (var item in collection)
             {
                 // create the row
@@ -122,48 +118,23 @@ namespace BladeRazer.TagHelpers
                     if (hideProperties != null && hideProperties.Contains(p.Metadata.PropertyName))
                         continue;
 
-                    var formIndexAttribute = Utility.GetAttribute<FormIndexAttribute>(p.Metadata);
-                    var formAttribute = Utility.GetAttribute<FormAttribute>(p.Metadata);
-                    var dataAttribute = Utility.GetAttribute<DataTypeAttribute>(p.Metadata);
-
-                    // do not display if either attribute hides it
-                    if (formAttribute?.Type == FormInputType.Hidden)
-                        continue;
-                    if (formIndexAttribute?.Hidden == true)
+                    // check display
+                    var fa = Utility.GetAttribute<FormAttribute>(p.Metadata);
+                    var da = Utility.GetAttribute<DisplayAttribute>(p.Metadata);
+                    if (!Utility.DisplayView(fa) || !Utility.DisplayView(da))
                         continue;
 
-                    string value = p.Model?.ToString() ?? string.Empty;
+                    // get the formatted value                
+                    var dta = Utility.GetAttribute<DataTypeAttribute>(explorer.Metadata);
+                    var value = Utility.GetFormattedValue(explorer, dta);
 
-                    // check for date attribute 
-                    // TODO: This can be extended.Render according to format string attribute too                    
-                    // TODO: Perform this check on complex types too - will require this to go into a method
-                    if (dataAttribute != null && p.Model != null)
-                    {
-                        if (p.Model.GetType() == typeof(DateTime))
-                        {
-                            if (dataAttribute.DataType == DataType.Date)
-                                value = ((DateTime)p.Model).ToShortDateString();
-                            if (dataAttribute.DataType == DataType.Time)
-                                value = ((DateTime)p.Model).ToShortTimeString();
-                        }
-                    }
-
-                    // check for complex object
-                    if (p.Metadata.IsComplexType && formIndexAttribute != null)
-                    {
-                        var displayProperty = formIndexAttribute.DisplayProperty;
-                        if (displayProperty != null)
-                        {
-                            var pp = p.Properties.Where(pp => pp.Metadata.PropertyName == displayProperty).FirstOrDefault();
-                            if (pp != null)
-                                value = pp.Model?.ToString() ?? string.Empty;
-                        }
-                    }
+                    // check for complex object and set value
+                    value = Utility.GetComplexValue(explorer, fa, value);
 
                     // render the cell
                     var cell = new TagBuilder("td");
-                    //TODO: Uncomment in order to hide this on mobile when implemented
-                    //cell.Attributes.Add("class", hideColumnMobileClass);
+                    //TODO: Uncomment in order to hide this on mobile when this works (FormIndex)
+                    //cell.Attributes.Add("class", styles.TableCellHideMobile);
                     cell.InnerHtml.Append(value);
                     row.InnerHtml.AppendHtml(cell);
                 }
@@ -222,8 +193,5 @@ namespace BladeRazer.TagHelpers
 
             return tg.GenerateAnchorTagHelper(DeletePage, "Delete", styles.ButtonDelete, routes);
         }      
-
-
     }
-
 }

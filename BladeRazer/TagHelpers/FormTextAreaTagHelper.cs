@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BladeRazer.TagHelpers
 {
-    // TODO: Also check for built in multi-line DataType property
+    // TODO: Also check for built in multi-line DataType property - I think that will be automatic by the built in taghelper
     [HtmlTargetElement("form-textarea", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormTextAreaTagHelper : FormBaseTagHelper
     {

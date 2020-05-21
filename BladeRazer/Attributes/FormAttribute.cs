@@ -8,7 +8,8 @@ namespace BladeRazer.Attributes
         Auto = 0,
         Hidden = 1,
         Select = 2,
-        TextArea = 3
+        TextArea = 3, 
+        None = 4
     }
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
@@ -19,6 +20,18 @@ namespace BladeRazer.Attributes
         public string SelectItemsKey { get; set; }
         public string SelectOptionName { get; set; } = null;
         public string SelectOptionValue { get; set; } = string.Empty;
+        /// <summary>
+        /// For complex objects. Used by details and index
+        /// </summary>
+        public string DisplayProperty { get; set; }
+        /// <summary>
+        /// For details and index
+        /// </summary>
+        public bool DisplayView { get; set; } = true;
+
+        public FormAttribute()
+        {            
+        }
 
         public FormAttribute(FormInputType type)
         {

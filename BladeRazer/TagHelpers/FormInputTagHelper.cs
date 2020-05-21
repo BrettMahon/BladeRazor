@@ -10,16 +10,11 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-// https://coding.abel.nu/2018/04/a-form-entry-tag-helper/
-
 namespace BladeRazer.TagHelpers
 {
     [HtmlTargetElement("form-input", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormInputTagHelper : FormBaseTagHelper
     {
-        [HtmlAttributeName("asp-format")]
-        public string Format { get; set; }
-
         public FormInputTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         protected override TagHelperOutput GenerateTagHelper() => tg.GenerateInputTagHelper(For);

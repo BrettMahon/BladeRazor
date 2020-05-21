@@ -20,6 +20,9 @@ namespace BladeRazer.TagHelpers
         [HtmlAttributeName("asp-text")]
         public string Text { get; set; } = "New";
 
+        [HtmlAttributeName("asp-display-icon")]
+        public bool DisplayIcon { get; set; } = false;
+
         public FormNewButtonTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -32,8 +35,11 @@ namespace BladeRazer.TagHelpers
             var a = tg.GenerateAnchorTagHelper(Page, null, styles.ButtonNew, routes);
             var plus = new TagBuilder("span");
             plus.TagRenderMode = TagRenderMode.Normal;
-            plus.Attributes.Add("class", styles.ButtonNewIcon);
-            a.Content.AppendHtml(plus);
+            if (DisplayIcon)
+            {
+                plus.Attributes.Add("class", styles.ButtonNewIcon);
+                a.Content.AppendHtml(plus);
+            }
             a.Content.AppendHtml($" {Text}");
             output.Content.AppendHtml(a);
         }
