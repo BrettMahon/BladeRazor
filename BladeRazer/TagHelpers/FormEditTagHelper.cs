@@ -40,43 +40,36 @@ namespace BladeRazer.TagHelpers
                 if (explorer.Metadata.IsReadOnly)
                     continue;
 
-                // TODO: Replace this with the new templated method
-                // get our attributes - test first that this is the default model metadata                
-                FormAttribute formAttribute = null;
-                if (explorer.Metadata is Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelMetadata meta)
-                {
-                    var modelAttributes = meta.Attributes;
-                    formAttribute = (FormAttribute)modelAttributes.PropertyAttributes.Where(p => p.GetType() == typeof(FormAttribute)).FirstOrDefault();
-                }
-
+                // create a model expression from the explorer
                 var f = new ModelExpression($"{explorer.Container.Metadata.Name }.{ explorer.Metadata.Name}", explorer);
 
                 // if we have a hidden field, generate it and continue
-                if (formAttribute?.Type == FormInputType.Hidden)
+                var fa = Utility.GetAttribute<FormAttribute>(explorer.Metadata);
+                if (fa?.Type == FormInputType.Hidden)
                 {
                     output.Content.AppendHtml(tg.GenerateHiddenTagHelper(f));
                     continue;
                 }
 
+                // render
                 TagBuilder group = new TagBuilder("div");
                 group.Attributes.Add("class", styles.FormGroup);
                 group.InnerHtml.AppendHtml(tg.GenerateLabel(f));
-                group.InnerHtml.AppendHtml(GenerateContent(f, formAttribute));
+                group.InnerHtml.AppendHtml(GenerateContent(f, fa));
                 group.InnerHtml.AppendHtml(tg.GenerateValidation(f));
                 output.Content.AppendHtml(group);
             }
         }
 
-        protected IHtmlContent GenerateContent(ModelExpression f, FormAttribute formAttribute)
-        {
-            return formAttribute?.Type switch
+        protected IHtmlContent GenerateContent(ModelExpression f, FormAttribute fa) =>
+            fa?.Type switch
             {
-                FormInputType.TextArea => tg.GenerateTextAreaTagHelper(f, formAttribute.TextAreaRows),
+                FormInputType.TextArea => tg.GenerateTextAreaTagHelper(f, fa.TextAreaRows),
                 FormInputType.Hidden => tg.GenerateHiddenTagHelper(f),
-                FormInputType.Select => GenerateSelectContent(f, formAttribute),
-                _ => GenerateDefaultContent(f, formAttribute)
+                FormInputType.Select => GenerateSelectContent(f, fa),
+                _ => GenerateDefaultContent(f)
             };
-        }
+
 
         protected IHtmlContent GenerateSelectContent(ModelExpression f, FormAttribute formAttribute)
         {
@@ -92,9 +85,8 @@ namespace BladeRazer.TagHelpers
             return tg.GenerateSelectTagHelper(f, this.Items, formAttribute.SelectOptionName, formAttribute.SelectOptionValue);
         }
 
-        protected IHtmlContent GenerateDefaultContent(ModelExpression f, FormAttribute formAttribute)
+        protected IHtmlContent GenerateDefaultContent(ModelExpression f)
         {
-            //TODO: Check for datatype multiline and render a textarea if true
             if (f.Model != null && f.Model.GetType() == typeof(bool))
             {
                 var content = tg.GenerateCheckboxGroup(f);

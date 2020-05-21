@@ -16,24 +16,17 @@ namespace BladeRazer.TagHelpers
     public class FormIndexTagHelper : FormBaseTagHelper
     {
         /// <summary>
-        /// Set empty to hide edit button
+        /// Set empty to hide buttons
         /// </summary>
         [HtmlAttributeName("asp-edit-page")]
         public string EditPage { get; set; } = "Edit";
-        /// <summary>
-        /// Set empty to hide view button
-        /// </summary>
         [HtmlAttributeName("asp-view-page")]
         public string ViewPage { get; set; } = "View";
-        /// <summary>
-        /// Set empty to hide delete button
-        /// </summary>
         [HtmlAttributeName("asp-delete-page")]
         public string DeletePage { get; set; } = "Delete";
 
         [HtmlAttributeName("asp-commands-enabled")]
         public bool CommandsEnabled { get; set; } = false;
-
         protected string editCommand = "edit";
         protected string viewCommand = "view";
         protected string deleteCommand  = "delete";

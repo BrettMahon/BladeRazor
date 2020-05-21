@@ -43,8 +43,7 @@ namespace BladeRazer.TagHelpers
 
             return true;
         }
-
-        // TODO: Implement this in Index too 
+        
         public static string GetFormattedValue(ModelExplorer explorer, DataTypeAttribute dta)
         {
             string value = explorer.Model?.ToString() ?? string.Empty;
