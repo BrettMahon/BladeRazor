@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BladeRazer.TagHelpers 
 {
-    // TODO: This doesn't work (Form-Wrapper)
+    // TODO: FormWrapperTagHelper: This is not implemented yet
     [HtmlTargetElement("form-wrapper", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class FormWrapperTagHelper : FormBaseTagHelper
+    class FormWrapperTagHelper : FormBaseTagHelper
     {
         public FormWrapperTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 

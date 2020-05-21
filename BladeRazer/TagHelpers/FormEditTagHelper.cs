@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -87,13 +88,15 @@ namespace BladeRazer.TagHelpers
 
         protected IHtmlContent GenerateDefaultContent(ModelExpression f)
         {
+            // check for multi-line
+            var dta = Utility.GetAttribute<DataTypeAttribute>(f.Metadata);
+            if (dta != null && dta.DataType == DataType.MultilineText)
+                return tg.GenerateTextAreaTagHelper(f, 2);
+            // check for boolean
             if (f.Model != null && f.Model.GetType() == typeof(bool))
-            {
-                var content = tg.GenerateCheckboxGroup(f);
-                return content;
-            }
-            else
-                return tg.GenerateInputTagHelper(f);
+                return tg.GenerateCheckboxGroup(f);
+            // else run default
+            return tg.GenerateInputTagHelper(f);
         }
     }
 }

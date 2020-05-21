@@ -9,12 +9,11 @@ using System.Threading.Tasks;
 
 namespace BladeRazer.TagHelpers
 {
-    // TODO: Also check for built in multi-line DataType property - I think that will be automatic by the built in taghelper
     [HtmlTargetElement("form-textarea", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormTextAreaTagHelper : FormBaseTagHelper
     {
         [HtmlAttributeName("asp-rows")]
-        public int Rows { get; set; } = 4;
+        public int Rows { get; set; } = 2;
 
         public FormTextAreaTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 

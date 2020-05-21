@@ -24,6 +24,10 @@ namespace BladeRazer.TagHelpers
         [ViewContext]
         public ViewContext ViewContext { get; set; }
 
+
+        public FormBaseTagHelper()
+        { }
+
         public FormBaseTagHelper(IHtmlGenerator generator, IStyles styles = null)
         {
             this.generator = generator;

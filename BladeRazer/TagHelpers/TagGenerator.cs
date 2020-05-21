@@ -137,15 +137,14 @@ namespace BladeRazer.TagHelpers
                 Items = itemsList,
                 ViewContext = viewContext
             };
-
-            var tagOutput = GenerateTagHelperCore(f, tagHelper, "select", TagMode.StartTagAndEndTag);
-            return tagOutput;
+            
+            return GenerateTagHelperCore(f, tagHelper, "select", TagMode.StartTagAndEndTag);
         }
 
         public IHtmlContent GenerateCheckboxGroup(ModelExpression f)
         {
             TagBuilder group = new TagBuilder("div");
-            group.Attributes.Add("class", "form-check pb-1 pt-2");
+            group.Attributes.Add("class", styles.FormCheck);
             group.InnerHtml.AppendHtml(GenerateCheckboxTagHelper(f));
             group.InnerHtml.AppendHtml(GenerateCheckboxLabel(f));
             group.InnerHtml.AppendHtml(GenerateValidation(f));
@@ -158,7 +157,7 @@ namespace BladeRazer.TagHelpers
         }
 
         protected TagHelperOutput GenerateTagHelperCore(ModelExpression f, TagHelper tagHelper, string tagName, TagMode tagMode) =>
-            GenerateTagHelperCore(f, tagHelper, tagName, tagMode, "text", "form-control");
+            GenerateTagHelperCore(f, tagHelper, tagName, tagMode, "text", styles.FormControl);
 
         protected TagHelperOutput GenerateTagHelperCore(ModelExpression f, TagHelper tagHelper, string tagName, TagMode tagMode, string type, string css)
         {

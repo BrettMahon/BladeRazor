@@ -25,7 +25,7 @@ namespace BladeRazerExamples.Pages.FormEdit.Customers
         }
 
         [BindProperty]
-        public Customer Customer { get; set; }
+        public Customer Customer { get; set; } = new Customer();
 
         public async Task<IActionResult> OnPostAsync()
         {

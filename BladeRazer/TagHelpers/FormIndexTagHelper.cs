@@ -15,13 +15,16 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-index", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormIndexTagHelper : FormBaseTagHelper
     {
+
+        protected IHtmlHelper htmlHelper;
+
         /// <summary>
         /// Set empty to hide buttons
         /// </summary>
         [HtmlAttributeName("asp-edit-page")]
         public string EditPage { get; set; } = "Edit";
         [HtmlAttributeName("asp-view-page")]
-        public string ViewPage { get; set; } = "View";
+        public string ViewPage { get; set; } = "Details";
         [HtmlAttributeName("asp-delete-page")]
         public string DeletePage { get; set; } = "Delete";
 
@@ -31,15 +34,28 @@ namespace BladeRazer.TagHelpers
         protected string viewCommand = "view";
         protected string deleteCommand  = "delete";
 
+        [HtmlAttributeName("asp-render-value-html")]
+        public bool RenderValueHtml { get; set; } = true;
+
         /// <summary>
         /// Comma seperated
         /// </summary>
         public string HideProperties { get; set; }
 
-        public FormIndexTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
+        public FormIndexTagHelper(IHtmlGenerator generator, IHtmlHelper htmlHelper, IStyles styles = null) : base(generator, styles)
+        {
+            this.htmlHelper = htmlHelper;
+        }
 
+        //TODO: Implement Display(Order) built in attribute
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+
+
+            
+            
+
+
             var hideProperties = HideProperties?.Split(',').Select(p => p.Trim()).ToList();
             
             output.TagName = "table";
@@ -62,13 +78,16 @@ namespace BladeRazer.TagHelpers
 
                 // test against hide list
                 if (hideProperties != null && hideProperties.Contains(p.PropertyName))
-                    continue;                
-                
+                    continue;
+
+
                 // check display
                 var fa = Utility.GetAttribute<FormAttribute>(p);
                 var da = Utility.GetAttribute<DisplayAttribute>(p);
                 if (!Utility.DisplayView(fa) || !Utility.DisplayView(da))
                     continue;
+
+              
 
                 // render the cell
                 var headerCell = new TagBuilder("th");
@@ -111,24 +130,30 @@ namespace BladeRazer.TagHelpers
                     if (hideProperties != null && hideProperties.Contains(p.Metadata.PropertyName))
                         continue;
 
+                    if (htmlHelper is IViewContextAware)
+                        ((IViewContextAware)htmlHelper).Contextualize(ViewContext);
+                    htmlHelper.ViewData.Add(p.Metadata.PropertyName, p.Model);
+                    var display = htmlHelper.Display(p.Metadata.PropertyName);
+
                     // check display
                     var fa = Utility.GetAttribute<FormAttribute>(p.Metadata);
                     var da = Utility.GetAttribute<DisplayAttribute>(p.Metadata);
                     if (!Utility.DisplayView(fa) || !Utility.DisplayView(da))
                         continue;
 
+
                     // get the formatted value                
-                    var dta = Utility.GetAttribute<DataTypeAttribute>(explorer.Metadata);
-                    var value = Utility.GetFormattedValue(explorer, dta);
+                    var dta = Utility.GetAttribute<DataTypeAttribute>(p.Metadata);
+                    var value = Utility.GetFormattedValue(p, dta, RenderValueHtml);
 
                     // check for complex object and set value
-                    value = Utility.GetComplexValue(explorer, fa, value);
+                    value = Utility.GetComplexValue(p, fa, value, RenderValueHtml);
 
                     // render the cell
                     var cell = new TagBuilder("td");
                     //TODO: Uncomment in order to hide this on mobile when this works (FormIndex)
                     //cell.Attributes.Add("class", styles.TableCellHideMobile);
-                    cell.InnerHtml.Append(value);
+                    cell.InnerHtml.AppendHtml(display);
                     row.InnerHtml.AppendHtml(cell);
                 }
 
@@ -137,10 +162,10 @@ namespace BladeRazer.TagHelpers
                 {
                     var buttons = new TagBuilder("td");                    
                     var routes = new Dictionary<string, string>() { { keyProperty.ToLower(), keyValue } };
-                    if (!string.IsNullOrEmpty(ViewPage))
-                        buttons.InnerHtml.AppendHtml(GenerateViewButton(explorer, keyProperty, keyValue));
                     if (!string.IsNullOrEmpty(EditPage))
                         buttons.InnerHtml.AppendHtml(GenerateEditButton(explorer, keyProperty, keyValue));
+                    if (!string.IsNullOrEmpty(ViewPage))
+                        buttons.InnerHtml.AppendHtml(GenerateViewButton(explorer, keyProperty, keyValue));                   
                     if (!string.IsNullOrEmpty(DeletePage))
                         buttons.InnerHtml.AppendHtml(GenerateDeleteButton(explorer, keyProperty, keyValue));
                     row.InnerHtml.AppendHtml(buttons);
@@ -158,7 +183,7 @@ namespace BladeRazer.TagHelpers
             if (CommandsEnabled)
                 routes.Add("command", viewCommand);
             
-            return tg.GenerateAnchorTagHelper(ViewPage, "View", styles.ButtonView, routes);
+            return tg.GenerateAnchorTagHelper(ViewPage, ViewPage, styles.ButtonView, routes);
         }
 
         protected virtual IHtmlContent GenerateEditButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
@@ -171,7 +196,7 @@ namespace BladeRazer.TagHelpers
             if (CommandsEnabled)
                 routes.Add("command", editCommand);
 
-            return tg.GenerateAnchorTagHelper(EditPage, "Edit", styles.ButtonEdit, routes);
+            return tg.GenerateAnchorTagHelper(EditPage, EditPage, styles.ButtonEdit, routes);
         }
 
         protected virtual IHtmlContent GenerateDeleteButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
@@ -184,7 +209,7 @@ namespace BladeRazer.TagHelpers
             if (CommandsEnabled)
                 routes.Add("command", deleteCommand);
 
-            return tg.GenerateAnchorTagHelper(DeletePage, "Delete", styles.ButtonDelete, routes);
+            return tg.GenerateAnchorTagHelper(DeletePage, DeletePage, styles.ButtonDelete, routes);
         }      
     }
 }

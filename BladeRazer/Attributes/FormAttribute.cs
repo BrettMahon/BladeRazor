@@ -23,7 +23,7 @@ namespace BladeRazer.Attributes
         /// <summary>
         /// For complex objects. Used by details and index
         /// </summary>
-        public string DisplayProperty { get; set; }
+        public string ComplexDisplayProperty { get; set; }
         /// <summary>
         /// For details and index
         /// </summary>

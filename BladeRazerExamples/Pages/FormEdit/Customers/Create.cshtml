@@ -1,18 +1,25 @@
 ﻿@page
 @model BladeRazerExamples.Pages.FormEdit.Customers.CreateModel
-
+@using BladeRazerExamples.Models
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h2>Create Customer - Blade</h2>
+<hr />
+<form-div>
+    <form method="post">
+        <form-edit asp-for="Customer" asp-items="@Html.GetEnumSelectList<CustomerType>()"></form-edit>
+        <form-submit></form-submit>
+    </form>
+</form-div>
 
-<h4>Customer</h4>
+<p></p>
+<h2>Create Customer - Standard Razer</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Customer.FirstName" class="control-label"></label>
                 <input asp-for="Customer.FirstName" class="form-control" />
@@ -23,11 +30,7 @@
                 <input asp-for="Customer.LastName" class="form-control" />
                 <span asp-validation-for="Customer.LastName" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Customer.Active" /> @Html.DisplayNameFor(model => model.Customer.Active)
-                </label>
-            </div>
+
             <div class="form-group">
                 <label asp-for="Customer.Telephone" class="control-label"></label>
                 <input asp-for="Customer.Telephone" class="form-control" />
@@ -40,24 +43,35 @@
             </div>
             <div class="form-group">
                 <label asp-for="Customer.Address" class="control-label"></label>
-                <input asp-for="Customer.Address" class="form-control" />
+                <textarea asp-for="Customer.Address" class="form-control"></textarea>
                 <span asp-validation-for="Customer.Address" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Customer.CustomerType" class="control-label"></label>
-                <select asp-for="Customer.CustomerType" class="form-control"></select>
+                <select asp-for="Customer.CustomerType" class="form-control" asp-items="@Html.GetEnumSelectList<CustomerType>()">
+                    <option>Select</option>
+                </select>
+                
                 <span asp-validation-for="Customer.CustomerType" class="text-danger"></span>
             </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Customer.Active" /> @Html.DisplayNameFor(model => model.Customer.Active)
+                </label>
+            </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label asp-for="Customer.Registered" class="control-label"></label>
+                <input asp-for="Customer.Registered" class="form-control"/>
+                <span asp-validation-for="Customer.Registered" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input disabled type="submit" value="Create" class="btn btn-primary" /> <br />
+                <a asp-page="Index">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

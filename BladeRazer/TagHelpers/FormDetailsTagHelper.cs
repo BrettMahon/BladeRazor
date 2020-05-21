@@ -14,6 +14,9 @@ namespace BladeRazer.TagHelpers
     [HtmlTargetElement("form-details", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormDetailsTagHelper : FormBaseTagHelper
     {
+        [HtmlAttributeName("asp-render-value-html")]
+        public bool RenderValueHtml { get; set; } = true;
+
         public FormDetailsTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -45,10 +48,10 @@ namespace BladeRazer.TagHelpers
 
                 // set the formatted value                
                 var dta = Utility.GetAttribute<DataTypeAttribute>(explorer.Metadata);
-                var value = Utility.GetFormattedValue(explorer, dta);
+                var value = Utility.GetFormattedValue(explorer, dta, RenderValueHtml);
 
                 // check for complex object and set value
-                value = Utility.GetComplexValue(explorer, fa, value);
+                value = Utility.GetComplexValue(explorer, fa, value, RenderValueHtml);
 
                 // render 
                 var dt = new TagBuilder("dt");

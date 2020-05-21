@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace BladeRazer.TagHelpers
 {
-    // TODO: This is not complete (FormValidationTagHelper)
+    // TODO: FormValidationTagHelper: This is not yet complete 
     [HtmlTargetElement("form-validation-summary", TagStructure = TagStructure.NormalOrSelfClosing)]
-    public class FormValidationSummaryTagHelper : FormBaseTagHelper
+    class FormValidationSummaryTagHelper : FormBaseTagHelper
     {
         public FormValidationSummaryTagHelper(IHtmlGenerator generator, IStyles styles=null) : base(generator, styles) { }
 
