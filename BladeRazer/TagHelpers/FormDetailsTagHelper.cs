@@ -53,6 +53,10 @@ namespace BladeRazor.TagHelpers
                 // check for complex object and set value
                 value = Utility.GetComplexValue(explorer, fa, value, RenderCellHtml);
 
+
+                
+
+
                 // render 
                 var dt = new TagBuilder("dt");
                 dt.Attributes.Add("class", styles.DefinitionTerm);

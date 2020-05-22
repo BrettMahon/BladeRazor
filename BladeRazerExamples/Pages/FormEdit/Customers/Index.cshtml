@@ -1,9 +1,18 @@
 ﻿@page
-@model BladeRazerExamples.Pages.FormEdit.Customers.IndexModel
+@model BladeRazorExamples.Pages.FormEdit.Customers.IndexModel
 
 @{
     ViewData["Title"] = "Index";
 }
+
+    <p>@Html.DisplayFor(model => model.Customer[0].Email)</p>
+
+
+<test-display asp-for="Customer[0].Registered"></test-display>
+<test-display asp-for="Customer[0].Email"></test-display>
+<test-display asp-for="Customer[0].Active"></test-display>
+<test-display asp-for="FirstCustomer.Active"></test-display>
+<test-display asp-for="FirstCustomer.Email"></test-display>
 
 <h2>Customers - Blade</h2>
 <form-new-button asp-page="Create" asp-display-icon="true"></form-new-button>
@@ -43,36 +52,37 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Customer) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
+        @foreach (var item in Model.Customer)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Telephone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.Display("Registered")
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
+                <td>
+                    @Html.Display("Registered")
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -130,10 +130,28 @@ namespace BladeRazor.TagHelpers
                     if (hideProperties != null && hideProperties.Contains(p.Metadata.PropertyName))
                         continue;
 
-                    if (htmlHelper is IViewContextAware)
-                        ((IViewContextAware)htmlHelper).Contextualize(ViewContext);
-                    htmlHelper.ViewData.Add(p.Metadata.PropertyName, p.Model);
-                    var display = htmlHelper.Display(p.Metadata.PropertyName);
+
+                    // create a model expression from the explorer
+                    var f = new ModelExpression($"{p.Container.Metadata.Name }.{ p.Metadata.Name}", explorer);
+
+
+                    IHtmlContent value = null;                    
+                    if (p.Model.GetType() == typeof(bool))
+                    {
+                        if (htmlHelper is IViewContextAware ht)
+                        {
+                            ht.Contextualize(ViewContext);
+                            htmlHelper.ViewData.Add(p.Metadata.PropertyName, p.Model);
+                            value = htmlHelper.Display(p.Metadata.PropertyName);
+                        }
+                    }
+                    else
+                    {
+                        string formattedValue = p.Model.ToString();
+                        if (!string.IsNullOrWhiteSpace(p.Metadata.DisplayFormatString))
+                            formattedValue = string.Format(p.Metadata.DisplayFormatString, p.Model);                        
+                        value = new HtmlContentBuilder().Append(formattedValue);
+                    }
 
                     // check display
                     var fa = Utility.GetAttribute<FormAttribute>(p.Metadata);
@@ -142,18 +160,18 @@ namespace BladeRazor.TagHelpers
                         continue;
 
 
-                    // get the formatted value                
-                    var dta = Utility.GetAttribute<DataTypeAttribute>(p.Metadata);
-                    var value = Utility.GetFormattedValue(p, dta, RenderCellHtml);
+                    //// get the formatted value                
+                    //var dta = Utility.GetAttribute<DataTypeAttribute>(p.Metadata);
+                    //var value = Utility.GetFormattedValue(p, dta, RenderCellHtml);
 
-                    // check for complex object and set value
-                    value = Utility.GetComplexValue(p, fa, value, RenderCellHtml);
+                    //// check for complex object and set value
+                    //value = Utility.GetComplexValue(p, fa, value, RenderCellHtml);
 
                     // render the cell
                     var cell = new TagBuilder("td");
                     //TODO: Uncomment in order to hide this on mobile when this works (FormIndex)
                     //cell.Attributes.Add("class", styles.TableCellHideMobile);
-                    cell.InnerHtml.AppendHtml(display);
+                    cell.InnerHtml.AppendHtml(value);
                     row.InnerHtml.AppendHtml(cell);
                 }
 
