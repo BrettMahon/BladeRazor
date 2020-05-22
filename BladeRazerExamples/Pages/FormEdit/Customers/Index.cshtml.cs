@@ -5,20 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BladeRazerExamples.Data;
-using BladeRazerExamples.Models;
+using BladeRazorExamples.Data;
+using BladeRazorExamples.Models;
 
-using BladeRazer.TagHelpers;
-using BladeRazer.Attributes;
+using BladeRazor.TagHelpers;
+using BladeRazor.Attributes;
 
 
-namespace BladeRazerExamples.Pages.FormEdit.Customers
+namespace BladeRazorExamples.Pages.FormEdit.Customers
 {
     public class IndexModel : PageModel
     {
-        private readonly BladeRazerExamples.Data.ApplicationDbContext _context;
+        private readonly BladeRazorExamples.Data.ApplicationDbContext _context;
 
-        public IndexModel(BladeRazerExamples.Data.ApplicationDbContext context)
+        public IndexModel(BladeRazorExamples.Data.ApplicationDbContext context)
         {
             _context = context;
         }

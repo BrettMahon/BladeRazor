@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     [HtmlTargetElement("form-index-file", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormIndexFileTagHelper : FormIndexTagHelper

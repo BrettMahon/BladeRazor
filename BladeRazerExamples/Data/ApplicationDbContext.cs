@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using BladeRazerExamples.Models;
+using BladeRazorExamples.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BladeRazerExamples.Data
+namespace BladeRazorExamples.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

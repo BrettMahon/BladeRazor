@@ -1,11 +1,11 @@
-﻿using BladeRazer.Attributes;
+﻿using BladeRazor.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BladeRazerExamples.Models
+namespace BladeRazorExamples.Models
 {
 
     public enum CustomerType

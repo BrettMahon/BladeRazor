@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     public interface IStyles
     {

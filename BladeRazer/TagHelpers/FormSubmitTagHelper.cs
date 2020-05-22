@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     [HtmlTargetElement("form-submit", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormSubmitTagHelper : FormBaseTagHelper

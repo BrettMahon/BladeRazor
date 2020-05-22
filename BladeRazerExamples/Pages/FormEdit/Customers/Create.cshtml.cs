@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using BladeRazerExamples.Data;
-using BladeRazerExamples.Models;
+using BladeRazorExamples.Data;
+using BladeRazorExamples.Models;
 
-namespace BladeRazerExamples.Pages.FormEdit.Customers
+namespace BladeRazorExamples.Pages.FormEdit.Customers
 {
     public class CreateModel : PageModel
     {
-        private readonly BladeRazerExamples.Data.ApplicationDbContext _context;
+        private readonly BladeRazorExamples.Data.ApplicationDbContext _context;
 
-        public CreateModel(BladeRazerExamples.Data.ApplicationDbContext context)
+        public CreateModel(BladeRazorExamples.Data.ApplicationDbContext context)
         {
             _context = context;
         }

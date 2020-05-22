@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using BladeRazer.Attributes;
+using BladeRazor.Attributes;
 
-namespace BladeRazerExamples.Models
+namespace BladeRazorExamples.Models
 {
     public enum OrderStatus
     {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     [HtmlTargetElement("form-select", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormSelectTagHelper : FormBaseTagHelper

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BladeRazer.TagHelpers 
+namespace BladeRazor.TagHelpers 
 {
     // TODO: FormWrapperTagHelper: This is not implemented yet
     [HtmlTargetElement("form-wrapper", TagStructure = TagStructure.NormalOrSelfClosing)]

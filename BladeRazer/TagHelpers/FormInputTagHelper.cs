@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     [HtmlTargetElement("form-input", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormInputTagHelper : FormBaseTagHelper

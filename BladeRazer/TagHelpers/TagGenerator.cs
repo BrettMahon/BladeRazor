@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     public class TagGenerator
     {

@@ -6,16 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using BladeRazerExamples.Data;
-using BladeRazerExamples.Models;
+using BladeRazorExamples.Data;
+using BladeRazorExamples.Models;
 
-namespace BladeRazerExamples.Pages.FormEdit.Customers
+namespace BladeRazorExamples.Pages.FormEdit.Customers
 {
     public class EditModel : PageModel
     {
-        private readonly BladeRazerExamples.Data.ApplicationDbContext _context;
+        private readonly BladeRazorExamples.Data.ApplicationDbContext _context;
 
-        public EditModel(BladeRazerExamples.Data.ApplicationDbContext context)
+        public EditModel(BladeRazorExamples.Data.ApplicationDbContext context)
         {
             _context = context;
         }

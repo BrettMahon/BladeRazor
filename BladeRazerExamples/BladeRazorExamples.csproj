@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BladeRazer\BladeRazer.csproj" />
+    <ProjectReference Include="..\BladeRazer\BladeRazor.csproj" />
   </ItemGroup>
 
 </Project>

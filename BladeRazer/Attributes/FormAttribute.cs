@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
 
-namespace BladeRazer.Attributes
+namespace BladeRazor.Attributes
 {
     public enum FormInputType
     {

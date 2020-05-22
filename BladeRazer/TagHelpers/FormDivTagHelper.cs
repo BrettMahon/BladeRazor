@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BladeRazer.TagHelpers 
+namespace BladeRazor.TagHelpers 
 {
     [HtmlTargetElement("form-div", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormDivTagHelper : FormBaseTagHelper

@@ -1,4 +1,4 @@
-﻿using BladeRazer.Attributes;
+﻿using BladeRazor.Attributes;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     [HtmlTargetElement("form-index", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormIndexTagHelper : FormBaseTagHelper
@@ -34,8 +34,8 @@ namespace BladeRazer.TagHelpers
         protected string viewCommand = "view";
         protected string deleteCommand  = "delete";
 
-        [HtmlAttributeName("asp-render-value-html")]
-        public bool RenderValueHtml { get; set; } = true;
+        [HtmlAttributeName("asp-render-cell-html")]
+        public bool RenderCellHtml { get; set; } = true;
 
         /// <summary>
         /// Comma seperated
@@ -54,7 +54,7 @@ namespace BladeRazer.TagHelpers
 
             
             
-
+           
 
             var hideProperties = HideProperties?.Split(',').Select(p => p.Trim()).ToList();
             
@@ -144,10 +144,10 @@ namespace BladeRazer.TagHelpers
 
                     // get the formatted value                
                     var dta = Utility.GetAttribute<DataTypeAttribute>(p.Metadata);
-                    var value = Utility.GetFormattedValue(p, dta, RenderValueHtml);
+                    var value = Utility.GetFormattedValue(p, dta, RenderCellHtml);
 
                     // check for complex object and set value
-                    value = Utility.GetComplexValue(p, fa, value, RenderValueHtml);
+                    value = Utility.GetComplexValue(p, fa, value, RenderCellHtml);
 
                     // render the cell
                     var cell = new TagBuilder("td");

@@ -1,4 +1,4 @@
-﻿using BladeRazer.Attributes;
+﻿using BladeRazor.Attributes;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     [HtmlTargetElement("form-edit", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormEditTagHelper : FormBaseTagHelper

@@ -1,4 +1,4 @@
-﻿using BladeRazer.Attributes;
+﻿using BladeRazor.Attributes;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -9,13 +9,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     [HtmlTargetElement("form-details", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormDetailsTagHelper : FormBaseTagHelper
     {
-        [HtmlAttributeName("asp-render-value-html")]
-        public bool RenderValueHtml { get; set; } = true;
+        [HtmlAttributeName("asp-cell-value-html")]
+        public bool RenderCellHtml { get; set; } = true;
 
         public FormDetailsTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
@@ -48,10 +48,10 @@ namespace BladeRazer.TagHelpers
 
                 // set the formatted value                
                 var dta = Utility.GetAttribute<DataTypeAttribute>(explorer.Metadata);
-                var value = Utility.GetFormattedValue(explorer, dta, RenderValueHtml);
+                var value = Utility.GetFormattedValue(explorer, dta, RenderCellHtml);
 
                 // check for complex object and set value
-                value = Utility.GetComplexValue(explorer, fa, value, RenderValueHtml);
+                value = Utility.GetComplexValue(explorer, fa, value, RenderCellHtml);
 
                 // render 
                 var dt = new TagBuilder("dt");

@@ -1,4 +1,4 @@
-﻿using BladeRazer.Attributes;
+﻿using BladeRazor.Attributes;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,7 +7,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace BladeRazer.TagHelpers
+namespace BladeRazor.TagHelpers
 {
     class Utility
     {
