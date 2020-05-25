@@ -56,6 +56,8 @@ namespace BladeRazor.TagHelpers
             return tg.GenerateAnchorTagHelper(DeletePage, "Delete", styles.ButtonDelete, routes);
         }
 
+        // allows you to maintain existing querystring parameters in the links
+        // if this becomes useful I can move it to the base class
         private Dictionary<string, string> MaintainRoutes(string keyProperty, string keyValue)
         {
             var routes = new Dictionary<string, string>();

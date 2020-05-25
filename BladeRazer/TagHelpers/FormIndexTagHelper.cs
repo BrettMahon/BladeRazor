@@ -32,10 +32,10 @@ namespace BladeRazor.TagHelpers
         public bool CommandsEnabled { get; set; } = false;
         protected string editCommand = "edit";
         protected string viewCommand = "view";
-        protected string deleteCommand  = "delete";
+        protected string deleteCommand = "delete";
 
-        [HtmlAttributeName("asp-render-cell-html")]
-        public bool RenderCellHtml { get; set; } = true;
+        [HtmlAttributeName("asp-render-value-html")]
+        public bool RenderValueHtml { get; set; } = true;
 
         /// <summary>
         /// Comma seperated
@@ -50,14 +50,7 @@ namespace BladeRazor.TagHelpers
         //TODO: Implement Display(Order) built in attribute
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-
-
-            
-            
-           
-
-            var hideProperties = HideProperties?.Split(',').Select(p => p.Trim()).ToList();
-            
+            // setup tag
             output.TagName = "table";
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Add("class", styles.Table);
@@ -65,6 +58,16 @@ namespace BladeRazor.TagHelpers
             // check that we have a list
             if (!For.Metadata.IsCollectionType)
                 return;
+
+            // can we conextualise the htmlhelper - if not do not render html values
+            // TODO: it may be worthwhile setting a seperate bool here so we do not conflate these two issues
+            if (htmlHelper is IViewContextAware ht)
+                ht.Contextualize(ViewContext);
+            else
+                RenderValueHtml = false;
+
+            // setup properties to hide
+            var hideProperties = HideProperties?.Split(',').Select(p => p.Trim()).ToList();
 
             // create headers
             string keyProperty = null;
@@ -80,14 +83,8 @@ namespace BladeRazor.TagHelpers
                 if (hideProperties != null && hideProperties.Contains(p.PropertyName))
                     continue;
 
-
-                // check display
-                var fa = Utility.GetAttribute<FormAttribute>(p);
-                var da = Utility.GetAttribute<DisplayAttribute>(p);
-                if (!Utility.DisplayView(fa) || !Utility.DisplayView(da))
+                if (!Utility.DisplayForView(p))
                     continue;
-
-              
 
                 // render the cell
                 var headerCell = new TagBuilder("th");
@@ -115,10 +112,10 @@ namespace BladeRazor.TagHelpers
             {
                 // create the row
                 var row = new TagBuilder("tr") { TagRenderMode = TagRenderMode.Normal };
-                
+
                 // get the explorer
                 var explorer = For.ModelExplorer.GetExplorerForModel(item);
-                
+
                 // get the key value
                 string keyValue = null;
                 if (keyProperty != null)
@@ -130,42 +127,16 @@ namespace BladeRazor.TagHelpers
                     if (hideProperties != null && hideProperties.Contains(p.Metadata.PropertyName))
                         continue;
 
-
-                    // create a model expression from the explorer
-                    var f = new ModelExpression($"{p.Container.Metadata.Name }.{ p.Metadata.Name}", explorer);
-
-
-                    IHtmlContent value = null;                    
-                    if (p.Model.GetType() == typeof(bool))
-                    {
-                        if (htmlHelper is IViewContextAware ht)
-                        {
-                            ht.Contextualize(ViewContext);
-                            htmlHelper.ViewData.Add(p.Metadata.PropertyName, p.Model);
-                            value = htmlHelper.Display(p.Metadata.PropertyName);
-                        }
-                    }
-                    else
-                    {
-                        string formattedValue = p.Model.ToString();
-                        if (!string.IsNullOrWhiteSpace(p.Metadata.DisplayFormatString))
-                            formattedValue = string.Format(p.Metadata.DisplayFormatString, p.Model);                        
-                        value = new HtmlContentBuilder().Append(formattedValue);
-                    }
-
-                    // check display
-                    var fa = Utility.GetAttribute<FormAttribute>(p.Metadata);
-                    var da = Utility.GetAttribute<DisplayAttribute>(p.Metadata);
-                    if (!Utility.DisplayView(fa) || !Utility.DisplayView(da))
+                    if (!Utility.DisplayForView(p.Metadata))
                         continue;
 
+                    // create a model expression from the explorer
+                    //var f = new ModelExpression($"{p.Container.Metadata.Name }.{ p.Metadata.Name}", explorer);
 
-                    //// get the formatted value                
-                    //var dta = Utility.GetAttribute<DataTypeAttribute>(p.Metadata);
-                    //var value = Utility.GetFormattedValue(p, dta, RenderCellHtml);
+                    var value = Utility.GetFormattedHtml(p, ViewContext, htmlHelper, RenderValueHtml);
 
-                    //// check for complex object and set value
-                    //value = Utility.GetComplexValue(p, fa, value, RenderCellHtml);
+                    // check for complex object and set value
+                    value = Utility.GetComplexValue(p, value, ViewContext, htmlHelper, RenderValueHtml);
 
                     // render the cell
                     var cell = new TagBuilder("td");
@@ -178,12 +149,12 @@ namespace BladeRazor.TagHelpers
                 // render the buttons cell
                 if (keyValue != null)
                 {
-                    var buttons = new TagBuilder("td");                    
+                    var buttons = new TagBuilder("td");
                     var routes = new Dictionary<string, string>() { { keyProperty.ToLower(), keyValue } };
                     if (!string.IsNullOrEmpty(EditPage))
                         buttons.InnerHtml.AppendHtml(GenerateEditButton(explorer, keyProperty, keyValue));
                     if (!string.IsNullOrEmpty(ViewPage))
-                        buttons.InnerHtml.AppendHtml(GenerateViewButton(explorer, keyProperty, keyValue));                   
+                        buttons.InnerHtml.AppendHtml(GenerateViewButton(explorer, keyProperty, keyValue));
                     if (!string.IsNullOrEmpty(DeletePage))
                         buttons.InnerHtml.AppendHtml(GenerateDeleteButton(explorer, keyProperty, keyValue));
                     row.InnerHtml.AppendHtml(buttons);
@@ -192,15 +163,17 @@ namespace BladeRazor.TagHelpers
             }
         }
 
+       
+
         protected virtual IHtmlContent GenerateViewButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
         {
             var routes = new Dictionary<string, string>()
             {
-                { keyProperty.ToLower(), keyValue }                
+                { keyProperty.ToLower(), keyValue }
             };
             if (CommandsEnabled)
                 routes.Add("command", viewCommand);
-            
+
             return tg.GenerateAnchorTagHelper(ViewPage, ViewPage, styles.ButtonView, routes);
         }
 
@@ -219,8 +192,8 @@ namespace BladeRazor.TagHelpers
 
         protected virtual IHtmlContent GenerateDeleteButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
         {
-            var routes =  new Dictionary<string, string>() 
-            { 
+            var routes = new Dictionary<string, string>()
+            {
                 { keyProperty.ToLower(), keyValue }
             };
 
@@ -228,6 +201,6 @@ namespace BladeRazor.TagHelpers
                 routes.Add("command", deleteCommand);
 
             return tg.GenerateAnchorTagHelper(DeletePage, DeletePage, styles.ButtonDelete, routes);
-        }      
+        }
     }
 }

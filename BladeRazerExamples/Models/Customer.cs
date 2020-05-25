@@ -23,13 +23,13 @@ namespace BladeRazorExamples.Models
         [Display(Name = "Name")]
         public string FullName => $"{FirstName} {LastName}";
         
-        [Display(Name = "First Name")]
+        [Display(Name = "First Name")]         
         [Form(DisplayView = false)]
         public string FirstName { get; set; }
         
-        [Required]
-        [Display(Name = "Last Name")]
-        [Form(DisplayView = false)]
+        [Required]        
+        [Display(Name = "Last Name")]        
+        [Form(DisplayView = false)]        
         public string LastName { get; set; }
        
         public string Telephone { get; set; }
@@ -44,7 +44,7 @@ namespace BladeRazorExamples.Models
         [Form(FormInputType.Select, SelectOptionName = "Select")]
         public CustomerType CustomerType { get; set; }
 
-        [Form(DisplayView = false)]
+        [Form(DisplayView = false)]        
         public int CustomerNumber { get; set; }
 
         public bool Active { get; set; }

@@ -19,30 +19,103 @@ namespace BladeRazor.TagHelpers
             return attribute;
         }
 
-        public static bool DisplayView(Attribute a)
+        public static bool DisplayForView(ModelMetadata p)
         {
-            if (a == null)
-                return true;
-
-            if (a is FormAttribute f)
+            // check meta-data
+            if (p.ShowForDisplay == false)
+                return false;
+            
+            // check form attribute
+            var fa = Utility.GetAttribute<FormAttribute>(p);
+            if (fa != null)
             {
-                if (f.Type == FormInputType.Hidden || f.Type == FormInputType.None)
+                if (fa.Type == FormInputType.Hidden || fa.Type == FormInputType.None)
                     return false;
-                if (!f.DisplayView)
+                if (!fa.DisplayView)
                     return false;
             }
 
-            if (a is DisplayAttribute d)
+            // check display attribute
+            var da = Utility.GetAttribute<DisplayAttribute>(p);
+            if (da != null && da.GetAutoGenerateField() != null)
             {
-                if (d.GetAutoGenerateField() != null)
-                    if (!d.AutoGenerateField)
-                        return false;
+                if (!da.AutoGenerateField)
+                    return false;
             }
 
+            // if we made it here then display
             return true;
         }
 
-        // TODO: Render according to format string attribute too        
+
+        public static bool DisplayForEdit(ModelMetadata meta)
+        {
+            // check metadata
+            if (meta.ShowForEdit == false)
+                return false;
+
+            // check form attribute
+            var fa = Utility.GetAttribute<FormAttribute>(meta);
+            if (fa != null)
+            {
+                if (fa.Type == FormInputType.None)
+                    return false;
+                if (!fa.DisplayEdit)
+                    return false;
+            }
+
+            // check display attribute
+            var da = Utility.GetAttribute<DisplayAttribute>(meta);
+            if (da != null && da.GetAutoGenerateField() != null)
+            {
+                if (!da.AutoGenerateField)
+                    return false;
+            }
+
+            // if we made it here then display
+            return true;
+        }
+
+        public static IHtmlContent GetComplexValue(ModelExplorer explorer, IHtmlContent value, ViewContext viewContext, IHtmlHelper htmlHelper, bool renderHtml)
+        {
+            // check for complex
+            if (!explorer.Metadata.IsComplexType)
+                return value;
+
+            // now find the property to display
+            var fa = Utility.GetAttribute<FormAttribute>(explorer.Metadata);
+            if (fa != null && !string.IsNullOrWhiteSpace(fa.ComplexDisplayProperty))
+            {
+                var pp = explorer.Properties.Where(pp => pp.Metadata.PropertyName == fa.ComplexDisplayProperty).FirstOrDefault();
+                if (pp != null)
+                    return GetFormattedHtml(pp, viewContext, htmlHelper, renderHtml);
+            }
+
+            // if we got here then just return the value as-is
+            return value;           
+        }
+
+        public static IHtmlContent GetFormattedHtml(ModelExplorer p, ViewContext viewContext, IHtmlHelper htmlHelper, bool renderHtml)
+        {
+            // if we have a boolean - render the checkbox
+            IHtmlContent value = null;
+            if (renderHtml && p.Model.GetType() == typeof(bool))
+            {
+                htmlHelper.ViewData.Add(p.Metadata.PropertyName, p.Model);
+                value = htmlHelper.Display(p.Metadata.PropertyName);
+            }
+            else
+            {
+                string formattedValue = p.Model.ToString();
+                if (!string.IsNullOrWhiteSpace(p.Metadata.DisplayFormatString))
+                    formattedValue = string.Format(p.Metadata.DisplayFormatString, p.Model);
+                value = new HtmlContentBuilder().Append(formattedValue);
+            }
+
+            return value;
+        }
+
+        // this is old 
         public static string GetFormattedValue(ModelExplorer explorer, DataTypeAttribute dta, bool renderHtml)
         {
             HtmlContentBuilder content = new HtmlContentBuilder();
@@ -98,6 +171,8 @@ namespace BladeRazor.TagHelpers
 
         }
 
+
+        // this is old
         private static string FormatDateTime(ModelExplorer explorer, DataTypeAttribute dta, string value)
         {
             if (dta == null || explorer.Model == null)
@@ -113,19 +188,6 @@ namespace BladeRazor.TagHelpers
             return value;
         }
 
-        public static string GetComplexValue(ModelExplorer explorer, FormAttribute fa, string value, bool renderHtml)
-        {
-            if (explorer.Metadata.IsComplexType && fa != null && !string.IsNullOrWhiteSpace(fa.ComplexDisplayProperty))
-            {
-                var pp = explorer.Properties.Where(pp => pp.Metadata.PropertyName == fa.ComplexDisplayProperty).FirstOrDefault();
-                if (pp != null)
-                {
-                    var dta = GetAttribute<DataTypeAttribute>(pp.Metadata);
-                    value = GetFormattedValue(pp, dta, renderHtml);
-                }
-            }
-
-            return value;
-        }
+        
     }
 }

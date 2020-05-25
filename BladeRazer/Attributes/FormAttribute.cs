@@ -28,6 +28,7 @@ namespace BladeRazor.Attributes
         /// For details and index
         /// </summary>
         public bool DisplayView { get; set; } = true;
+        public bool DisplayEdit { get; set; } = true;
 
         public FormAttribute()
         {            

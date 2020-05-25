@@ -14,8 +14,11 @@ namespace BladeRazor.TagHelpers
     [HtmlTargetElement("form-details", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormDetailsTagHelper : FormBaseTagHelper
     {
-        [HtmlAttributeName("asp-cell-value-html")]
-        public bool RenderCellHtml { get; set; } = true;
+        protected IHtmlHelper htmlHelper;
+
+        [HtmlAttributeName("asp-render-value-html")]
+        public bool RenderValueHtml { get; set; } = true;
+
 
         public FormDetailsTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
@@ -26,45 +29,40 @@ namespace BladeRazor.TagHelpers
             output.Attributes.Add("class", styles.DescriptionList);
             output.TagMode = TagMode.StartTagAndEndTag;
 
+            // can we conextualise the htmlhelper - if not do not render html values            
+            if (htmlHelper is IViewContextAware ht)
+                ht.Contextualize(ViewContext);
+            else
+                RenderValueHtml = false;
+
             // loop through the properties
-            foreach (var explorer in For.ModelExplorer.Properties)
+            foreach (var p in For.ModelExplorer.Properties)
             {
-                if (explorer.Metadata.IsCollectionType)
+                if (p.Metadata.IsCollectionType)
                     continue;
-
-                if (explorer.Metadata.IsReadOnly)
-                    continue;
-
-                // set the name
-                string name = explorer.Metadata.DisplayName;
-                if (string.IsNullOrWhiteSpace(name))
-                    name = explorer.Metadata.PropertyName;
 
                 // check display
-                var fa = Utility.GetAttribute<FormAttribute>(explorer.Metadata);
-                var da = Utility.GetAttribute<DisplayAttribute>(explorer.Metadata);
-                if (!Utility.DisplayView(fa) || !Utility.DisplayView(da))
+                if (!Utility.DisplayForView(p.Metadata))
                     continue;
+                
+                // set the name
+                string name = p.Metadata.DisplayName;
+                if (string.IsNullOrWhiteSpace(name))
+                    name = p.Metadata.PropertyName;
 
-                // set the formatted value                
-                var dta = Utility.GetAttribute<DataTypeAttribute>(explorer.Metadata);
-                var value = Utility.GetFormattedValue(explorer, dta, RenderCellHtml);
+                // get the content
+                var value = Utility.GetFormattedHtml(p, ViewContext, htmlHelper, RenderValueHtml);
 
                 // check for complex object and set value
-                value = Utility.GetComplexValue(explorer, fa, value, RenderCellHtml);
-
-
-                
-
+                value = Utility.GetComplexValue(p, value, ViewContext, htmlHelper, RenderValueHtml);
 
                 // render 
                 var dt = new TagBuilder("dt");
                 dt.Attributes.Add("class", styles.DefinitionTerm);
                 dt.InnerHtml.Append(name);
-
                 var dd = new TagBuilder("dd");
                 dd.Attributes.Add("class", styles.DefinitionDescription);
-                dd.InnerHtml.Append(value);
+                dd.InnerHtml.AppendHtml(value);
 
                 output.Content.AppendHtml(dt);
                 output.Content.AppendHtml(dd);
