@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BladeRazor.TagHelpers
 {
-    // TODO: FormValidationTagHelper: This is not yet complete 
+    // TODO: FormValidationTagHelper: This is not yet complete. We have validation on the individual fields. Not sure it adds value
     [HtmlTargetElement("form-validation-summary", TagStructure = TagStructure.NormalOrSelfClosing)]
     class FormValidationSummaryTagHelper : FormBaseTagHelper
     {

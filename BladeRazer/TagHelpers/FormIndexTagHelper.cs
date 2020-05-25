@@ -163,8 +163,6 @@ namespace BladeRazor.TagHelpers
             }
         }
 
-       
-
         protected virtual IHtmlContent GenerateViewButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)
         {
             var routes = new Dictionary<string, string>()

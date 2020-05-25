@@ -54,6 +54,10 @@ namespace BladeRazor.TagHelpers
             if (meta.ShowForEdit == false)
                 return false;
 
+            // read-only fields are skipped
+            if (meta.IsReadOnly)
+                return false; 
+
             // check form attribute
             var fa = Utility.GetAttribute<FormAttribute>(meta);
             if (fa != null)

@@ -7,6 +7,8 @@ using System.Text;
 
 namespace BladeRazor.TagHelpers
 {
+    
+    // TODO: Remove this
     public class TestDisplayTagHelper : TagHelper
     {
         protected IHtmlGenerator generator;

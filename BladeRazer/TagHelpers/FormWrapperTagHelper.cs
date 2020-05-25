@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BladeRazor.TagHelpers 
 {
-    // TODO: FormWrapperTagHelper: This is not implemented yet
+    // TODO: FormWrapperTagHelper: This is not complete. It may not add value
     [HtmlTargetElement("form-wrapper", TagStructure = TagStructure.NormalOrSelfClosing)]
     class FormWrapperTagHelper : FormBaseTagHelper
     {

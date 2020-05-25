@@ -31,21 +31,21 @@ namespace BladeRazor.TagHelpers
             output.TagMode = TagMode.StartTagAndEndTag;
 
             // loop through properties
-            foreach (var explorer in For.ModelExplorer.Properties)
+            foreach (var p in For.ModelExplorer.Properties)
             {
                 //  we are not recursing here
-                if (explorer.Metadata.IsComplexType)
+                if (p.Metadata.IsComplexType)
                     continue;
 
                 // read-only fields are skipped
-                if (explorer.Metadata.IsReadOnly)
+                if (!Utility.DisplayForEdit(p.Metadata))
                     continue;
 
                 // create a model expression from the explorer
-                var f = new ModelExpression($"{explorer.Container.Metadata.Name }.{ explorer.Metadata.Name}", explorer);
+                var f = new ModelExpression($"{p.Container.Metadata.Name }.{ p.Metadata.Name}", p);
 
                 // if we have a hidden field, generate it and continue
-                var fa = Utility.GetAttribute<FormAttribute>(explorer.Metadata);
+                var fa = Utility.GetAttribute<FormAttribute>(p.Metadata);
                 if (fa?.Type == FormInputType.Hidden)
                 {
                     output.Content.AppendHtml(tg.GenerateHiddenTagHelper(f));
@@ -70,7 +70,6 @@ namespace BladeRazor.TagHelpers
                 FormInputType.Select => GenerateSelectContent(f, fa),
                 _ => GenerateDefaultContent(f)
             };
-
 
         protected IHtmlContent GenerateSelectContent(ModelExpression f, FormAttribute formAttribute)
         {
