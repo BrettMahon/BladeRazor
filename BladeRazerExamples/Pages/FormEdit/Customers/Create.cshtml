@@ -10,12 +10,12 @@
 <form-div>
     <form method="post">
         <form-edit asp-for="Customer" asp-items="@Html.GetEnumSelectList<CustomerType>()"></form-edit>
-        <form-submit></form-submit>
+        <form-submit asp-submit-text="Create"></form-submit>
     </form>
 </form-div>
 
 <p></p>
-<h2>Create Customer - Standard Razer</h2>
+<h2>Create Customer - Standard Razor</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">

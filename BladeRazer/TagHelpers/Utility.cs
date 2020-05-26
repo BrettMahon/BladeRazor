@@ -24,7 +24,7 @@ namespace BladeRazor.TagHelpers
             // check meta-data
             if (p.ShowForDisplay == false)
                 return false;
-            
+
             // check form attribute
             var fa = Utility.GetAttribute<FormAttribute>(p);
             if (fa != null)
@@ -56,7 +56,7 @@ namespace BladeRazor.TagHelpers
 
             // read-only fields are skipped
             if (meta.IsReadOnly)
-                return false; 
+                return false;
 
             // check form attribute
             var fa = Utility.GetAttribute<FormAttribute>(meta);
@@ -96,27 +96,35 @@ namespace BladeRazor.TagHelpers
             }
 
             // if we got here then just return the value as-is
-            return value;           
+            return value;
         }
 
         public static IHtmlContent GetFormattedHtml(ModelExplorer p, ViewContext viewContext, IHtmlHelper htmlHelper, bool renderHtml)
         {
+            // check for mail address
+            if (renderHtml && p.Metadata.DataTypeName == "EmailAddress")
+            {
+                var email = p.Model.ToString();
+                TagBuilder t = new TagBuilder("a");
+                t.Attributes.Add("href", $"mailto:{email}");
+                t.TagRenderMode = TagRenderMode.Normal;
+                t.InnerHtml.Append(email);
+                return t;
+            }
+
             // if we have a boolean - render the checkbox
-            IHtmlContent value = null;
             if (renderHtml && p.Model.GetType() == typeof(bool))
             {
                 htmlHelper.ViewData.Add(p.Metadata.PropertyName, p.Model);
-                value = htmlHelper.Display(p.Metadata.PropertyName);
-            }
-            else
-            {
-                string formattedValue = p.Model.ToString();
-                if (!string.IsNullOrWhiteSpace(p.Metadata.DisplayFormatString))
-                    formattedValue = string.Format(p.Metadata.DisplayFormatString, p.Model);
-                value = new HtmlContentBuilder().Append(formattedValue);
+                return htmlHelper.Display(p.Metadata.PropertyName);
             }
 
-            return value;
+            // otherwise simply render the formatted text
+            string formattedValue = p.Model.ToString();
+            if (!string.IsNullOrWhiteSpace(p.Metadata.DisplayFormatString))
+                formattedValue = string.Format(p.Metadata.DisplayFormatString, p.Model);
+            return new HtmlContentBuilder().Append(formattedValue);
+
         }
 
         // this is old 
@@ -192,6 +200,6 @@ namespace BladeRazor.TagHelpers
             return value;
         }
 
-        
+
     }
 }

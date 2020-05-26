@@ -55,7 +55,7 @@ namespace BladeRazor.TagHelpers
         public string ButtonSubmit { get; set; } = "btn btn-info m-1";
         public string ButtonCancel { get; set; } = "btn btn-primary m-1";
 
-        public string ButtonNew { get; set; } = "btn btn-success mt-2 mb-2";
+        public string ButtonNew { get; set; } = "btn btn-sm btn-success mt-2 mb-2";
         public string ButtonNewIcon { get; set; } = "oi oi-plus";        
         
         public string ButtonEdit { get; set; } = "btn btn-sm btn-info mr-1 mb-1";        

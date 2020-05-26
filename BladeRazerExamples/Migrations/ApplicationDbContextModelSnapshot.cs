@@ -4,16 +4,14 @@ using BladeRazorExamples.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BladeRazorExamples.Data.Migrations
+namespace BladeRazerExamples.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200521100649_customer-registered")]
-    partial class customerregistered
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +19,7 @@ namespace BladeRazorExamples.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("BladeRazerExamples.Models.Customer", b =>
+            modelBuilder.Entity("BladeRazorExamples.Models.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,6 +32,9 @@ namespace BladeRazorExamples.Data.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CustomerNumber")
+                        .HasColumnType("int");
+
                     b.Property<int>("CustomerType")
                         .HasColumnType("int");
 
@@ -44,6 +45,7 @@ namespace BladeRazorExamples.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Registered")
@@ -57,7 +59,7 @@ namespace BladeRazorExamples.Data.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("BladeRazerExamples.Models.Order", b =>
+            modelBuilder.Entity("BladeRazorExamples.Models.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -69,6 +71,9 @@ namespace BladeRazorExamples.Data.Migrations
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
@@ -286,9 +291,9 @@ namespace BladeRazorExamples.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BladeRazerExamples.Models.Order", b =>
+            modelBuilder.Entity("BladeRazorExamples.Models.Order", b =>
                 {
-                    b.HasOne("BladeRazerExamples.Models.Customer", "Customer")
+                    b.HasOne("BladeRazorExamples.Models.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
