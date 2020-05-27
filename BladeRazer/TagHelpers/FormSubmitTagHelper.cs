@@ -37,23 +37,9 @@ namespace BladeRazor.TagHelpers
             // generate the cancel
             if (!string.IsNullOrWhiteSpace(CancelText))
                 output.Content.AppendHtml(GenerateCancel());
-
-            //// generate the anchor cancel
-            //if (!JavaScriptBack)
-            //{
-            //    output.Content.AppendHtml(tg.GenerateAnchorTagHelper(CancelPage, CancelText, styles.ButtonCancel, null));
-            //}
-            //else
-            //{
-            //    var a = new TagBuilder("a");
-            //    a.Attributes.Add("class", styles.ButtonCancel);
-            //    a.Attributes.Add("href", "javascript:history.go(-1)");
-            //    a.InnerHtml.Append(CancelText);
-                
-            //}
         }
 
-        protected IHtmlContent GenerateSubmit()
+        protected virtual IHtmlContent GenerateSubmit()
         {
             TagBuilder submit = new TagBuilder("input") { TagRenderMode = TagRenderMode.StartTag };
             submit.Attributes.Add("type", "submit");
@@ -62,7 +48,7 @@ namespace BladeRazor.TagHelpers
             return submit;
         }
 
-        protected IHtmlContent GenerateCancel()
+        protected virtual IHtmlContent GenerateCancel()
         {
             if (!JavaScriptBack)
                 return tg.GenerateAnchorTagHelper(CancelPage, CancelText, styles.ButtonCancel, null);

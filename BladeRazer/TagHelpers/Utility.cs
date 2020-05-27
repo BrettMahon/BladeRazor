@@ -35,6 +35,7 @@ namespace BladeRazor.TagHelpers
                     return false;
             }
 
+
             // check display attribute
             var da = Utility.GetAttribute<DisplayAttribute>(p);
             if (da != null && da.GetAutoGenerateField() != null)
@@ -45,6 +46,32 @@ namespace BladeRazor.TagHelpers
 
             // if we made it here then display
             return true;
+        }
+
+        public static string GetKeyProperty(ModelPropertyCollection properties)
+        {
+            string keyProperty = null;
+            foreach (var p in properties)
+            {
+                // test for key
+                var keyAttribute = Utility.GetAttribute<KeyAttribute>(p);
+                if (keyAttribute != null)
+                    keyProperty = p.Name;
+            }
+
+            // if we do not have a key search for a property called Id
+            if (string.IsNullOrWhiteSpace(keyProperty))
+                keyProperty = properties.Where(p => p.Name.ToLower() == "id").FirstOrDefault()?.Name;
+
+            return keyProperty;
+        }
+
+        public static string GetKeyValue(string keyProperty, ModelExplorer explorer)
+        {
+            if (keyProperty == null || explorer == null)
+                return null;
+
+            return explorer.Properties.Where(p => p.Metadata.Name == keyProperty).FirstOrDefault()?.Model.ToString();
         }
 
 

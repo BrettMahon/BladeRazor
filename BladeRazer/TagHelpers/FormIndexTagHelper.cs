@@ -1,5 +1,6 @@
 ﻿using BladeRazor.Attributes;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -40,6 +41,7 @@ namespace BladeRazor.TagHelpers
         /// <summary>
         /// Comma seperated
         /// </summary>
+        [HtmlAttributeName("asp-hide-properties")]
         public string HideProperties { get; set; }
 
         public FormIndexTagHelper(IHtmlGenerator generator, IHtmlHelper htmlHelper, IStyles styles = null) : base(generator, styles)
@@ -59,21 +61,17 @@ namespace BladeRazor.TagHelpers
             if (!For.Metadata.IsCollectionType)
                 return;
 
-           
-
             // setup properties to hide
             var hideProperties = HideProperties?.Split(',').Select(p => p.Trim()).ToList();
+            
+            // get the key
+            string keyProperty = Utility.GetKeyProperty(For.Metadata.ElementMetadata.Properties);
 
             // create headers
-            string keyProperty = null;
             var headerRow = new TagBuilder("tr") { TagRenderMode = TagRenderMode.Normal };
             foreach (var p in For.Metadata.ElementMetadata.Properties)
             {
-                // test for key
-                var keyAttribute = Utility.GetAttribute<KeyAttribute>(p);
-                if (keyAttribute != null)
-                    keyProperty = p.Name;
-
+               
                 // test against hide list
                 if (hideProperties != null && hideProperties.Contains(p.PropertyName))
                     continue;
@@ -90,11 +88,7 @@ namespace BladeRazor.TagHelpers
                 else
                     headerCell.InnerHtml.Append(p.Name);
                 headerRow.InnerHtml.AppendHtml(headerCell);
-            }
-
-            // if we do not have a key search for a property called Id
-            if (string.IsNullOrWhiteSpace(keyProperty))
-                keyProperty = For.Metadata.ElementMetadata.Properties.Where(p => p.Name.ToLower() == "id").FirstOrDefault()?.Name;
+            }           
 
             // render one last cell for the buttons
             var lastHeader = new TagBuilder("th");
@@ -111,8 +105,6 @@ namespace BladeRazor.TagHelpers
             var collection = (ICollection)For.Model;
             foreach (var item in collection)
             {
-              
-
                 // create the row
                 var row = new TagBuilder("tr") { TagRenderMode = TagRenderMode.Normal };
 
@@ -120,9 +112,7 @@ namespace BladeRazor.TagHelpers
                 var explorer = For.ModelExplorer.GetExplorerForModel(item);
 
                 // get the key value
-                string keyValue = null;
-                if (keyProperty != null)
-                    keyValue = explorer.Properties.Where(p => p.Metadata.Name == keyProperty).FirstOrDefault()?.Model.ToString();
+                string keyValue = Utility.GetKeyValue(keyProperty, explorer);
 
                 // loop through the element properties
                 foreach (var p in explorer.Properties)
