@@ -15,8 +15,12 @@ namespace BladeRazor.TagHelpers
     {
         [HtmlAttributeName("asp-submit-text")]
         public string SubmitText { get; set; } = "Save";
+        [HtmlAttributeName("asp-submit-class")]
+        public string SubmitClass { get; set; } = null;
         [HtmlAttributeName("asp-cancel-text")]
         public string CancelText { get; set; } = "Back";
+        [HtmlAttributeName("asp-cancel-class")]
+        public string CancelClass { get; set; } = null;
         [HtmlAttributeName("asp-cancel-page")]
         public string CancelPage { get; set; } = "Index";
         [HtmlAttributeName("asp-javascript-back")]
@@ -44,17 +48,24 @@ namespace BladeRazor.TagHelpers
             TagBuilder submit = new TagBuilder("input") { TagRenderMode = TagRenderMode.StartTag };
             submit.Attributes.Add("type", "submit");
             submit.Attributes.Add("value", SubmitText);
-            submit.Attributes.Add("class", styles.ButtonSubmit);
+            if (string.IsNullOrWhiteSpace(SubmitClass))
+                submit.Attributes.Add("class", styles.ButtonSubmit);
+            else
+                submit.Attributes.Add("class", SubmitClass);
             return submit;
         }
 
         protected virtual IHtmlContent GenerateCancel()
         {
-            if (!JavaScriptBack)
-                return tg.GenerateAnchorTagHelper(CancelPage, CancelText, styles.ButtonCancel, null);
+            string style = styles.ButtonCancel;
+            if (!string.IsNullOrWhiteSpace(CancelClass))
+                style = CancelClass;
             
-            var a = new TagBuilder("a");
-            a.Attributes.Add("class", styles.ButtonCancel);
+            if (!JavaScriptBack)
+                return tg.GenerateAnchorTagHelper(CancelPage, CancelText, style, null);
+            
+            var a = new TagBuilder("a");            
+            a.Attributes.Add("class", style);
             a.Attributes.Add("href", "javascript:history.go(-1)");
             a.InnerHtml.Append(CancelText);
             return a;
