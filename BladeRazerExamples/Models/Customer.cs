@@ -31,7 +31,8 @@ namespace BladeRazorExamples.Models
         [Display(Name = "Last Name")]        
         [Form(DisplayView = false)]        
         public string LastName { get; set; }
-       
+
+        [DataType(DataType.PhoneNumber)]
         public string Telephone { get; set; }
 
         [DataType(DataType.EmailAddress)]
@@ -47,9 +48,10 @@ namespace BladeRazorExamples.Models
         [Form(DisplayView = false)]        
         public int CustomerNumber { get; set; }
 
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
 
         [DataType(DataType.Date)]
+        [Form(DisplayEdit = false)]
         public DateTime Registered { get; set; } = DateTime.Today;
        
     }

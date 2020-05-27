@@ -123,13 +123,22 @@ namespace BladeRazor.TagHelpers
                 itemsList.Add(new SelectListItem(optionName, optionValue));
             itemsList.AddRange(items);
 
-            // set selected item - based on value
-            if (f.Model != null)
-            {
-                var selected = itemsList.Where(i => i.Value?.ToString() == f.Model.ToString()).FirstOrDefault();
-                if (selected != null)
-                    selected.Selected = true;
-            }
+            // This is handled by the SelectTagHelper in the Init method
+            //if (f.Model != null)
+            //{
+            //    // set selected item - based on value
+            //    var selected = itemsList.Where(i => i.Value?.ToString() == f.Model.ToString()).FirstOrDefault();
+            //    if (selected != null)
+            //    {
+            //        selected.Selected = true;
+            //    }
+            //    else
+            //    {
+            //        // set selected item - if value fails try the text
+            //        selected = itemsList.Where(i => i.Text?.ToString() == f.Model.ToString()).FirstOrDefault();
+            //    }
+            //}
+
             var tagHelper = new SelectTagHelper(generator)
             {
                 For = f,
@@ -169,18 +178,34 @@ namespace BladeRazor.TagHelpers
             var attributes = new TagHelperAttributeList();
             if (f != null)
             {
-                attributes = new TagHelperAttributeList
+                // this is a workaround for checkboxes - value must always be true it seems
+                // it seems that ASP.Net just uses the checked parameter possibly
+                if (f.Model != null && f.Model.GetType() == typeof(bool))
                 {
-                    { "name",  f.Name },
-                    { "type",  type },
-                    { "value", f.Model?.ToString().ToLower() }
-                };
+                    attributes = new TagHelperAttributeList
+                    {
+                        { "name",  f.Name },
+                        { "type",  type },
+                        { "value", "true" }
+                    };
+                }
+                // this is the normal case
+                else
+                {
+                    attributes = new TagHelperAttributeList
+                    {
+                        { "name",  f.Name },
+                        { "type",  type },
+                        { "value", f.Model?.ToString().ToLower() }
+                    };
+                }
             }
             var tagContext = new TagHelperContext(
                 attributes,
                 new Dictionary<object, object>(),
                 Guid.NewGuid().ToString());
 
+            tagHelper.Init(tagContext);
             tagHelper.Process(tagContext, tagOutput);
             tagOutput.Attributes.Add(new TagHelperAttribute("class", css));
             return tagOutput;

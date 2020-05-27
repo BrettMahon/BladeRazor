@@ -30,30 +30,48 @@ namespace BladeRazor.TagHelpers
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Add("class", styles.FormGroup);
 
-            // generate the submit
+            // generate the submit    
+            if (!string.IsNullOrWhiteSpace(SubmitText))
+                output.Content.AppendHtml(GenerateSubmit());
+
+            // generate the cancel
+            if (!string.IsNullOrWhiteSpace(CancelText))
+                output.Content.AppendHtml(GenerateCancel());
+
+            //// generate the anchor cancel
+            //if (!JavaScriptBack)
+            //{
+            //    output.Content.AppendHtml(tg.GenerateAnchorTagHelper(CancelPage, CancelText, styles.ButtonCancel, null));
+            //}
+            //else
+            //{
+            //    var a = new TagBuilder("a");
+            //    a.Attributes.Add("class", styles.ButtonCancel);
+            //    a.Attributes.Add("href", "javascript:history.go(-1)");
+            //    a.InnerHtml.Append(CancelText);
+                
+            //}
+        }
+
+        protected IHtmlContent GenerateSubmit()
+        {
             TagBuilder submit = new TagBuilder("input") { TagRenderMode = TagRenderMode.StartTag };
             submit.Attributes.Add("type", "submit");
             submit.Attributes.Add("value", SubmitText);
             submit.Attributes.Add("class", styles.ButtonSubmit);
-            output.Content.AppendHtml(submit);
+            return submit;
+        }
 
-            // generate the cancel
-            if (string.IsNullOrWhiteSpace(CancelText))
-                return;
-
-            // generate the anchor cancel
+        protected IHtmlContent GenerateCancel()
+        {
             if (!JavaScriptBack)
-            {
-                output.Content.AppendHtml(tg.GenerateAnchorTagHelper(CancelPage, CancelText, styles.ButtonCancel, null));
-            }
-            else
-            {
-                var a = new TagBuilder("a");
-                a.Attributes.Add("class", styles.ButtonCancel);
-                a.Attributes.Add("href", "javascript:history.go(-1)");
-                a.InnerHtml.Append(CancelText);
-                output.Content.AppendHtml(a);
-            }
+                return tg.GenerateAnchorTagHelper(CancelPage, CancelText, styles.ButtonCancel, null);
+            
+            var a = new TagBuilder("a");
+            a.Attributes.Add("class", styles.ButtonCancel);
+            a.Attributes.Add("href", "javascript:history.go(-1)");
+            a.InnerHtml.Append(CancelText);
+            return a;
         }
     }
 }

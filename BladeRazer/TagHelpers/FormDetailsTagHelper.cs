@@ -20,14 +20,20 @@ namespace BladeRazor.TagHelpers
         public bool RenderValueHtml { get; set; } = true;
 
 
-        public FormDetailsTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
+        public FormDetailsTagHelper(IHtmlGenerator generator, IHtmlHelper htmlHelper, IStyles styles = null) : base(generator, styles)
+        {
+            this.htmlHelper = htmlHelper;
+        }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-
-            output.TagName = "dl";
-            output.Attributes.Add("class", styles.DescriptionList);
+            output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
+
+            var dl = new TagBuilder("dl");
+            dl.TagRenderMode = TagRenderMode.Normal;
+            dl.Attributes.Add("class", styles.DescriptionList);
+            output.Content.AppendHtml(dl);
 
             // can we conextualise the htmlhelper - if not do not render html values            
             if (htmlHelper is IViewContextAware ht)
@@ -64,8 +70,9 @@ namespace BladeRazor.TagHelpers
                 dd.Attributes.Add("class", styles.DefinitionDescription);
                 dd.InnerHtml.AppendHtml(value);
 
-                output.Content.AppendHtml(dt);
-                output.Content.AppendHtml(dd);
+                // add to list
+                dl.InnerHtml.AppendHtml(dt);
+                dl.InnerHtml.AppendHtml(dd);
             }
         }
 

@@ -37,7 +37,7 @@ namespace BladeRazor.TagHelpers
                 if (p.Metadata.IsComplexType)
                     continue;
 
-                // read-only fields are skipped
+                // check the metadata
                 if (!Utility.DisplayForEdit(p.Metadata))
                     continue;
 

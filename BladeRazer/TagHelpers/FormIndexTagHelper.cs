@@ -59,12 +59,7 @@ namespace BladeRazor.TagHelpers
             if (!For.Metadata.IsCollectionType)
                 return;
 
-            // can we conextualise the htmlhelper - if not do not render html values
-            // TODO: it may be worthwhile setting a seperate bool here so we do not conflate these two issues
-            if (htmlHelper is IViewContextAware ht)
-                ht.Contextualize(ViewContext);
-            else
-                RenderValueHtml = false;
+           
 
             // setup properties to hide
             var hideProperties = HideProperties?.Split(',').Select(p => p.Trim()).ToList();
@@ -106,10 +101,18 @@ namespace BladeRazor.TagHelpers
             headerRow.InnerHtml.AppendHtml(lastHeader);
             output.Content.AppendHtml(headerRow);
 
+            // can we conextualise the htmlhelper - if not do not render html values                  
+            if (htmlHelper is IViewContextAware ht)
+                ht.Contextualize(ViewContext);
+            else
+                RenderValueHtml = false;
+
             // now loop through items      
             var collection = (ICollection)For.Model;
             foreach (var item in collection)
             {
+              
+
                 // create the row
                 var row = new TagBuilder("tr") { TagRenderMode = TagRenderMode.Normal };
 

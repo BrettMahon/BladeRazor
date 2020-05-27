@@ -115,8 +115,9 @@ namespace BladeRazor.TagHelpers
             // if we have a boolean - render the checkbox
             if (renderHtml && p.Model.GetType() == typeof(bool))
             {
-                htmlHelper.ViewData.Add(p.Metadata.PropertyName, p.Model);
-                return htmlHelper.Display(p.Metadata.PropertyName);
+                var key = Guid.NewGuid().ToString();
+                htmlHelper.ViewData.Add(key, p.Model);
+                return htmlHelper.Display(key);
             }
 
             // otherwise simply render the formatted text

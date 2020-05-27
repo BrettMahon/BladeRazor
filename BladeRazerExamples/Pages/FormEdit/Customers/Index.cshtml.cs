@@ -24,17 +24,10 @@ namespace BladeRazorExamples.Pages.FormEdit.Customers
         }
 
         public IList<Customer> Customer { get;set; }
-       
-        public Customer FirstCustomer { get; set; }
 
         public async Task OnGetAsync()
         {
             Customer = await _context.Customers.ToListAsync();
-            if (Customer.Count > 0)
-            {
-                FirstCustomer = Customer[0];
-                FirstCustomer.Active = true;
-            }
         }
     }
 }
