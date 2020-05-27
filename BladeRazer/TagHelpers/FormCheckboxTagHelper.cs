@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BladeRazor.TagHelpers
 {
@@ -18,8 +13,8 @@ namespace BladeRazor.TagHelpers
             output.TagName = "div";
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Add("class", styles.FormGroup);
-            output.Content.AppendHtml(tg.GenerateLabel(For));          
-            output.Content.AppendHtml(tg.GenerateCheckboxGroup(For));           
+            output.Content.AppendHtml(tg.GenerateLabel(For));
+            output.Content.AppendHtml(tg.GenerateCheckboxGroup(For));
         }
     }
 }

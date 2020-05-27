@@ -1,13 +1,6 @@
-﻿using BladeRazor.Attributes;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BladeRazor.TagHelpers
 {
@@ -50,7 +43,7 @@ namespace BladeRazor.TagHelpers
                 // check display
                 if (!Utility.DisplayForView(p.Metadata))
                     continue;
-                
+
                 // set the name
                 string name = p.Metadata.DisplayName;
                 if (string.IsNullOrWhiteSpace(name))
@@ -76,6 +69,6 @@ namespace BladeRazor.TagHelpers
             }
         }
 
-        
+
     }
 }

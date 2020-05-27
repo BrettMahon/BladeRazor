@@ -1,12 +1,7 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BladeRazor.TagHelpers
 {
@@ -60,11 +55,11 @@ namespace BladeRazor.TagHelpers
             string style = styles.ButtonCancel;
             if (!string.IsNullOrWhiteSpace(CancelClass))
                 style = CancelClass;
-            
+
             if (!JavaScriptBack)
                 return tg.GenerateAnchorTagHelper(CancelPage, CancelText, style, null);
-            
-            var a = new TagBuilder("a");            
+
+            var a = new TagBuilder("a");
             a.Attributes.Add("class", style);
             a.Attributes.Add("href", "javascript:history.go(-1)");
             a.InnerHtml.Append(CancelText);

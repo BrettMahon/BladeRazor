@@ -1,9 +1,6 @@
 ﻿using BladeRazor.Attributes;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BladeRazorExamples.Models
 {
@@ -16,20 +13,20 @@ namespace BladeRazorExamples.Models
 
     public class Customer
     {
-        [Key]        
+        [Key]
         [Form(FormInputType.Hidden, DisplayView = false)]
         public int Id { get; set; }
 
         [Display(Name = "Name")]
         public string FullName => $"{FirstName} {LastName}";
-        
-        [Display(Name = "First Name")]         
+
+        [Display(Name = "First Name")]
         [Form(DisplayView = false)]
         public string FirstName { get; set; }
-        
-        [Required]        
-        [Display(Name = "Last Name")]        
-        [Form(DisplayView = false)]        
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [Form(DisplayView = false)]
         public string LastName { get; set; }
 
         [DataType(DataType.PhoneNumber)]
@@ -37,7 +34,7 @@ namespace BladeRazorExamples.Models
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        
+
         [DataType(DataType.MultilineText)]
         public string Address { get; set; }
 
@@ -45,7 +42,7 @@ namespace BladeRazorExamples.Models
         [Form(FormInputType.Select, SelectOptionName = "Select")]
         public CustomerType CustomerType { get; set; }
 
-        [Form(DisplayView = false)]        
+        [Form(DisplayView = false)]
         public int CustomerNumber { get; set; }
 
         public bool Active { get; set; } = true;
@@ -53,6 +50,6 @@ namespace BladeRazorExamples.Models
         [DataType(DataType.Date)]
         [Form(DisplayEdit = false)]
         public DateTime Registered { get; set; } = DateTime.Today;
-       
+
     }
 }

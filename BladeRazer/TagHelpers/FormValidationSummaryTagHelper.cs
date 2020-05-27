@@ -1,12 +1,5 @@
-﻿using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BladeRazor.TagHelpers
 {
@@ -14,7 +7,7 @@ namespace BladeRazor.TagHelpers
     [HtmlTargetElement("form-validation-summary", TagStructure = TagStructure.NormalOrSelfClosing)]
     class FormValidationSummaryTagHelper : FormBaseTagHelper
     {
-        public FormValidationSummaryTagHelper(IHtmlGenerator generator, IStyles styles=null) : base(generator, styles) { }
+        public FormValidationSummaryTagHelper(IHtmlGenerator generator, IStyles styles = null) : base(generator, styles) { }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

@@ -1,13 +1,9 @@
-﻿using BladeRazor.Attributes;
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 
@@ -63,7 +59,7 @@ namespace BladeRazor.TagHelpers
 
             // setup properties to hide
             var hideProperties = HideProperties?.Split(',').Select(p => p.Trim()).ToList();
-            
+
             // get the key
             string keyProperty = Utility.GetKeyProperty(For.Metadata.ElementMetadata.Properties);
 
@@ -71,7 +67,7 @@ namespace BladeRazor.TagHelpers
             var headerRow = new TagBuilder("tr") { TagRenderMode = TagRenderMode.Normal };
             foreach (var p in For.Metadata.ElementMetadata.Properties)
             {
-               
+
                 // test against hide list
                 if (hideProperties != null && hideProperties.Contains(p.PropertyName))
                     continue;
@@ -88,7 +84,7 @@ namespace BladeRazor.TagHelpers
                 else
                     headerCell.InnerHtml.Append(p.Name);
                 headerRow.InnerHtml.AppendHtml(headerCell);
-            }           
+            }
 
             // render one last cell for the buttons
             var lastHeader = new TagBuilder("th");

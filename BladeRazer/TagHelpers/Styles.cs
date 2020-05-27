@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BladeRazor.TagHelpers
+﻿namespace BladeRazor.TagHelpers
 {
     public interface IStyles
     {
         string FormGroup { get; set; }
         string FormControl { get; set; }
         string FormCheck { get; set; }
-        
+
         string Label { get; set; }
         string CheckLabel { get; set; }
         string Validation { get; set; }
@@ -23,10 +19,10 @@ namespace BladeRazor.TagHelpers
 
         string ButtonSubmit { get; set; }
         string ButtonCancel { get; set; }
-        
+
         string ButtonNew { get; set; }
         string ButtonNewIcon { get; set; }
-        
+
         string ButtonEdit { get; set; }
         string ButtonView { get; set; }
         string ButtonDelete { get; set; }
@@ -51,15 +47,15 @@ namespace BladeRazor.TagHelpers
         public string DescriptionList { get; set; } = "row";
         public string DefinitionTerm { get; set; } = "col-sm-2";
         public string DefinitionDescription { get; set; } = "col-sm-10";
-        
+
 
         public string ButtonSubmit { get; set; } = "btn btn-sm btn-info mr-1";
         public string ButtonCancel { get; set; } = "btn btn-sm btn-primary mr-1";
 
         public string ButtonNew { get; set; } = "btn btn-sm btn-success mt-2 mb-2";
-        public string ButtonNewIcon { get; set; } = "oi oi-plus";        
-        
-        public string ButtonEdit { get; set; } = "btn btn-sm btn-info mr-1 mb-1 mb-md-0";        
+        public string ButtonNewIcon { get; set; } = "oi oi-plus";
+
+        public string ButtonEdit { get; set; } = "btn btn-sm btn-info mr-1 mb-1 mb-md-0";
         public string ButtonView { get; set; } = "btn btn-sm btn-primary mr-1 mb-1 mb-md-0";
         public string ButtonDelete { get; set; } = "btn btn-sm btn-danger mr-1 mb-1 mb-md-0";
 

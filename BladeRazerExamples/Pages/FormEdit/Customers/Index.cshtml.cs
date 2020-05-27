@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using BladeRazorExamples.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BladeRazorExamples.Data;
-using BladeRazorExamples.Models;
-
-using BladeRazor.TagHelpers;
-using BladeRazor.Attributes;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 namespace BladeRazorExamples.Pages.FormEdit.Customers
@@ -23,7 +16,7 @@ namespace BladeRazorExamples.Pages.FormEdit.Customers
             _context = context;
         }
 
-        public IList<Customer> Customer { get;set; }
+        public IList<Customer> Customer { get; set; }
 
         public async Task OnGetAsync()
         {

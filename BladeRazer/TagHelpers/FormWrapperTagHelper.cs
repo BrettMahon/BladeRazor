@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace BladeRazor.TagHelpers 
+namespace BladeRazor.TagHelpers
 {
     // TODO: FormWrapperTagHelper: This is not complete. It may not add value
     [HtmlTargetElement("form-wrapper", TagStructure = TagStructure.NormalOrSelfClosing)]
@@ -20,11 +17,11 @@ namespace BladeRazor.TagHelpers
             output.TagMode = TagMode.StartTagAndEndTag;
             output.Attributes.Add("class", styles.DivRow);
             //div
-            TagBuilder div = new TagBuilder("div");            
-            div.Attributes.Add("class", styles.DivCol);            
+            TagBuilder div = new TagBuilder("div");
+            div.Attributes.Add("class", styles.DivCol);
             // form
             TagBuilder form = new TagBuilder("form");
-            form.Attributes.Add("method", "post");        
+            form.Attributes.Add("method", "post");
             // child content
             form.InnerHtml.AppendHtml(await output.GetChildContentAsync());
             // append

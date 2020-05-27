@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace BladeRazor.TagHelpers
 {
@@ -27,7 +24,7 @@ namespace BladeRazor.TagHelpers
             {
                 var keyProperty = Utility.GetKeyProperty(For.Metadata.Properties);
                 var keyValue = Utility.GetKeyValue(keyProperty, For.ModelExplorer);
-             
+
                 if (keyProperty != null && keyValue != null)
                     routes.Add(keyProperty.ToLower(), keyValue);
             }

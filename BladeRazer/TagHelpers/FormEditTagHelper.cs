@@ -1,16 +1,10 @@
 ﻿using BladeRazor.Attributes;
 using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace BladeRazor.TagHelpers
 {

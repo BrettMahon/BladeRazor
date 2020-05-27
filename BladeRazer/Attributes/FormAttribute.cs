@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using System;
+﻿using System;
 
 namespace BladeRazor.Attributes
 {
@@ -8,7 +7,7 @@ namespace BladeRazor.Attributes
         Auto = 0,
         Hidden = 1,
         Select = 2,
-        TextArea = 3, 
+        TextArea = 3,
         None = 4
     }
 
@@ -31,12 +30,12 @@ namespace BladeRazor.Attributes
         public bool DisplayEdit { get; set; } = true;
 
         public FormAttribute()
-        {            
+        {
         }
 
         public FormAttribute(FormInputType type)
         {
             Type = type;
         }
-    }    
+    }
 }

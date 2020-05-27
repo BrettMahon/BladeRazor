@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BladeRazor.TagHelpers
 {
@@ -15,7 +11,7 @@ namespace BladeRazor.TagHelpers
         [HtmlAttributeName("asp-items")]
         public IEnumerable<SelectListItem> Items { get; set; }
         [HtmlAttributeName("asp-option-name")]
-        public string OptionName { get; set; } = null;        
+        public string OptionName { get; set; } = null;
         [HtmlAttributeName("asp-option-value")]
         public string OptionValue { get; set; } = string.Empty;
 

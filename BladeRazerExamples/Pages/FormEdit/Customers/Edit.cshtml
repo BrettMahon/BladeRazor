@@ -6,7 +6,7 @@
 }
 
 
-<h2>Edit Customer - Blade</h2>
+<h2>Edit Customer - Blade - Form-Edit (Default)</h2>
 <hr />
 <form-div>
     <form method="post">
@@ -14,6 +14,23 @@
         <form-submit asp-submit-text="Save"></form-submit>
     </form>
 </form-div>
+
+<h2>Edit Customer - Blade - Form-Input (Fine Control)</h2>
+<hr />
+<form-div>
+    <form method="post">
+        <form-input asp-for="Customer.Id"></form-input>
+        <form-input asp-for="Customer.FirstName"></form-input>
+        <form-input asp-for="Customer.LastName"></form-input>
+        <form-input asp-for="Customer.Telephone"></form-input>
+        <form-input asp-for="Customer.Email"></form-input>
+        <form-input asp-for="Customer.Address"></form-input>
+        <form-input asp-for="Customer.CustomerType"></form-input>
+        <form-checkbox asp-for="Customer.Active"></form-checkbox>
+        <form-submit asp-submit-text="Save"></form-submit>
+    </form>
+</form-div>
+
 
 <p></p>
 <h2>Edit Customer - Standard Razor</h2>
