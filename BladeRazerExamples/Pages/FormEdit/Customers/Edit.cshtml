@@ -6,7 +6,7 @@
 }
 
 
-<h2>Edit Customer - Blade - Form-Edit (Default)</h2>
+<h2>Edit Customer - Blade (Option 1)</h2>
 <hr />
 <form-div>
     <form method="post">
@@ -15,11 +15,12 @@
     </form>
 </form-div>
 
-<h2>Edit Customer - Blade - Form-Input (Fine Control)</h2>
+<p>&nbsp;</p>
+<h2>Edit Customer - Blade (Option 2)</h2>
 <hr />
 <form-div>
     <form method="post">
-        <form-input asp-for="Customer.Id"></form-input>
+        <form-hidden asp-for="Customer.Id"></form-hidden>
         <form-input asp-for="Customer.FirstName"></form-input>
         <form-input asp-for="Customer.LastName"></form-input>
         <form-input asp-for="Customer.Telephone"></form-input>
@@ -32,7 +33,7 @@
 </form-div>
 
 
-<p></p>
+<p>&nbsp;</p>
 <h2>Edit Customer - Standard Razor</h2>
 <hr />
 <div class="row">
