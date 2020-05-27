@@ -16,25 +16,27 @@ namespace BladeRazorExamples.Models
     public class Order
     {
         [Key]
+        [Form(FormInputType.Hidden)]
         public int Id { get; set; }
 
         [Display(Name = "Product Name")]
         public string ProductName { get; set; }
 
         [Display(Name = "Product Code")]
-        public int ProductCode { get; set; }
+        public int ProductCode { get; set; } = 0;
 
         [DataType(DataType.Date)]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Today;
 
-        [Form(FormInputType.TextArea, TextAreaRows = 4)]
+        [Form(FormInputType.TextArea, TextAreaRows = 2)]
         public string Notes { get; set; }
 
         [Display(Name = "Order Status")]
+        [Form(FormInputType.Select, SelectItemsKey = "OrderStatus", SelectOptionName = "Select")]
         public OrderStatus OrderStatus { get; set; }
 
         [Display(Name = "Customer")]
-        [Form(DisplayView = false)]
+        [Form(FormInputType.Select, DisplayView = false, SelectItemsKey = "Customers", SelectOptionName = "Select")]
         public int CustomerId { get; set; }
 
         [ForeignKey("CustomerId")]

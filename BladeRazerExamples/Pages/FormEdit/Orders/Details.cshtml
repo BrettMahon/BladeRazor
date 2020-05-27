@@ -1,0 +1,13 @@
+﻿@page
+@model BladeRazerExamples.Pages.FormEdit.Orders.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Order Details - Blade</h2>
+<hr />
+
+<form-details asp-for="Order"></form-details>
+<form-submit-links asp-for="Order" asp-submit-text="Edit"></form-submit-links>
+

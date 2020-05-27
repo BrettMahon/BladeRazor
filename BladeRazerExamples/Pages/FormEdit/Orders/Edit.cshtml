@@ -1,0 +1,20 @@
+﻿@page
+@model BladeRazerExamples.Pages.FormEdit.Orders.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<h2>Edit Order - Blade (Option 1)</h2>
+<hr />
+<form-div>
+    <form method="post">
+        <form-edit asp-for="Order" asp-items-dictionary="ViewBag.SelectDictionary"></form-edit>
+        <form-submit asp-submit-text="Save"></form-submit>
+    </form>
+</form-div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

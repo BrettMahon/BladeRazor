@@ -58,12 +58,7 @@
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Customer.Active" /> @Html.DisplayNameFor(model => model.Customer.Active)
                 </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Customer.Registered" class="control-label"></label>
-                <input asp-for="Customer.Registered" class="form-control"/>
-                <span asp-validation-for="Customer.Registered" class="text-danger"></span>
-            </div>
+            </div>           
             <div class="form-group">
                 <input disabled type="submit" value="Create" class="btn btn-primary" /> <br />
                 <a asp-page="Index">Back to List</a>

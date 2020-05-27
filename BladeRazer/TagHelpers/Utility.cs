@@ -128,6 +128,9 @@ namespace BladeRazor.TagHelpers
 
         public static IHtmlContent GetFormattedHtml(ModelExplorer p, ViewContext viewContext, IHtmlHelper htmlHelper, bool renderHtml)
         {
+            if (p.Model == null)
+                return new HtmlContentBuilder().Append(null); 
+
             // check for mail address
             if (renderHtml && p.Metadata.DataTypeName == "EmailAddress")
             {

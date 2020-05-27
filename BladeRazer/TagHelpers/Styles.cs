@@ -55,9 +55,9 @@
         public string ButtonNew { get; set; } = "btn btn-sm btn-success mt-2 mb-2";
         public string ButtonNewIcon { get; set; } = "oi oi-plus";
 
-        public string ButtonEdit { get; set; } = "btn btn-sm btn-info mr-1 mb-1 mb-md-0";
-        public string ButtonView { get; set; } = "btn btn-sm btn-primary mr-1 mb-1 mb-md-0";
-        public string ButtonDelete { get; set; } = "btn btn-sm btn-danger mr-1 mb-1 mb-md-0";
+        public string ButtonEdit { get; set; } = "btn btn-sm btn-outline-info mr-1 mb-1 mb-md-0";
+        public string ButtonView { get; set; } = "btn btn-sm btn-outline-primary mr-1 mb-1 mb-md-0";
+        public string ButtonDelete { get; set; } = "btn btn-sm btn-outline-danger mr-1 mb-1 mb-md-0";
 
         public string Table { get; set; } = "table table-hover table-responsive w-100 d-block d-md-table";
         public string TableCellHideMobile { get; set; } = "d-none d-sm-table-cell";

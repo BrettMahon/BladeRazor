@@ -1,0 +1,13 @@
+﻿@page
+@model BladeRazerExamples.Pages.FormEdit.Orders.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete Order - Blade</h2>
+<hr />
+<form method="post">
+    <form-details asp-for="Order"></form-details>
+    <form-submit asp-submit-text="Delete" asp-submit-class="btn btn-sm btn-danger mr-1"></form-submit>
+</form>

@@ -1,0 +1,11 @@
+﻿@page
+@model BladeRazerExamples.Pages.FormEdit.Orders.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Orders - Blade</h2>
+<form-new-button asp-page="Create" asp-display-icon="true"></form-new-button>
+<form-index asp-for="Order" asp-hide-properties="Notes, ProductCode"></form-index>
+

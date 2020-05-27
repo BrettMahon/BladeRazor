@@ -39,10 +39,14 @@ namespace BladeRazor.TagHelpers
                 var f = new ModelExpression($"{p.Container.Metadata.Name }.{ p.Metadata.Name}", p);
 
                 // if we have a hidden field, generate it and continue
+                // special case in the case of create - we will have a null object so we dont want hidden Id
                 var fa = Utility.GetAttribute<FormAttribute>(p.Metadata);
                 if (fa?.Type == FormInputType.Hidden)
                 {
-                    output.Content.AppendHtml(tg.GenerateHiddenTagHelper(f));
+                    if (For.Model != null)
+                    {
+                        output.Content.AppendHtml(tg.GenerateHiddenTagHelper(f));
+                    }
                     continue;
                 }
 

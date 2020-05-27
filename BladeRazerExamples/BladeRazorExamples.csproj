@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
-    <Folder Include="Pages\FormEdit\Orders\" />
   </ItemGroup>
 
   <ItemGroup>

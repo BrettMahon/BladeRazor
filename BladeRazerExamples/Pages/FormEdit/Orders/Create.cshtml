@@ -1,0 +1,74 @@
+﻿@page
+@model BladeRazerExamples.Pages.FormEdit.Orders.CreateModel
+@using BladeRazorExamples.Models
+@{
+    ViewData["Title"] = "Create";
+}
+@if (ViewBag.Customers == null || ((SelectList)ViewBag.Customers).Count() == 0)
+{
+    <div class="alert-info p-2 mb-2 mt-2">Please create a customer before creating an order</div>
+}
+
+<h2>Create Order - Blade</h2>
+<hr />
+<form-div>
+    <form method="post">
+        <form-edit asp-for="Order" asp-items-dictionary="ViewBag.SelectDictionary"></form-edit>
+        <form-submit asp-submit-text="Create"></form-submit>
+    </form>
+</form-div>
+
+<p>&nbsp;</p>
+<h2>Create Order - Standard Razor</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Order.ProductName" class="control-label"></label>
+                <input asp-for="Order.ProductName" class="form-control" />
+                <span asp-validation-for="Order.ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.ProductCode" class="control-label"></label>
+                <input asp-for="Order.ProductCode" class="form-control" />
+                <span asp-validation-for="Order.ProductCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Date" class="control-label"></label>
+                <input asp-for="Order.Date" class="form-control" />
+                <span asp-validation-for="Order.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.Notes" class="control-label"></label>
+                <input asp-for="Order.Notes" class="form-control" />
+                <span asp-validation-for="Order.Notes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.OrderStatus" class="control-label"></label>
+                <select asp-for="Order.OrderStatus" class="form-control" asp-items="ViewBag.OrderStatus">
+                    <option>Select</option>
+                </select>
+                <span asp-validation-for="Order.OrderStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Order.CustomerId" class="control-label"></label>
+                <select asp-for="Order.CustomerId" class="form-control" asp-items="ViewBag.Customers">
+                    <option>Select</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
