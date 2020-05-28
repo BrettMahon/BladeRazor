@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BladeRazorExamples", "Blade
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BladeRazor", "BladeRazor\BladeRazor.csproj", "{8BE63933-B556-4154-A770-2D8DD6506188}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BladeRazorMvcExamples", "BladeRazorMvcExamples\BladeRazorMvcExamples.csproj", "{5074BED9-A398-4F33-A2FB-48DD8BE71C6C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BladeRazorMvcExamples", "BladeRazorMvcExamples\BladeRazorMvcExamples.csproj", "{258D1D4A-E4FB-40AA-B9BD-DD26C51509BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{8BE63933-B556-4154-A770-2D8DD6506188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BE63933-B556-4154-A770-2D8DD6506188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BE63933-B556-4154-A770-2D8DD6506188}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5074BED9-A398-4F33-A2FB-48DD8BE71C6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5074BED9-A398-4F33-A2FB-48DD8BE71C6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5074BED9-A398-4F33-A2FB-48DD8BE71C6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5074BED9-A398-4F33-A2FB-48DD8BE71C6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{258D1D4A-E4FB-40AA-B9BD-DD26C51509BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{258D1D4A-E4FB-40AA-B9BD-DD26C51509BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{258D1D4A-E4FB-40AA-B9BD-DD26C51509BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{258D1D4A-E4FB-40AA-B9BD-DD26C51509BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
