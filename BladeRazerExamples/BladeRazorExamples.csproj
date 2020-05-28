@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>aspnet-BladeRazer-9549EBBB-3C32-463E-9F2D-7CF46E68B7F5</UserSecretsId>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
-    <RootNamespace>BladeRazerExamples</RootNamespace>
+    <RootNamespace>BladeRazorExamples</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
