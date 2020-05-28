@@ -47,8 +47,7 @@ namespace BladeRazorMvcExamples.Models
 
         public bool Active { get; set; } = true;
 
-        [DataType(DataType.Date)]
-        [Form(DisplayEdit = false)]
+        [DataType(DataType.Date)]       
         public DateTime Registered { get; set; } = DateTime.Today;
 
     }

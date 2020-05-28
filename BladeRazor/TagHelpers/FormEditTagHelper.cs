@@ -89,7 +89,9 @@ namespace BladeRazor.TagHelpers
             var dta = Utility.GetAttribute<DataTypeAttribute>(f.Metadata);
             if (dta != null && dta.DataType == DataType.MultilineText)
                 return tg.GenerateTextAreaTagHelper(f, 2);
-            // check for boolean
+            // check for boolean            
+            if (f.Metadata.ModelType.Name == "Boolean")
+                return tg.GenerateCheckboxGroup(f);
             if (f.Model != null && f.Model.GetType() == typeof(bool))
                 return tg.GenerateCheckboxGroup(f);
             // else run default

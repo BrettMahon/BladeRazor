@@ -70,7 +70,7 @@ namespace BladeRazor.TagHelpers
                 For = f,
                 Name = f.Name,
                 ViewContext = viewContext,
-                Value = f.Model.ToString().ToLower()
+                //Value = f.Model.ToString().ToLower()
             };
 
             var output = GenerateTagHelperCore(f, tagHelper, "input", TagMode.SelfClosing, "text", "form-check-input");
@@ -106,6 +106,29 @@ namespace BladeRazor.TagHelpers
 
             var anchorContext = new TagHelperContext(new TagHelperAttributeList(new[]
                 { new TagHelperAttribute("asp-page", new HtmlString(page)) }),
+                new Dictionary<object, object>(),
+                Guid.NewGuid().ToString());
+
+            tagHelper.Process(anchorContext, tagOutput);
+            tagOutput.Attributes.Add(new TagHelperAttribute("class", cssClass));
+            return tagOutput;
+        }
+
+        public TagHelperOutput GenerateAnchorActionTagHelper(string action, string text, string cssClass, IDictionary<string, string> routeValues)
+        {
+            var tagHelper = new AnchorTagHelper(generator)
+            {
+                ViewContext = viewContext,
+                Action = action,
+                RouteValues = routeValues
+            };
+
+            var tagOutput = new TagHelperOutput("a", new TagHelperAttributeList(),
+                (useCachedResult, encoder) => Task.Factory.StartNew<TagHelperContent>(() => new DefaultTagHelperContent()));
+            tagOutput.Content.AppendHtml(text);
+
+            var anchorContext = new TagHelperContext(new TagHelperAttributeList(new[]
+                { new TagHelperAttribute("asp-action", new HtmlString(action)) }),
                 new Dictionary<object, object>(),
                 Guid.NewGuid().ToString());
 
@@ -172,6 +195,11 @@ namespace BladeRazor.TagHelpers
                tagName, new TagHelperAttributeList(),
                (useCachedResult, encoder) => Task.FromResult<TagHelperContent>(result: null))
             { TagMode = tagMode };
+
+            //string fName = f.Name;
+            //// testing this here for dynamic types - f.Name will not be the name of the actual binding when using dynamic types
+            //if (!string.IsNullOrWhiteSpace(f.Metadata?.ContainerType?.Name) && !string.IsNullOrWhiteSpace(f.Metadata?.PropertyName))
+            //    fName = $"{f.Metadata.ContainerType.Name}.{f.Metadata.PropertyName}";
 
             var attributes = new TagHelperAttributeList();
             if (f != null)

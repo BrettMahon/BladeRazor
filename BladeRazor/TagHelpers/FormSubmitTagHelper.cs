@@ -18,6 +18,8 @@ namespace BladeRazor.TagHelpers
         public string CancelClass { get; set; } = null;
         [HtmlAttributeName("asp-cancel-page")]
         public string CancelPage { get; set; } = "Index";
+        [HtmlAttributeName("asp-cancel-action")]
+        public string CancelAction { get; set; } = null;
         [HtmlAttributeName("asp-javascript-back")]
         public bool JavaScriptBack { get; set; } = false;
 
@@ -52,12 +54,20 @@ namespace BladeRazor.TagHelpers
 
         protected virtual IHtmlContent GenerateCancel()
         {
+            // deterine style
             string style = styles.ButtonCancel;
             if (!string.IsNullOrWhiteSpace(CancelClass))
                 style = CancelClass;
 
+            // normal case - support both page and action
+            // default case is page unless you explicitly set action
             if (!JavaScriptBack)
-                return tg.GenerateAnchorTagHelper(CancelPage, CancelText, style, null);
+            {
+                if (string.IsNullOrWhiteSpace(CancelAction))
+                    return tg.GenerateAnchorTagHelper(CancelPage, CancelText, style, null);
+                else
+                    return tg.GenerateAnchorActionTagHelper(CancelAction, CancelText, style, null);
+            }
 
             var a = new TagBuilder("a");
             a.Attributes.Add("class", style);

@@ -60,36 +60,11 @@ namespace BladeRazor.TagHelpers
             // setup properties to hide
             var hideProperties = HideProperties?.Split(',').Select(p => p.Trim()).ToList();
 
-            // get the key
-            string keyProperty = Utility.GetKeyProperty(For.Metadata.ElementMetadata.Properties);
+            // get the key property
+            string keyProperty = GetKeyProperty();
 
-            // create headers
-            var headerRow = new TagBuilder("tr") { TagRenderMode = TagRenderMode.Normal };
-            foreach (var p in For.Metadata.ElementMetadata.Properties)
-            {
-
-                // test against hide list
-                if (hideProperties != null && hideProperties.Contains(p.PropertyName))
-                    continue;
-
-                if (!Utility.DisplayForView(p))
-                    continue;
-
-                // render the cell
-                var headerCell = new TagBuilder("th");
-                //TODO: Uncomment in order to hide this on mobile when this works (FormIndex)
-                //cell.Attributes.Add("class", styles.TableCellHideMobile);
-                if (p.DisplayName != null)
-                    headerCell.InnerHtml.AppendHtml(p.DisplayName);
-                else
-                    headerCell.InnerHtml.Append(p.Name);
-                headerRow.InnerHtml.AppendHtml(headerCell);
-            }
-
-            // render one last cell for the buttons
-            var lastHeader = new TagBuilder("th");
-            headerRow.InnerHtml.AppendHtml(lastHeader);
-            output.Content.AppendHtml(headerRow);
+            // create the headers
+            CreateHeaders(output, hideProperties);
 
             // can we conextualise the htmlhelper - if not do not render html values                  
             if (htmlHelper is IViewContextAware ht)
@@ -107,7 +82,7 @@ namespace BladeRazor.TagHelpers
                 // get the explorer
                 var explorer = For.ModelExplorer.GetExplorerForModel(item);
 
-                // get the key value
+                // get the key value               
                 string keyValue = Utility.GetKeyValue(keyProperty, explorer);
 
                 // loop through the element properties
@@ -150,6 +125,46 @@ namespace BladeRazor.TagHelpers
                 }
                 output.Content.AppendHtml(row);
             }
+        }
+
+        protected virtual string GetKeyProperty()
+        {
+            return Utility.GetKeyProperty(For.Metadata.ElementMetadata.Properties);
+        }
+
+        protected virtual void CreateHeaders(TagHelperOutput output, List<string> hideProperties)
+        {
+            CreateHeadersCore(output, hideProperties, For.Metadata.ElementMetadata.Properties);
+        }
+
+        protected void CreateHeadersCore(TagHelperOutput output, List<string> hideProperties, Microsoft.AspNetCore.Mvc.ModelBinding.ModelPropertyCollection properties)
+        {
+            // create headers
+            var headerRow = new TagBuilder("tr") { TagRenderMode = TagRenderMode.Normal };
+            foreach (var p in properties)
+            {
+
+                // test against hide list
+                if (hideProperties != null && hideProperties.Contains(p.PropertyName))
+                    continue;
+
+                if (!Utility.DisplayForView(p))
+                    continue;
+
+                // render the cell
+                var headerCell = new TagBuilder("th");
+                //TODO: Uncomment in order to hide this on mobile when this works (FormIndex)
+                //cell.Attributes.Add("class", styles.TableCellHideMobile);
+                if (p.DisplayName != null)
+                    headerCell.InnerHtml.AppendHtml(p.DisplayName);
+                else
+                    headerCell.InnerHtml.Append(p.Name);
+                headerRow.InnerHtml.AppendHtml(headerCell);
+            }
+            // render one last cell for the buttons
+            var lastHeader = new TagBuilder("th");
+            headerRow.InnerHtml.AppendHtml(lastHeader);
+            output.Content.AppendHtml(headerRow);
         }
 
         protected virtual IHtmlContent GenerateViewButton(ModelExplorer itemExplorer, string keyProperty, string keyValue)

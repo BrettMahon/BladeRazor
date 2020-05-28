@@ -2,15 +2,18 @@
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Generic;
+using System;
 
 namespace BladeRazor.TagHelpers
 {
     [HtmlTargetElement("form-new-button", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class FormNewButtonTagHelper : FormBaseTagHelper
     {
-
         [HtmlAttributeName("asp-page")]
-        public string Page { get; set; }
+        public string Page { get; set; } = null;
+
+        [HtmlAttributeName("asp-action")]
+        public string Action { get; set; } = null;
 
         [HtmlAttributeName("asp-text")]
         public string Text { get; set; } = "New";
@@ -29,7 +32,16 @@ namespace BladeRazor.TagHelpers
             if (RouteId != 0)
                 routes.Add("id", RouteId.ToString());
 
-            var a = tg.GenerateAnchorTagHelper(Page, null, styles.ButtonNew, routes);
+            TagHelperOutput a = null;
+            if (!string.IsNullOrWhiteSpace(Page))
+            {
+                a = tg.GenerateAnchorTagHelper(Page, null, styles.ButtonNew, routes);
+            }
+            else
+            {
+                a = tg.GenerateAnchorActionTagHelper(Action, null, styles.ButtonNew, routes);
+            }
+
             var plus = new TagBuilder("span");
             plus.TagRenderMode = TagRenderMode.Normal;
             if (DisplayIcon)
