@@ -43,7 +43,7 @@ namespace BladeRazorMvcExamples.Controllers
                 return NotFound();
             }
 
-            return View(customer);
+            return View("BladeDetails", new BladeViewModel(customer));
         }
 
         // GET: Customers/Create
@@ -54,11 +54,11 @@ namespace BladeRazorMvcExamples.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Telephone,Email,Address,CustomerType,CustomerNumber,Active,Registered")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id, FirstName,LastName,Telephone,Email,Address,CustomerType,CustomerNumber,Active,Registered")] Customer dynamicModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(customer);
+                _context.Add(dynamicModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -79,14 +79,14 @@ namespace BladeRazorMvcExamples.Controllers
             {
                 return NotFound();
             }
-            return View(customer);
+            return View("BladeEdit", new BladeViewModel(customer));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Telephone,Email,Address,CustomerType,CustomerNumber,Active,Registered")] Customer customer)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Telephone,Email,Address,CustomerType,CustomerNumber,Active,Registered")] Customer dynamicModel)
         {
-            if (id != customer.Id)
+            if (id != dynamicModel.Id)
             {
                 return NotFound();
             }
@@ -95,12 +95,12 @@ namespace BladeRazorMvcExamples.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
+                    _context.Update(dynamicModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CustomerExists(customer.Id))
+                    if (!CustomerExists(dynamicModel.Id))
                     {
                         return NotFound();
                     }
@@ -111,7 +111,7 @@ namespace BladeRazorMvcExamples.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(customer);
+            return View("BladeEdit", new BladeViewModel(dynamicModel));
         }
 
         // GET: Customers/Delete/5
@@ -129,7 +129,7 @@ namespace BladeRazorMvcExamples.Controllers
                 return NotFound();
             }
 
-            return View(customer);
+            return View("BladeDelete", new BladeViewModel(customer));
         }
 
         // POST: Customers/Delete/5

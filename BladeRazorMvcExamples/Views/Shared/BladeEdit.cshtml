@@ -1,71 +1,17 @@
-﻿@model BladeRazorMvcExamples.Models.Customer
+﻿@model BladeRazorMvcExamples.ViewModels.BladeViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit Customer - Standard MVC</h2>
+<h2>Edit @Model.DynamicModel.GetType().Name - Blade</h2>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Telephone" class="control-label"></label>
-                <input asp-for="Telephone" class="form-control" />
-                <span asp-validation-for="Telephone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <textarea asp-for="Address" class="form-control"></textarea>
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerType" class="control-label"></label>
-                <select asp-for="CustomerType" class="form-control"></select>
-                <span asp-validation-for="CustomerType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerNumber" class="control-label"></label>
-                <input asp-for="CustomerNumber" class="form-control" />
-                <span asp-validation-for="CustomerNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Registered" class="control-label"></label>
-                <input asp-for="Registered" class="form-control" />
-                <span asp-validation-for="Registered" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<form-div>
+    <form asp-action="Edit">
+        <form-edit asp-for="@Model.DynamicModel" asp-items="@Html.GetEnumSelectList<CustomerType>()"></form-edit>
+        <form-submit asp-submit-text="Edit" asp-cancel-action="Index"></form-submit>
+    </form>
+</form-div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
