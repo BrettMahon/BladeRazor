@@ -20,9 +20,7 @@ namespace BladeRazorExamples.Pages.FormEdit.Customers
         }
 
         [BindProperty]
-        public Customer MyCustomer { get; set; }
-        [BindProperty]
-        public Customer Customer2 { get; set; }
+        public Customer Customer { get; set; }
 
         public async Task<IActionResult> OnPostAsync()
         {
@@ -31,7 +29,7 @@ namespace BladeRazorExamples.Pages.FormEdit.Customers
                 return Page();
             }
 
-            _context.Customers.Add(MyCustomer);
+            _context.Customers.Add(Customer);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
