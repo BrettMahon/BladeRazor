@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -48,6 +49,8 @@ namespace BladeRazor.TagHelpers
             return true;
         }
 
+
+        // we have two versions of this. This one is from the metadata only       
         public static string GetKeyProperty(ModelPropertyCollection properties)
         {
             string keyProperty = null;
@@ -65,6 +68,26 @@ namespace BladeRazor.TagHelpers
 
             return keyProperty;
         }
+
+        // the ModelExplorer version can be used for dynamic types but then you will need a non-null object
+        public static string GetKeyProperty(IEnumerable<ModelExplorer> properties)
+        {
+            string keyProperty = null;
+            foreach (var p in properties)
+            {
+                // test for key
+                var keyAttribute = Utility.GetAttribute<KeyAttribute>(p.Metadata);
+                if (keyAttribute != null)
+                    keyProperty = p.Metadata.PropertyName;
+            }
+
+            // if we do not have a key search for a property called Id
+            if (string.IsNullOrWhiteSpace(keyProperty))
+                keyProperty = properties.Where(p => p.Metadata.PropertyName.ToLower() == "id").FirstOrDefault()?.Metadata.PropertyName;
+
+            return keyProperty;
+        }
+
 
         public static string GetKeyValue(string keyProperty, ModelExplorer explorer)
         {
@@ -129,7 +152,7 @@ namespace BladeRazor.TagHelpers
         public static IHtmlContent GetFormattedHtml(ModelExplorer p, ViewContext viewContext, IHtmlHelper htmlHelper, bool renderHtml)
         {
             if (p.Model == null)
-                return new HtmlContentBuilder().Append(null); 
+                return new HtmlContentBuilder().Append(null);
 
             // check for mail address
             if (renderHtml && p.Metadata.DataTypeName == "EmailAddress")

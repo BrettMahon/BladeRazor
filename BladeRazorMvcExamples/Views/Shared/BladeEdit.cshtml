@@ -9,7 +9,7 @@
 <form-div>
     <form asp-action="Edit">
         <form-edit asp-for="@Model.DynamicModel" asp-items="@Html.GetEnumSelectList<CustomerType>()"></form-edit>
-        <form-submit asp-submit-text="Edit" asp-cancel-action="Index"></form-submit>
+        <form-submit asp-submit-text="Save" asp-cancel-action="Index"></form-submit>
     </form>
 </form-div>
 
