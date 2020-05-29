@@ -1,4 +1,7 @@
-﻿@model BladeRazorMvcExamples.ViewModels.BladeViewModel
+﻿@*Copyright (c) Brett Lyle Mahon. All rights reserved.
+Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.*@
+
+@model BladeRazorMvcExamples.ViewModels.BladeViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -10,7 +13,7 @@
     <form asp-action="Edit">
         <form-edit asp-for="DynamicModel" asp-items="@Model.SelectItems" asp-items-dictionary="@Model.SelectItemsDictionary"></form-edit>
         <form-submit asp-submit-text="Save" asp-cancel-action="Index"></form-submit>
-    </form> 
+    </form>
 </form-div>
 
 @section Scripts {

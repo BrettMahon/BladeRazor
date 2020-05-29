@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿// Copyright (c) Brett Lyle Mahon. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Collections.Generic;

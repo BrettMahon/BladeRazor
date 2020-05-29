@@ -1,4 +1,7 @@
-﻿using BladeRazor.Attributes;
+﻿// Copyright (c) Brett Lyle Mahon. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+
+using BladeRazor.Attributes;
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;

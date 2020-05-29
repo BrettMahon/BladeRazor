@@ -1,13 +1,16 @@
-﻿@page
-@model BladeRazerExamples.Pages.FormEdit.Orders.DeleteModel
+﻿@*Copyright (c) Brett Lyle Mahon. All rights reserved.
+Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.*@
+@page
 
-@{
-    ViewData["Title"] = "Delete";
-}
+    @model BladeRazerExamples.Pages.FormEdit.Orders.DeleteModel
 
-<h2>Delete Order - Blade</h2>
-<hr />
-<form method="post">
-    <form-details asp-for="Order"></form-details>
-    <form-submit asp-submit-text="Delete" asp-submit-class="btn btn-sm btn-danger mr-1"></form-submit>
-</form>
+    @{
+        ViewData["Title"] = "Delete";
+    }
+
+    <h2>Delete Order - Blade</h2>
+    <hr />
+    <form method="post">
+        <form-details asp-for="Order"></form-details>
+        <form-submit asp-submit-text="Delete" asp-submit-class="btn btn-sm btn-danger mr-1"></form-submit>
+    </form>

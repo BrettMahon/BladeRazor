@@ -1,4 +1,6 @@
-﻿@page
+﻿@*Copyright (c) Brett Lyle Mahon. All rights reserved.
+Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.*@
+@page
 @model BladeRazorExamples.Pages.FormEdit.Customers.DetailsModel
 
 @{
@@ -9,7 +11,7 @@
 <hr />
 
 <form-details asp-for="Customer"></form-details>
-<form-submit-links asp-for="Customer" asp-submit-text="Edit" ></form-submit-links>
+<form-submit-links asp-for="Customer" asp-submit-text="Edit"></form-submit-links>
 
 <p>&nbsp;</p>
 <h2>Customer Details - Standard Razor</h2>
@@ -21,7 +23,7 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Customer.FullName)
-        </dd>       
+        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Customer.Telephone)
         </dt>
