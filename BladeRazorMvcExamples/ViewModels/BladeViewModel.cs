@@ -11,9 +11,9 @@ namespace BladeRazorMvcExamples.ViewModels
     {
         public dynamic DynamicModel { get; set; } = null;
         public ICollection<dynamic> DynamicList { get; set; } = null;
-        public IEnumerable<SelectListItem> SelectItems = null;
-        public IDictionary<string, IEnumerable<SelectListItem>> SelectItemsDictionary = null;
-
+        public IEnumerable<SelectListItem> SelectItems { get; set; } = null;
+        public IDictionary<string, IEnumerable<SelectListItem>> SelectItemsDictionary { get; set; } = null;
+        
         public BladeViewModel()
         {
         }

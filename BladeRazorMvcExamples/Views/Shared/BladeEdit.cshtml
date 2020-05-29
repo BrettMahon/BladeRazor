@@ -8,9 +8,9 @@
 <hr />
 <form-div>
     <form asp-action="Edit">
-        <form-edit asp-for="@Model.DynamicModel" asp-items="@Html.GetEnumSelectList<CustomerType>()"></form-edit>
+        <form-edit asp-for="DynamicModel" asp-items="@Model.SelectItems" asp-items-dictionary="@Model.SelectItemsDictionary"></form-edit>
         <form-submit asp-submit-text="Save" asp-cancel-action="Index"></form-submit>
-    </form>
+    </form> 
 </form-div>
 
 @section Scripts {

@@ -12,7 +12,7 @@ namespace BladeRazor.TagHelpers
     public class FormEditTagHelper : FormBaseTagHelper
     {
         [HtmlAttributeName("asp-items-dictionary")]
-        public Dictionary<string, IEnumerable<SelectListItem>> ItemsDictionary { get; set; }
+        public IDictionary<string, IEnumerable<SelectListItem>> ItemsDictionary { get; set; }
 
         [HtmlAttributeName("asp-items")]
         public IEnumerable<SelectListItem> Items { get; set; } = new List<SelectListItem>();

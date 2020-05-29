@@ -15,20 +15,20 @@ namespace BladeRazorMvcExamples.Controllers
     public class CustomersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHtmlHelper _htmlHelper;
 
-        public CustomersController(ApplicationDbContext context)
+        public CustomersController(ApplicationDbContext context, IHtmlHelper htmlHelper)
         {
             _context = context;
+            _htmlHelper = htmlHelper;
         }
-
-        // GET: Customers
+        
         public async Task<IActionResult> Index()
         {
             var customers = await _context.Customers.ToArrayAsync();                            
             return View("BladeIndex", new BladeViewModel(new Customer()) { DynamicList = customers });
         }
 
-        // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,10 +46,47 @@ namespace BladeRazorMvcExamples.Controllers
             return View("BladeDetails", new BladeViewModel(customer));
         }
 
-        // GET: Customers/Create
         public IActionResult Create()
         {
-            return View("BladeCreate", new BladeViewModel(new Customer()));
+            var vm = new BladeViewModel(new Customer());
+            // set the items for the select list in the view model
+            vm.SelectItems = _htmlHelper.GetEnumSelectList<CustomerType>();
+            return View("BladeCreate", vm);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            var vm = new BladeViewModel(new Customer());
+            // set the items for the select list in the view model
+            vm.SelectItems = _htmlHelper.GetEnumSelectList<CustomerType>();
+            return View("BladeEdit", vm);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.Customers
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View("BladeDelete", new BladeViewModel(customer));
         }
 
         [HttpPost]
@@ -63,23 +100,8 @@ namespace BladeRazorMvcExamples.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View("BladeCreate", new BladeViewModel(new Customer()));
-        }
 
-        // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-            return View("BladeEdit", new BladeViewModel(customer));
+            return View("BladeCreate", new BladeViewModel(dynamicModel));
         }
 
         [HttpPost]
@@ -114,25 +136,7 @@ namespace BladeRazorMvcExamples.Controllers
             return View("BladeEdit", new BladeViewModel(dynamicModel));
         }
 
-        // GET: Customers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var customer = await _context.Customers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
-            return View("BladeDelete", new BladeViewModel(customer));
-        }
-
-        // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

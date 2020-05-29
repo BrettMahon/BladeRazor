@@ -142,23 +142,8 @@ namespace BladeRazor.TagHelpers
             var itemsList = new List<SelectListItem>();
             if (!string.IsNullOrWhiteSpace(optionName))
                 itemsList.Add(new SelectListItem(optionName, optionValue));
-            itemsList.AddRange(items);
-
-            // This is handled by the SelectTagHelper in the Init method
-            //if (f.Model != null)
-            //{
-            //    // set selected item - based on value
-            //    var selected = itemsList.Where(i => i.Value?.ToString() == f.Model.ToString()).FirstOrDefault();
-            //    if (selected != null)
-            //    {
-            //        selected.Selected = true;
-            //    }
-            //    else
-            //    {
-            //        // set selected item - if value fails try the text
-            //        selected = itemsList.Where(i => i.Text?.ToString() == f.Model.ToString()).FirstOrDefault();
-            //    }
-            //}
+            if (items != null)
+                itemsList.AddRange(items);
 
             var tagHelper = new SelectTagHelper(generator)
             {
