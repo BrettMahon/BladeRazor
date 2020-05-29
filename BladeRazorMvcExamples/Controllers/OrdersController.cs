@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BladeRazorMvcExamples.Data;
 using BladeRazorMvcExamples.Models;
+using BladeRazorMvcExamples.ViewModels;
 
 namespace BladeRazorMvcExamples.Controllers
 {
@@ -21,14 +22,12 @@ namespace BladeRazorMvcExamples.Controllers
             _htmlHelper = htmlHelper;
         }
 
-        // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Orders.Include(o => o.Customer);
-            return View(await applicationDbContext.ToListAsync());
+            var orders = await _context.Orders.Include(o => o.Customer).ToArrayAsync();
+            return View("BladeIndex", new BladeViewModel(new Order()) { DynamicList = orders });
         }
 
-        // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -44,34 +43,23 @@ namespace BladeRazorMvcExamples.Controllers
                 return NotFound();
             }
 
-            return View(order);
+            return View("BladeDetails", new BladeViewModel(order));
         }
 
-        // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "LastName");
-            return View();
+            var vm = new BladeViewModel(new Order());
+            // setup the items dictionary for the select lists
+            // we use the dictionary now because we have two select lists - otherwiwe use SelectItems instead            
+            var customers = new SelectList(_context.Customers, "Id", "FullName");
+            var orderStatus = _htmlHelper.GetEnumSelectList<OrderStatus>();
+            // the keys for the dictionary are specified via the data annotations of the class
+            vm.SelectItemsDictionary = new Dictionary<string, IEnumerable<SelectListItem>>()
+                { {"Customers", customers }, {"OrderStatus", orderStatus} };
+            // return the view
+            return View("BladeCreate", vm);
         }
 
-        // POST: Orders/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductName,ProductCode,Date,Notes,OrderStatus,CustomerId")] Order order)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(order);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "LastName", order.CustomerId);
-            return View(order);
-        }
-
-        // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,47 +72,19 @@ namespace BladeRazorMvcExamples.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "LastName", order.CustomerId);
-            return View(order);
+
+            var vm = new BladeViewModel(order);
+            // setup the items dictionary for the select lists
+            // we use the dictionary now because we have two select lists - otherwiwe use SelectItems instead            
+            var customers = new SelectList(_context.Customers, "Id", "FullName");
+            var orderStatus = _htmlHelper.GetEnumSelectList<OrderStatus>();
+            // the keys for the dictionary are specified via the data annotations of the class
+            vm.SelectItemsDictionary = new Dictionary<string, IEnumerable<SelectListItem>>()
+                { {"Customers", customers }, {"OrderStatus", orderStatus} };
+            // return the view
+            return View("BladeEdit", vm);
         }
 
-        // POST: Orders/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductName,ProductCode,Date,Notes,OrderStatus,CustomerId")] Order order)
-        {
-            if (id != order.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(order);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrderExists(order.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "LastName", order.CustomerId);
-            return View(order);
-        }
-
-        // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,10 +100,62 @@ namespace BladeRazorMvcExamples.Controllers
                 return NotFound();
             }
 
-            return View(order);
+            return View("BladeDelete", new BladeViewModel(order));
         }
 
-        // POST: Orders/Delete/5
+
+        /// <summary>
+        /// We need to name the parameter as it is in the view model - dynamicModel
+        /// </summary>      
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,ProductName,ProductCode,Date,Notes,OrderStatus,CustomerId")] Order dynamicModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(dynamicModel);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return RedirectToAction(nameof(Create));
+        }
+
+        /// <summary>
+        /// We need to name the parameter as it is in the view model - dynamicModel
+        /// </summary>       
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductName,ProductCode,Date,Notes,OrderStatus,CustomerId")] Order dynamicModel)
+        {
+            if (id != dynamicModel.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(dynamicModel);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OrderExists(dynamicModel.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

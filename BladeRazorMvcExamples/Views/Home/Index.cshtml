@@ -1,7 +1,54 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<br/>
 <div class="text-center">
-    <h1 class="display-4">Blade for Razor Examples - MVC</h1>
+    <h2 class="display-4">Blade for Razor Examples</h2>
+    <h4 class="display-5">MVC with Dynamic Shared Views</h4>
+</div>
+<hr />
+<br />
+<div class="row text-center m-0 p-0">
+    <div class="col-md-1 mt-3 pr-2 pl-2 p-0">
+    </div>
+    <div class="col-md-5 mt-3 pr-2 pl-2 p-0">
+        <div class="card bg-light" style="width: 100%;">
+            <a asp-controller="Customers" asp-action="Index">
+                <div class="card-header bg-dark">
+                    <p></p>
+                    <span style="font-size:62px" class="mt-2 oi oi-people text-light" aria-hidden="true"></span>
+                    <h5 class="card-title text-light mt-2">Customers</h5>
+                    <p></p>
+                </div>
+            </a>
+            <div class="card-body">
+                <p class="card-text">
+                    View the customers example using Blade for Razer dynamic views
+                </p>
+                <a class="btn btn-dark" asp-controller="Customers" asp-action="Index">Customers</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5 mt-3 pr-2 pl-2 p-0">
+        <div class="card bg-light" style="width: 100%;">
+            <a asp-controller="Orders" asp-action="Index">
+                <div class="card-header bg-dark">
+                    <p></p>
+                    <span style="font-size:62px" class="mt-2 oi oi-cart text-light" aria-hidden="true"></span>
+                    <h5 class="card-title text-light mt-2">Orders</h5>
+                    <p></p>
+                </div>
+            </a>
+            <div class="card-body">
+                <p class="card-text">
+                    View the orders example using Blade for Razer dynamic views
+                </p>
+                <a class="btn btn-dark" asp-controller="Orders" asp-action="Index">Orders</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-1 mt-3 pr-2 pl-2 p-0">
+    </div>
 </div>

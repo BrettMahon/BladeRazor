@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BladeRazorMvcExamples.Models
 {
+
     public enum OrderStatus
     {
         Pending = 1,
