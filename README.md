@@ -9,7 +9,7 @@ In **Blade for Razer** you can write:
 ```html
 <form-index asp-for="Customers"></form-index>
 ```
-And the result is:
+And the result is a table such as:
 
 ![Index](index.png)
 
@@ -21,7 +21,7 @@ Or you can write:
 </form>
 ```
 
-And the result is:
+And the result is a form such as:
 
 ![Index](edit.png)
 
@@ -32,8 +32,8 @@ And the result is:
 * Details – View details on an object with auto-generated fields.
 * Delete - Delete confirmation with auto-generated fields.
 * Buttons and Links - Generate consistent link and submit buttons.
-* Injected Style Interface - Based on Bootstrap which is dependency injected if required.
-* Model Attribution - Most standard attributes such as DisplayAttribute and KeyAttribute are supported. 
+* Injected Style Interface - Based on Bootstrap and can be dependency injected if required.
+* Model Attribution - Most standard attributes such as the DisplayAttribute and KeyAttribute are supported. 
 
 
 ## Getting Started
@@ -47,7 +47,79 @@ And the result is:
 
 ## Setup Blade for Razor
 
-Some stuff here
+### Basics
+To use Blade for Razer in your application.
+* Download or clone the repo.
+* Take a look through the *BladeRazorExamples* project. 
+	* Upon running it will create a database *BladeRazor* on localdb and run the necessary migrations.
+* The framework itself is contained in the **BladeRazor** project. 
+* Add a reference to it in your project, either by adding the project to your solution directly or compiling BladeRazor and adding the reference.
+* Import the TagHelpers in the *_ViewImports.chtml* file as follows:
+```html
+@addTagHelper *, BladeRazor
+```
+
+### Optionally Inject Styles
+The framework contains a *Styles* object implementing an *IStyles* interface. This can be injected as a singleton by adding the following to your **Startup.cs**
+Add the namespace
+```csharp
+using BladeRazor.TagHelpers;
+```
+Then inject your customised styles in the ConfigureServices method.
+
+```csharp
+// example of injecting overriden styles
+services.AddSingleton<IStyles>(new Styles()
+{
+	ButtonDelete = "btn btn-success mt-1"
+});
+```
+
+### Optionally Add Open Iconic
+To add Open Iconic to your application.
+* Get [Open Iconic](https://useiconic.com/open)
+* Add the Open Iconic stylesheet to your web application
+
+```html
+<link rel="stylesheet" href="~/css/open-iconic-bootstrap.css" />
+```
+
+* Copy the Open iconic Font set to */fonts* of *wwwwroot*
+
+### Advanced - MVC with Dynamic Views
+
+The aim of **BladeRazorMvcExamples** application is not to demonstrate just how to use Blade for Razor in an MVC application. That is somewhat self explanatory: simply use the Blade for Razer TagHelpers in your  MVC Views. 
+Instead, the example application demonstrates how to use a *single* set of shared views for operations on *all* objects. 
+
+These views are the following:
+* *Views/Shared/BladeCreate.cshtml* - Uses the form-edit tag helper to create new objects.
+* *Views/Shared/BladeDelete.cshtml* - Uses the form-details tag helper for delete confirmation.
+* *Views/Shared/BladeDetails.cshtml* - Uses the form-details tag helper to show object details.
+* *Views/Shared/BladeEdit.cshtml* - Uses the form-edit tag helper to edit existing objects.
+* *Views/Shared/BladeIndex.cshtml* - Uses the form-index tag helper to edit existing objects.
+
+To make this work, the */ViewModels/BladeViewModel.cs* is used. 
+
+```csharp
+public class BladeViewModel
+    {
+        public dynamic DynamicModel { get; set; } = null;
+        public ICollection<dynamic> DynamicList { get; set; } = null;
+        public IEnumerable<SelectListItem> SelectItems { get; set; } = null;
+        public IDictionary<string, IEnumerable<SelectListItem>> SelectItemsDictionary { get; set; } = null;
+        
+		public BladeViewModel(dynamic dynamicModel)
+        {
+            this.DynamicModel = dynamicModel;
+        }
+    }
+```
+The *BladeViewModel* properties are listed below. 
+* *DynamicModel* - A reference to a singular object to be used.
+* *DynamicList* - A reference to an ICollection for the Index view.
+* *SelectItems* and *SelectItemsDictionary* - Contain the lists of items where Select lists are used in the forms. Use SelectItems where there is only one or use the dictionary for multiple. 
+
+
 
 ## Index Example 
 In Blade for Razer you can write Razer Syntax as follows. 
@@ -184,11 +256,11 @@ Because the content generation is dynamic, it becomes possible to have a *single
 This is demonstrated in the **BladeRazorMvcExamples** example application. 
 
 The shared views are as follows.
-* **Index** - The Index view with a tabulated list of entries.
-* **Create** - The view for entry creation.
-* **Details** - The view for displaying entry details.
-* **Edit** - The view for editing existing objects.
-* **Delete** - The view for delete confirmation.
+* *Index* - The Index view with a tabulated list of entries.
+* *Create* - The view for entry creation.
+* *Details* - The view for displaying entry details.
+* *Edit* - The view for editing existing objects.
+* *Delete* - The view for delete confirmation.
 
 An example of the *Index* view is shown below. 
 
@@ -233,7 +305,7 @@ public class BladeViewModel
 }
 ```
 
-The dynamic fields in the ViewModel allow the *Controller* to return the shared view with any object. Blade for Razer then generates the content on the fly based on the object.
+The dynamic fields in the ViewModel allow the *controller* to return the shared view with any object. Blade for Razer then generates the content on the fly based on the object's ModelExplorer.
 An example of the controller code for *Index* generation is shown below. 
 ```csharp
 public async Task<IActionResult> Index()
@@ -243,7 +315,7 @@ public async Task<IActionResult> Index()
 }
 ```
 
-For more information take a look at the **BladeRazorMvcExamples** example application. Specifically at the *Shared Views* and the *BladeViewModel* class.
+For more information take a look at the **BladeRazorMvcExamples** example application. Specifically at the *SharedViews/* folder and the *BladeViewModel.cs* class along with *CustomerController.cs*.
 
 
 ## Contact
@@ -251,3 +323,7 @@ For more information take a look at the **BladeRazorMvcExamples** example applic
 Links and things
 
 ## Lincense
+
+Copyright (c) 2020 Brett Lyle Mahon. All rights reserved.
+
+Licensed under the Apache License, Version 2.0. See *License.txt* in the project root for license information.
