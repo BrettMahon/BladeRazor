@@ -1,7 +1,7 @@
-Blade for Razor - Dynamic Content for ASP.NET Core
+Blade for Razor - Dynamic Framework for ASP.NET Core
 ==================================================
 
-Blade for Razer is a framework for generating dynamic content for [ASP.NET Core](https://docs.microsoft.com/aspnet/core/).  The base framework comprises  a set of TagHelpers to dynamically generate content based on objects supplied at runtime. Blade for Razer is compatible with existing [.Net Scaffolding](https://github.com/dotnet/scaffolding), [Bootstrap](https://getbootstrap.com/) and [EF Core](https://github.com/dotnet/efcore). It can be used for both Razor Pages projects and ASP.Net Core MVC projects. 
+Blade for Razer is a framework for generating dynamic content for [ASP.NET Core](https://docs.microsoft.com/aspnet/core/).  At it's core framework comprises  a set of *TagHelpers* to dynamically generate forms and other content based on objects supplied at runtime. Blade for Razer is compatible with existing [.Net Scaffolding](https://github.com/dotnet/scaffolding), [Bootstrap](https://getbootstrap.com/) and [EF Core](https://github.com/dotnet/efcore). It can be used for both Razor Pages projects and ASP.Net Core MVC projects. 
 
 ## Introduction 
 
@@ -9,7 +9,7 @@ In **Blade for Razer** you can write:
 ```html
 <form-index asp-for="Customers"></form-index>
 ```
-And the result is a table such as:
+and the result is a table, such as:
 
 ![Index](index.png)
 
@@ -21,7 +21,7 @@ Or you can write:
 </form>
 ```
 
-And the result is a form such as:
+and the result is a form, such as:
 
 ![Index](edit.png)
 
@@ -48,7 +48,7 @@ And the result is a form such as:
 ## Setup Blade for Razor
 
 ### Basics
-To use Blade for Razer in your application.
+To use **Blade for Razer** in your application.
 * Download or clone the repo.
 * Take a look through the *BladeRazorExamples* project. 
 	* Upon running it will create a database *BladeRazor* on localdb and run the necessary migrations.
@@ -60,12 +60,13 @@ To use Blade for Razer in your application.
 ```
 
 ### Optionally Inject Styles
-The framework contains a *Styles* object implementing an *IStyles* interface. This can be injected as a singleton by adding the following to your **Startup.cs**
-Add the namespace
+The framework contains a *Styles* object implementing an *IStyles* interface. This can be injected as a singleton by adding the following to your **Startup.cs**.
+
+First, add the namespace.
 ```csharp
 using BladeRazor.TagHelpers;
 ```
-Then inject your customised styles in the ConfigureServices method.
+Then inject your customised styles in the *ConfigureServices* method.
 
 ```csharp
 // example of injecting overriden styles
@@ -76,7 +77,7 @@ services.AddSingleton<IStyles>(new Styles()
 ```
 
 ### Optionally Add Open Iconic
-To add Open Iconic to your application.
+To add *Open Iconic* to your application.
 * Get [Open Iconic](https://useiconic.com/open)
 * Add the Open Iconic stylesheet to your web application
 
@@ -88,8 +89,7 @@ To add Open Iconic to your application.
 
 ### Advanced - MVC with Dynamic Views
 
-The aim of **BladeRazorMvcExamples** application is not to demonstrate just how to use Blade for Razor in an MVC application. That is somewhat self explanatory: simply use the Blade for Razer TagHelpers in your  MVC Views. 
-Instead, the example application demonstrates how to use a *single* set of shared views for operations on *all* objects. 
+The aim of **BladeRazorMvcExamples** application is not to demonstrate simply how to use Blade for Razor in an MVC application. That is somewhat self explanatory: simply use the Blade for Razer TagHelpers in your  MVC Views by followig the steps above. Instead, the example demonstrates how to use a *single* set of shared views for operations on *all* objects. 
 
 These views are the following:
 * *Views/Shared/BladeCreate.cshtml* - Uses the form-edit tag helper to create new objects.
@@ -114,7 +114,7 @@ public class BladeViewModel
         }
     }
 ```
-The *BladeViewModel* properties are listed below. 
+The *BladeViewModel* properties are described below. 
 * *DynamicModel* - A reference to a singular object to be used.
 * *DynamicList* - A reference to an ICollection for the Index view.
 * *SelectItems* and *SelectItemsDictionary* - Contain the lists of items where Select lists are used in the forms. Use SelectItems where there is only one or use the dictionary for multiple. 
@@ -244,10 +244,7 @@ The framework allows for more control over form layout. An example of this is sh
 </form-div>
 ```
 
-
 Take a look at the **BladeRazorExamples** project for full implementation, specifically at the *Examples/Customers/Edit* Page.
-
-
 
 ## Advanced - MVC with Dynamic Shared Views 
 
@@ -320,7 +317,7 @@ For more information take a look at the **BladeRazorMvcExamples** example applic
 
 ## Contact
 
-Links and things
+If you need help or would like to suggest features, mail me at blade@bryanstondigital.co.za 
 
 ## Lincense
 
