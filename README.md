@@ -1,11 +1,11 @@
 Blade for Razor - Dynamic Framework for ASP.NET Core
 ==================================================
 
-Blade for Razer is a framework for generating dynamic content for [ASP.NET Core](https://docs.microsoft.com/aspnet/core/).  At it's core framework comprises  a set of *TagHelpers* to dynamically generate forms and other content based on objects supplied at runtime. Blade for Razer is compatible with existing [.Net Scaffolding](https://github.com/dotnet/scaffolding), [Bootstrap](https://getbootstrap.com/) and [EF Core](https://github.com/dotnet/efcore). It can be used for both Razor Pages projects and ASP.Net Core MVC projects. 
+Blade for Razor is a framework for generating dynamic forms and other content for [ASP.NET Core](https://docs.microsoft.com/aspnet/core/).  The base framework comprises  a set of *TagHelpers* to dynamically generate forms and other content based on objects supplied at runtime. Blade for Razor is compatible with existing [.Net Scaffolding](https://github.com/dotnet/scaffolding), [Bootstrap](https://getbootstrap.com/) and [EF Core](https://github.com/dotnet/efcore). It can be used for both [Razor Pages](https://docs.microsoft.com/en-us/aspnet/core/razor-pages) projects and [ASP.Net Core MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/overview) projects.
 
 ## Introduction 
 
-In **Blade for Razer** you can write:
+In **Blade for Razor** you can write:
 ```html
 <form-index asp-for="Customers"></form-index>
 ```
@@ -38,7 +38,7 @@ and the result is a form, such as:
 
 ## Getting Started
 
-1. [Setup Blade for Razor](#Setup-Blade-for-Razor) - Start using Blade for Razer.
+1. [Setup Blade for Razor](#Setup-Blade-for-Razor) - Start using Blade for Razor.
 2. [Index Example](#Index-Example) - Generate an Index Page with tabular list of items.
 3. [Form Example](#Form-Example) - Generate forms for create or update.
 4. [Form Example with Detailed Control](#Form-Example-with-Detailed-Control) - Generate forms with more control over layout.
@@ -48,7 +48,7 @@ and the result is a form, such as:
 ## Setup Blade for Razor
 
 ### Basics
-To use **Blade for Razer** in your application.
+To use **Blade for Razor** in your application.
 * Download or clone the repo.
 * Take a look through the *BladeRazorExamples* project. 
 	* Upon running it will create a database *BladeRazor* on localdb and run the necessary migrations.
@@ -89,7 +89,7 @@ To add *Open Iconic* to your application.
 
 ### Advanced - MVC with Dynamic Views
 
-The aim of **BladeRazorMvcExamples** application is not to demonstrate simply how to use Blade for Razor in an MVC application. That is somewhat self explanatory: simply use the Blade for Razer TagHelpers in your  MVC Views by followig the steps above. Instead, the example demonstrates how to use a *single* set of shared views for operations on *all* objects. 
+The aim of **BladeRazorMvcExamples** application is not to demonstrate simply how to use Blade for Razor in an MVC application. That is somewhat self explanatory: simply use the Blade for Razor TagHelpers in your  MVC Views by following the steps above. Instead, the example demonstrates how to use a *single* set of shared views for operations on *all* objects. 
 
 These views are the following:
 * *Views/Shared/BladeCreate.cshtml* - Uses the form-edit tag helper to create new objects.
@@ -122,7 +122,7 @@ The *BladeViewModel* properties are described below.
 
 
 ## Index Example 
-In Blade for Razer you can write Razer Syntax as follows. 
+In Blade for Razor you can write Razor Syntax as follows. 
 ```html
 <h2>Index</h2>
 <form-index asp-for="Customers"></form-index>
@@ -131,7 +131,7 @@ An example of the resulting output is shown below. The buttons are hooked up by 
 
 ![Index](index.png)
 
-This is instead of writing the standard Razer Syntax as summarised below.
+This is instead of writing the standard Razor Syntax as summarised below.
 ```html
 <h2>Index</h2>
 <table class="table">
@@ -302,7 +302,7 @@ public class BladeViewModel
 }
 ```
 
-The dynamic fields in the ViewModel allow the *controller* to return the shared view with any object. Blade for Razer then generates the content on the fly based on the object's ModelExplorer.
+The dynamic fields in the ViewModel allow the *controller* to return the shared view with any object. Blade for Razor then generates the content on the fly based on the object's ModelExplorer.
 An example of the controller code for *Index* generation is shown below. 
 ```csharp
 public async Task<IActionResult> Index()
