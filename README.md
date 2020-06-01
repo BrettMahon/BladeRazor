@@ -319,7 +319,7 @@ For more information take a look at the **BladeRazorMvcExamples** example applic
 
 If you need help or would like to suggest features, mail me at blade@bryanstondigital.co.za 
 
-## Lincense
+## License
 
 Copyright (c) 2020 Brett Lyle Mahon. All rights reserved.
 
