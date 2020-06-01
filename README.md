@@ -317,7 +317,7 @@ For more information take a look at the **BladeRazorMvcExamples** example applic
 
 ## Contact
 
-If you need help or would like to suggest features, mail me at blade@bryanstondigital.co.za 
+If you need help or would like to suggest features, mail me at blade@bryanstondigital.co.za or tweet me [@MahonBrett](https://twitter.com/MahonBrett)
 
 ## License
 
